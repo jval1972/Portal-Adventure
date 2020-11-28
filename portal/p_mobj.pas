@@ -367,7 +367,7 @@ begin
   until not ((xmove <> 0) or (ymove <> 0));
 
   // slow down
-  if (player <> nil) and  (player.cheats and CF_NOMOMENTUM <> 0) then
+  if (player <> nil) and (player.cheats and CF_NOMOMENTUM <> 0) then
   begin
     // debug option for no sliding at all
     mo.momx := 0;
@@ -684,22 +684,16 @@ begin
     // you can cycle through multiple states in a tic
     if mobj.tics = 0 then
       if not P_SetMobjState(mobj, mobj.state.nextstate) then
-      begin
         exit; // freed itself
-      end;
   end
   else
   begin
     // check for nightmare respawn
     if mobj.flags and MF_COUNTKILL = 0 then
-    begin
       exit;
-    end;
 
     if not respawnmonsters then
-    begin
       exit;
-    end;
 
     mobj.movecount := mobj.movecount + 1;
 
@@ -709,14 +703,10 @@ begin
     end;
 
     if leveltime and 31 <> 0 then
-    begin
       exit;
-    end;
 
     if P_Random > 4 then
-    begin
       exit;
-    end;
 
     P_NightmareRespawn(mobj);
   end;
@@ -880,7 +870,7 @@ begin
   S_StopSound(mobj);
 
   P_RemoveMobjCustomParams(mobj.customparams);
-  
+
   // free block
   P_RemoveThinker(Pthinker_t(mobj));
 end;
@@ -1432,7 +1422,7 @@ begin
 
   if linetarget = nil then
   begin
-    an := an + $4000000; 
+    an := an + $4000000;
     slope := P_AimLineAttack(source, an, 16 * 64 * FRACUNIT);
 
     if linetarget = nil then
@@ -1541,7 +1531,7 @@ begin
     result := false;
     exit;
   end;
-  
+
   if target.flags and MF_SHOOTABLE = 0 then
   begin // Target died
     actor.tracer := nil;
@@ -1565,7 +1555,7 @@ begin
   begin // Turn counter clockwise
     actor.angle := actor.angle - delta;
   end;
-  
+
   angle := actor.angle shr ANGLETOFINESHIFT;
   actor.momx := FixedMul(speed, finecosine[angle]);
   actor.momy := FixedMul(speed, finesine[angle]);

@@ -35,8 +35,6 @@ uses
   r_defs,
   z_zone;
 
-//-----------------------------------------------------------------------------
-
 procedure P_SpawnFireFlicker(sector: Psector_t);
 
 procedure P_SpawnLightFlash(sector: Psector_t);
@@ -61,7 +59,8 @@ implementation
 
 uses
   d_delphi,
-  p_tick, p_setup;
+  p_tick, 
+  p_setup;
 
 //
 // FIRELIGHT FLICKER
@@ -75,7 +74,7 @@ var
   amount: integer;
 begin
   flick.count := flick.count - 1;
-  if flick.count > 0  then
+  if flick.count > 0 then
     exit;
 
   amount := (P_Random and 3) * 16;
@@ -97,7 +96,7 @@ var
 begin
   // Note that we are resetting sector attributes.
   // Nothing special about it during gameplay.
-  sector.special := sector.special and (not 31); // clear non-generalized sector type
+  sector.special := sector.special and not 31; // clear non-generalized sector type
 
   flick := Z_Malloc(SizeOf(fireflicker_t), PU_LEVSPEC, nil);
 
@@ -147,7 +146,7 @@ var
   flash: Plightflash_t;
 begin
   // nothing special about it during gameplay
-  sector.special := sector.special and (not 31); // clear non-generalized sector type
+  sector.special := sector.special and not 31; // clear non-generalized sector type
 
   flash := Z_Malloc(SizeOf(lightflash_t), PU_LEVSPEC, nil);
 
@@ -213,7 +212,7 @@ begin
     flash.minlight := 0;
 
   // nothing special about it during gameplay
-  sector.special := sector.special and (not 31); // clear non-generalized sector type
+  sector.special := sector.special and not 31; // clear non-generalized sector type
 
   if inSync = 0 then
     flash.count := (P_Random and 7) + 1
@@ -361,7 +360,7 @@ begin
   g.thinker._function.acp1 := @T_Glow;
   g.direction := -1;
 
-  sector.special := sector.special and (not 31); // clear non-generalized sector type
+  sector.special := sector.special and not 31; // clear non-generalized sector type
 end;
 
 end.

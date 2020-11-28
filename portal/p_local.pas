@@ -97,8 +97,8 @@ type
     end;
 
   intercept_t = record
-    frac : fixed_t; // along trace line
-    isaline : boolean;
+    frac: fixed_t; // along trace line
+    isaline: boolean;
     d: thingORline_t;
   end;
   Pintercept_t = ^intercept_t;
