@@ -394,8 +394,8 @@ const
      location: @gl_nearclip;
      setable: DFS_ALWAYS;
      saveable: true;
-     defaultsvalue: '1';
-     defaultivalue: 1;
+     defaultsvalue: '5';
+     defaultivalue: 5;
      defaultbvalue: true;
      _type: tInteger),
 

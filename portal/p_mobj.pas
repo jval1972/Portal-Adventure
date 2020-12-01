@@ -630,13 +630,8 @@ end;
 //
 // P_MobjThinker
 //
-{var
-  dbg_mobj: Pmobj_t;  }
-
 procedure P_MobjThinker(mobj: Pmobj_t);
 begin
-//  dbg_mobj := mobj;
-
   // JVAL: Clear just spawned flag
   mobj.flags := mobj.flags and (not MF_JUSTAPPEARED);
 
@@ -743,6 +738,7 @@ var
   space: fixed_t;
 begin
   mobj := Z_Malloc(SizeOf(mobj_t), PU_LEVEL, nil);
+
   ZeroMemory(mobj, SizeOf(mobj_t));
 
   mobj.scale := FRACUNIT;

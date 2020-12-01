@@ -130,7 +130,9 @@ uses
   r_lights,
   sc_engine,
   w_wad,
-  z_zone, hu_stuff, d_net;
+  z_zone,
+  hu_stuff,
+  d_net;
 
 {$IFDEF DEBUG}
 var
@@ -2797,7 +2799,7 @@ begin
     glRotatef(sprite.mo.anglez, 0.0, 0.0, 1.0);
   end;
 
-  // JVAL                             
+  // JVAL
   // Draw light effects (only if not invulnerability)
   if uselightboost then
     if not lightdeflumppresent then

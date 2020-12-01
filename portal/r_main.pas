@@ -538,7 +538,7 @@ begin
     screenblocks := 12
   else
     screenblocks := 11; //jval: wolf
-    
+
   if not allowlowdetails then
     if detailLevel < DL_NORMAL then
       detailLevel := DL_NORMAL;
@@ -645,7 +645,9 @@ begin
           scalelightlevels[i][j] := FRACUNIT - levelhi;
       end;
     end;
+
 end;
+
 
 procedure R_CmdZAxisShift(const parm1: string = '');
 var
@@ -1099,7 +1101,6 @@ begin
   R_RenderBSP;
 
   R_RenderAdditionalSprites;
-//  HU_CmdFPS;
 
   // Check for new console commands.
   NetUpdate;
