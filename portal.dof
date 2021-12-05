@@ -110,12 +110,12 @@ ActiveLang=
 ProjectLang=
 RootDir=C:\Program Files (x86)\Borland\Delphi7\Bin\
 [Version Info]
-IncludeVerInfo=1
+IncludeVerInfo=0
 AutoIncBuild=1
 MajorVer=1
 MinorVer=0
 Release=3
-Build=43
+Build=44
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1252
 [Version Info Keys]
 CompanyName=Jim Valavanis
 FileDescription=Portal Adventure
-FileVersion=1.0.3.43
+FileVersion=1.0.3.44
 InternalName=portal
 LegalCopyright=© 2012-2018, Jim Valavanis
 LegalTrademarks=© 2012-2018, Jim Valavanis
