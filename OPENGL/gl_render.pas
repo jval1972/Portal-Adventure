@@ -286,7 +286,9 @@ begin
   printf(' GL_VENDOR: %s'#13#10 , [glGetString(GL_VENDOR)]);
   printf(' GL_RENDERER: %s'#13#10, [glGetString(GL_RENDERER)]);
   printf(' GL_VERSION: %s'#13#10, [glGetString(GL_VERSION)]);
-  printf(' GL_EXTENSIONS:'#13#10);
+
+  if devparm then
+    printf(' GL_EXTENSIONS:'#13#10);
 
   extensions := StringVal(glGetString(GL_EXTENSIONS));
   extensions_l := '';
@@ -301,8 +303,9 @@ begin
   ext_lst := TDStringList.Create;
   try
     ext_lst.Text := extensions_l;
-    for i := 0 to ext_lst.count - 1 do
-      printf('  %s'#13#10, [ext_lst.strings[i]]);
+    if devparm then
+      for i := 0 to ext_lst.count - 1 do
+        printf('  %s'#13#10, [ext_lst.strings[i]]);
     gld_InitExtensions(ext_lst);
   finally
     ext_lst.Free;
@@ -1217,7 +1220,7 @@ begin
   begin
     // We have arrived at a subsector. The divline list contains all
     // the partition lines that carve out the subsector.
-    ssidx := bspnode and (not NF_SUBSECTOR);
+    ssidx := bspnode and not NF_SUBSECTOR;
     if not sectorclosed[subsectors[ssidx].sector.iSectorID] then
       gld_FlatConvexCarver(ssidx, numdivlines, divlines);
     exit;
@@ -1387,12 +1390,12 @@ begin
 
   sectorrendered := Z_Malloc2(numsectors * SizeOf(byte), PU_LEVEL, nil);
   if sectorrendered = nil then
-    I_Error('gld_PreprocessSectors: Not enough memory for array sectorrendered');
+    I_Error('gld_PreprocessSectors(): Not enough memory for array sectorrendered');
   ZeroMemory(sectorrendered, numsectors * SizeOf(byte));
 
   sectorrenderedflatex := Z_Malloc2(numsectors * SizeOf(byte), PU_LEVEL, nil);
   if sectorrenderedflatex = nil then
-    I_Error('gld_PreprocessSectors: Not enough memory for array sectorrenderedflatex');
+    I_Error('gld_PreprocessSectors(): Not enough memory for array sectorrenderedflatex');
   ZeroMemory(sectorrenderedflatex, numsectors * SizeOf(byte));
 
   segrendered := Z_Malloc2(numsegs * SizeOf(byte), PU_LEVEL, nil);
@@ -2348,9 +2351,7 @@ begin
         glsec.list := GL_BAD_LIST;
     end
     else
-    begin
       glsec.list := GL_BAD_LIST;
-    end;
   end;
 
   if gl_uselightmaps then
@@ -3415,7 +3416,7 @@ begin
 
   glCullFace(GL_BACK);
   // Walls
-  for i := gld_drawinfo.num_drawitems - 1 downto 0 do
+  for i := gld_drawinfo.num_drawitems downto 0 do
   begin
     pglitem := @gld_drawinfo.drawitems[i];
     if pglitem.itemtype = GLDIT_WALL then
