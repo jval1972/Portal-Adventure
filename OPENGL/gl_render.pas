@@ -3415,7 +3415,7 @@ begin
 
   glCullFace(GL_BACK);
   // Walls
-  for i := gld_drawinfo.num_drawitems downto 0 do
+  for i := gld_drawinfo.num_drawitems - 1 downto 0 do
   begin
     pglitem := @gld_drawinfo.drawitems[i];
     if pglitem.itemtype = GLDIT_WALL then
