@@ -145,7 +145,7 @@ begin
     exit;
 
   if (not demoplayback) and (not demorecording) and C_IsConsoleActive and (not netgame) and (leveltime <> 0) then
-    exit;   
+    exit;
 
   isgamesuspended := false;
 

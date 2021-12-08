@@ -251,7 +251,7 @@ end;
 
 var
   memmanager: TMemManager;
-  
+
 //
 // ZONE MEMORY ALLOCATION
 //
@@ -589,7 +589,7 @@ var
 begin
   memmanager.M_ChangeTag(ptr, tag);
   exit;
-  
+
   block := Pmemblock_t(integer(ptr) - SizeOf(memblock_t));
 
   if block.id <> ZONEID then

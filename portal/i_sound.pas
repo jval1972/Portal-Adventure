@@ -735,7 +735,7 @@ begin
         else
           sparm.avgfreq := SampleFormat.nAvgBytesPerSec;
       end;
-      
+
     end
     else
     begin

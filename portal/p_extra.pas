@@ -512,7 +512,7 @@ begin
     actor.state.params.IntVal[0] := sndidx;
   end;
 
-  vol1 := (actor.state.params.IntVal[1] * snd_SfxVolume) div 256; 
+  vol1 := (actor.state.params.IntVal[1] * snd_SfxVolume) div 256;
   if vol1 > 15 then
     vol1 := 15
   else if vol1 < 0 then
@@ -2035,7 +2035,7 @@ begin
 
   mult_v := actor.state.params.IntVal[3];
   if mult_v <= 0 then mult_v := FRACUNIT;
-  
+
   for i := 0 to count - 1 do
   begin
     mo := P_SpawnMobj(actor.x + ((N_Random - 128) shr 12),

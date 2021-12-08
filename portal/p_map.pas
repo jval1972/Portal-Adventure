@@ -209,7 +209,7 @@ begin
 
   tmceilingz := newsubsec.sector.ceilingheight + P_SectorJumpOverhead(newsubsec.sector);
 
-  inc(validcount); 
+  inc(validcount);
   numspechit := 0;
 
   // stomp on any things contacted
@@ -1403,7 +1403,7 @@ begin
   // JVAL: mobjs interaction!
   x2 := x1 + USETHINGRANGEINT * finecosine[angle];
   y2 := y1 + USETHINGRANGEINT * finesine[angle];
-  P_PathTraverse(x1, y1, x2, y2, PT_ADDLINES or PT_ADDTHINGS, PTR_UseThingTraverse); 
+  P_PathTraverse(x1, y1, x2, y2, PT_ADDLINES or PT_ADDTHINGS, PTR_UseThingTraverse);
 
   x2 := x1 + USERANGEINT * finecosine[angle];
   y2 := y1 + USERANGEINT * finesine[angle];
@@ -1944,7 +1944,7 @@ begin
     else
       node := node.m_tnext;
   end;
-  
+
 end;
 
 end.

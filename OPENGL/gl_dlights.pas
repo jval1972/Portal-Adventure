@@ -131,7 +131,7 @@ var
 
 //
 // SC_ParceDynamicLights
-// JVAL: Parse LIGHTDEF 
+// JVAL: Parse LIGHTDEF
 //
 procedure SC_ParceDynamicLight(const in_text: string);
 var
@@ -612,7 +612,7 @@ begin
       begin
         if Odd(FixedDiv(l.randomseed + leveltime * FRACUNIT, l.interval)) then
           result.radious := l.size1
-        else                               
+        else
           result.radious := l.size2;
       end
       else

@@ -233,7 +233,7 @@ begin
 
     glTexCoord2f(0.0, 0.0);
     R_Vertex(50000, -50000, 256);
-    
+
   // bottom
     glTexCoord2f(0.0, 0.0);
     R_Vertex(50000, -50000, 256);
@@ -366,7 +366,7 @@ begin
   if Hi > iLo then QuickSortVertexes(A, iLo, Hi);
   if Lo < iHi then QuickSortVertexes(A, Lo, iHi);
 end;
- 
+
 
 type
   rproclayerparams_t = record

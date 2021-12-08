@@ -75,7 +75,7 @@ uses
   d_delphi,
   d_main,
   i_io;
-  
+
 var
   StartUpConsoleForm: TStartUpConsoleForm;
   startupformactive: boolean = false;

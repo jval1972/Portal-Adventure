@@ -59,7 +59,7 @@ implementation
 
 uses
   d_delphi,
-  p_tick, 
+  p_tick,
   p_setup;
 
 //

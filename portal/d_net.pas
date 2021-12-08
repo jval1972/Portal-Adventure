@@ -858,7 +858,7 @@ begin
         M_Ticker;
         exit;
       end;
-      
+
     if interpolate and (gamestate = GS_LEVEL) and (oldgamestate = Ord(GS_LEVEL)) then
     begin
       if not didinterpolations then

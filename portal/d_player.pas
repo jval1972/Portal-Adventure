@@ -47,7 +47,7 @@ uses
   gamedef;
 
 //
-// Player states. 
+// Player states.
 //
 
 type
@@ -109,7 +109,7 @@ type
     // This is only used between levels,
     // mo->health is used during levels.
     health: integer;
-    
+
     armorpoints: integer;
     // Armor type is 0-2.
     armortype: integer;

@@ -450,7 +450,7 @@ begin
           continue;
         end;
         dec(mobj_no); // JVAL DEH patches start Think numbers from 1
-      end;                      
+      end;
 
       while true do
       begin

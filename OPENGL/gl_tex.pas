@@ -109,7 +109,7 @@ procedure gld_ClearTextureMemory;
 
 var
   gl_maxtexwidth: integer = 1024;
-  
+
 implementation
 
 uses
@@ -527,7 +527,7 @@ begin
   begin
     result := false;
     exit;
-  end;               
+  end;
 
 
   bufsize := gltexture.realtexwidth * gltexture.realtexheight;
@@ -849,7 +849,7 @@ begin
       t.SetAlphaChannel(255);
     end;
   end;
-  
+
   theight := t.GetHeight;
   tfactor := theight div gltexture.height; // Scaling
   i := 0;
@@ -1047,7 +1047,7 @@ begin
     glBindTexture(GL_TEXTURE_2D, gltexture.glTexID[Ord(CR_DEFAULT)]);
     glGetTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_RESIDENT, @i);
 {    if i = GL_TRUE then    }
-      exit;  
+      exit;
   end;
 
   if gld_LoadHiresTexture(gltexture, textures[gltexture.index].name) then
@@ -1059,7 +1059,7 @@ begin
   else
     ZeroMemory(buffer, gltexture.buffer_size);
 
-  // JVAL: This fixes originx <> 0 or originy <> 0 for sky textures. 
+  // JVAL: This fixes originx <> 0 or originy <> 0 for sky textures.
   skyhack := false;
   if (gltexture.index = skytexture) and (textures[skytexture].patchcount = 1) then
     if (textures[skytexture].patches[0].originx <> 0) or (textures[skytexture].patches[0].originy <> 0) then

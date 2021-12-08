@@ -34,7 +34,7 @@ implementation
 
 uses
   Windows, SysUtils;
-  
+
 function Get2Ints(const s: string; var i1, i2: integer): boolean;
 var
   p: integer;
@@ -58,4 +58,4 @@ begin
 end;
 
 end.
- 
+

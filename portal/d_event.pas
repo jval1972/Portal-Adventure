@@ -29,7 +29,7 @@ unit d_event;
 interface
 
 //
-// Event handling. 
+// Event handling.
 //
 // Input event types.
 
@@ -51,18 +51,18 @@ type
                   ga_savegame, ga_playdemo, ga_completed,
                   ga_victory, ga_worlddone, ga_worldjump, ga_screenshot);
 
-// 
-// Button/action code definitions. 
-// 
-// Press "Fire". 
-// Use button, to open doors, activate switches. 
-// Flag: game events, not really buttons. 
-// Flag, weapon change pending. 
-// If true, the next 3 bits hold weapon num. 
-// The 3bit weapon mask and shift, convenience. 
-// Pause the game. 
-// Save the game at each console. 
-// Savegame slot numbers 
+//
+// Button/action code definitions.
+//
+// Press "Fire".
+// Use button, to open doors, activate switches.
+// Flag: game events, not really buttons.
+// Flag, weapon change pending.
+// If true, the next 3 bits hold weapon num.
+// The 3bit weapon mask and shift, convenience.
+// Pause the game.
+// Save the game at each console.
+// Savegame slot numbers
 //  occupy the second byte of buttons.
 
 const
@@ -97,7 +97,7 @@ const
   CM_SAVEGAME = 1;
 
 //
-// GLOBAL VARIABLES 
+// GLOBAL VARIABLES
 //
 
 const

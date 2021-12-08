@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2019 by Jim Valavanis
+//  Copyright (C) 2012-2021 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -160,7 +160,7 @@ begin
     printf('Please specify the output filename'#13#10);
     exit;
   end;
-  
+
   lp := mallocz(SizeOf(exportlightmap_t));
 
   for x := 0 to LIGHTMAPSIZEX - 1 do

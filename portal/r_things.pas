@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2019 by Jim Valavanis
+//  Copyright (C) 2012-2021 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -64,7 +64,7 @@ var
   spryscale: fixed_t;
   sprtopscreen: fixed_t;
 
-// constant arrays             
+// constant arrays
 //  used for psprite clipping and initializing clipping
   negonearray: packed array[0..MAXWIDTH - 1] of smallint;
   screenheightarray: packed array[0..MAXWIDTH - 1] of smallint;
@@ -376,7 +376,7 @@ end;
 //
 var
   dbg_sprite: integer;
-  dbg_lump: Integer = -1; 
+  dbg_lump: Integer = -1;
 
 procedure R_ProjectSprite(thing: Pmobj_t);
 var

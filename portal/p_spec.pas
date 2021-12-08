@@ -62,7 +62,7 @@ procedure P_PlayerInSpecialSector(player: Pplayer_t);
 
 function twoSided(sector: integer; line: integer): boolean;
 
-function twoSidedS(sector: Psector_t; line: integer): boolean; 
+function twoSidedS(sector: Psector_t; line: integer): boolean;
 
 function getSector(currentSector: integer; line: integer; side: integer): Psector_t;
 
@@ -240,7 +240,7 @@ type
     thinker: thinker_t;
     _type: vldoor_e;
     sector: Psector_t;
-    line: Pline_t; 
+    line: Pline_t;
     topheight: fixed_t;
     speed: fixed_t;
 
@@ -2544,7 +2544,7 @@ begin
       end;
       exit; // if not a gun type, do nothing here
     end;
-    
+
   end;
 
   //  Impacts that other things can activate.
@@ -2759,7 +2759,7 @@ begin
       else
         flats[i].translation := pic;
     end;
-  end;           
+  end;
 
   // ANIMATE LINE SPECIALS
   for i := 0 to numlinespecials - 1 do

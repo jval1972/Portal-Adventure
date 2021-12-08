@@ -28,7 +28,7 @@ unit sc_params;
 
 //
 // JVAL
-// Dynamic Custom Parameter List for DECORATE LUMPS 
+// Dynamic Custom Parameter List for DECORATE LUMPS
 
 interface
 

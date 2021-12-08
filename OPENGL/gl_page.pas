@@ -53,7 +53,7 @@ begin
 
   glColor4f(1.0, 1.0, 1.0, 1.0);
   glEnable(GL_ALPHA_TEST);
-  glAlphaFunc(GL_NOTEQUAL, 0);    
+  glAlphaFunc(GL_NOTEQUAL, 0);
 
     glBindTexture(GL_TEXTURE_2D, tex);
     glBegin(GL_QUADS);

@@ -114,7 +114,7 @@ var
   rejectmatrix: PByteArray;
 
   p_justspawned: boolean = false;
-  
+
 const
 // Maintain single and multi player starting spots.
   MAX_DEATHMATCH_STARTS = 10;

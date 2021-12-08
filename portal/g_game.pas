@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2019 by Jim Valavanis
+//  Copyright (C) 2012-2021 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -1280,7 +1280,7 @@ begin
       exit;
     end;
   end;
-  
+
   if strupper(Copy(name, length(name) - 3, 4)) <> '.DSG' then
     result := name + '.DSG'
   else
@@ -1636,7 +1636,7 @@ var
 begin
   if (episode = 1) and (map = 1) then
     J_DeleteSaveSlot(8);
-    
+
   if paused then
   begin
     paused := false;
@@ -1676,7 +1676,7 @@ begin
     map := 9;
 
   R_ResetInterpolationBuffer;
-  
+
   M_ClearRandom;
 
   if (skill = sk_nightmare) or respawnparm then

@@ -55,7 +55,7 @@ begin
 {$I-}
   for i := 0 to tempfiles.Count - 1 do
     fdelete(tempfiles.Strings[i]);
-{$I+}    
+{$I+}
   tempfiles.Free;
 end;
 
@@ -70,4 +70,4 @@ begin
 end;
 
 end.
- 
+

@@ -302,7 +302,7 @@ begin
   begin
     result := ANGLE_MAX;
     exit;
-  end;      
+  end;
 
   // ok, this is a gross hack that barely works...
   // but at least it doesn't overestimate too much...

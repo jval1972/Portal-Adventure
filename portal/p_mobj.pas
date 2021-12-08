@@ -30,7 +30,7 @@ interface
 
 //-----------------------------------------------------------------------------
 
-uses        
+uses
   p_mobj_h,
   tables,
 // We need the WAD data structure for Map things,

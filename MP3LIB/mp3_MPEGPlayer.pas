@@ -410,7 +410,7 @@ begin
         FrameRead := FArgs.MPEGHeader.ReadHeader(FArgs.Stream, FCRC);
       end;
 
-      if not FrameRead then           
+      if not FrameRead then
         if FDoTryHardRepeat then
         begin
           FArgs.Stream.Restart;

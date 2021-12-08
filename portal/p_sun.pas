@@ -43,7 +43,7 @@ implementation
 
 uses
   p_sight;
-  
+
 procedure P_SetSun(const mo: Pmobj_t);
 begin
   sun := mo;

@@ -62,7 +62,7 @@ procedure A_BeggarLook(actor: Pmobj_t);
 procedure A_PosAttack(actor: Pmobj_t);
 
 var
-  mission1: Pmobj_t;  
+  mission1: Pmobj_t;
 
 implementation
 
@@ -270,7 +270,7 @@ begin
 
 end;
 
-procedure A_MoneyThink(actor: Pmobj_t);   
+procedure A_MoneyThink(actor: Pmobj_t);
 var
   parm: Pmobjcustomparam_t;
 begin

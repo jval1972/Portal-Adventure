@@ -84,7 +84,7 @@ var
 begin
   result := False;
   exit;
-  
+
   glGetDoublev(GL_MODELVIEW_MATRIX, @modelMatrix); // Load the matricies and viewport.
   glGetDoublev(GL_PROJECTION_MATRIX, @projMatrix);
   glGetIntegerv(GL_VIEWPORT, @viewport);
@@ -159,7 +159,7 @@ begin
 
   if viewx > 0 then
     exit;
-    
+
   if not flareloaded then
   begin
     for i := 0 to 8 do

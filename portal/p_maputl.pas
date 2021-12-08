@@ -74,7 +74,7 @@ var
 
   intercepts: Pintercept_tArray;
   numintercepts: integer = 0;
-  
+
 procedure P_InitIntercepts;
 
 implementation

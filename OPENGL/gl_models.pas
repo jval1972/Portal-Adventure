@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2019 by Jim Valavanis
+//  Copyright (C) 2012-2021 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -693,7 +693,7 @@ begin
   end;
 
   printf(' Level specific 3D mesh info found!'#13#10);
-  
+
   tokens := TTokenList.Create;
   tokens.Add('RECT');
   tokens.Add('TRI');
@@ -732,7 +732,7 @@ begin
           floorp := @floors3d[numfloors3d];
 
           floorp.tri := false;
-          
+
           sc.MustGetString;
           floorp.texid := gld_AddModelTexture(strupper(sc._String), GL_REPEAT);
 

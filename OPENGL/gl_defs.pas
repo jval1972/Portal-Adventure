@@ -122,7 +122,7 @@ const
 
 var
   gl_tex_format_string: string;
-  gl_tex_format: integer = GL_RGBA8; 
+  gl_tex_format: integer = GL_RGBA8;
 
 type
   tex_format_lookup_t = record
@@ -165,7 +165,7 @@ const
   MAP_SCALE = MAP_COEFF * FRACUNIT;
   FLATUVSCALE = FRACUNIT * 64.0;
 
-const  
+const
   COORDMIN = -1.0E38;
   COORDMAX =  1.0E38;
   COORDEPSILON = 0.0001;

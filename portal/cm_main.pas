@@ -140,7 +140,7 @@ const
 var
   futuredialogs: array[0..NUMFUTUREDIALOGS - 1] of futuredialog_t;
 
-  
+
 implementation
 
 uses
@@ -439,7 +439,7 @@ begin
                         pmask.mask[cnt] := True;
                       Inc(cnt);
                     end;
-                    
+
                   end;
                 end;
             else

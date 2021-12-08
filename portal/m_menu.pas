@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2019 by Jim Valavanis
+//  Copyright (C) 2012-2021 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -664,7 +664,7 @@ var
 //
 const
   S_EMPTY_SLOT = 'EMPTY SLOT';
-  
+
 procedure M_ReadSaveStrings;
 var
   handle: file;
@@ -819,7 +819,7 @@ begin
 
   if demoplayback then
     exit;
-    
+
   M_SetupNextMenu(@SaveDef);
   M_ReadSaveStrings;
 end;
@@ -889,7 +889,7 @@ procedure M_DrawControls;
 begin
   V_DrawPatch(108, 15, SCN_TMP, 'M_OPTTTL', false);
   M_WriteText(20, 48, 'Controls', 2 * FRACUNIT);
-                                   
+
   M_WriteText(ControlsDef.x, ControlsDef.y + ControlsDef.itemheight * Ord(ctrl_keyboardmodearrows), 'Use arrows for moving');
   M_WriteText(ControlsDef.x, ControlsDef.y + ControlsDef.itemheight * Ord(ctrl_keyboardmodewasd), 'Use WASD keys for moving');
 end;
