@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -57,18 +57,88 @@ const
   detailStrings: array[0..DL_NUMRESOLUTIONS - 1] of string = ('LOWEST', 'LOW', 'MEDIUM', 'NORMAL', 'HIGH', 'ULTRA');
   flatfilteringstrings: array[boolean] of string = ('NORMAL', 'EXTREME');
 
+//==============================================================================
+//
+// R_CmdLowestRes
+//
+//==============================================================================
 procedure R_CmdLowestRes(const parm1: string = '');
+
+//==============================================================================
+//
+// R_CmdLowRes
+//
+//==============================================================================
 procedure R_CmdLowRes(const parm1: string = '');
+
+//==============================================================================
+//
+// R_CmdMediumRes
+//
+//==============================================================================
 procedure R_CmdMediumRes(const parm1: string = '');
+
+//==============================================================================
+//
+// R_CmdNormalRes
+//
+//==============================================================================
 procedure R_CmdNormalRes(const parm1: string = '');
+
+//==============================================================================
+//
+// R_CmdHiRes
+//
+//==============================================================================
 procedure R_CmdHiRes(const parm1: string = '');
+
+//==============================================================================
+//
+// R_CmdUltraRes
+//
+//==============================================================================
 procedure R_CmdUltraRes(const parm1: string = '');
+
+//==============================================================================
+//
+// R_CmdDetailLevel
+//
+//==============================================================================
 procedure R_CmdDetailLevel(const parm1: string = '');
+
+//==============================================================================
+//
+// R_CmdExtremeflatfiltering
+//
+//==============================================================================
 procedure R_CmdExtremeflatfiltering(const parm1: string = '');
+
+//==============================================================================
+//
+// R_CmdFullScreen
+//
+//==============================================================================
 procedure R_CmdFullScreen(const parm1: string = '');
+
+//==============================================================================
+//
+// R_Cmd32bittexturepaletteeffects
+//
+//==============================================================================
 procedure R_Cmd32bittexturepaletteeffects(const parm1: string = '');
+
+//==============================================================================
+//
+// R_CmdUseExternalTextures
+//
+//==============================================================================
 procedure R_CmdUseExternalTextures(const parm1: string = '');
 
+//==============================================================================
+//
+// R_ColorAdd
+//
+//==============================================================================
 function R_ColorAdd(const c1, c2: LongWord): LongWord; register;
 
 const
@@ -85,6 +155,11 @@ var
   hirestable: hirestable_t;
   recalctablesneeded: boolean = true;
 
+//==============================================================================
+//
+// R_InitHiRes
+//
+//==============================================================================
 procedure R_InitHiRes;
 
 var
@@ -111,10 +186,9 @@ uses
 //
 // Commands
 //
-
-//
 // R_CmdLowestRes
 //
+//==============================================================================
 procedure R_CmdLowestRes(const parm1: string = '');
 var
   newres: boolean;
@@ -137,10 +211,11 @@ begin
   R_CmdLowestRes;
 end;
 
-
+//==============================================================================
 //
 // R_CmdLowRes
 //
+//==============================================================================
 procedure R_CmdLowRes(const parm1: string = '');
 var
   newres: boolean;
@@ -163,9 +238,11 @@ begin
   R_CmdLowRes;
 end;
 
+//==============================================================================
 //
 // R_CmdMediumRes
 //
+//==============================================================================
 procedure R_CmdMediumRes(const parm1: string = '');
 var
   newres: boolean;
@@ -188,9 +265,11 @@ begin
   R_CmdNormalRes;
 end;
 
+//==============================================================================
 //
 // R_CmdNormalRes
 //
+//==============================================================================
 procedure R_CmdNormalRes(const parm1: string = '');
 var
   newres: boolean;
@@ -213,9 +292,11 @@ begin
   R_CmdNormalRes;
 end;
 
+//==============================================================================
 //
 // R_CmdHiRes
 //
+//==============================================================================
 procedure R_CmdHiRes(const parm1: string = '');
 var
   newres: boolean;
@@ -238,9 +319,11 @@ begin
   R_CmdHiRes;
 end;
 
+//==============================================================================
 //
 // R_CmdUltraRes
 //
+//==============================================================================
 procedure R_CmdUltraRes(const parm1: string = '');
 var
   newres: boolean;
@@ -267,9 +350,11 @@ begin
   R_CmdUltraRes;
 end;
 
+//==============================================================================
 //
 // R_CmdDetailLevel
 //
+//==============================================================================
 procedure R_CmdDetailLevel(const parm1: string = '');
 var
   i, newdetail: integer;
@@ -301,6 +386,11 @@ begin
   R_CmdDetailLevel;
 end;
 
+//==============================================================================
+//
+// R_CmdFullScreen
+//
+//==============================================================================
 procedure R_CmdFullScreen(const parm1: string = '');
 var
   newfullscreen: boolean;
@@ -323,6 +413,11 @@ begin
   R_CmdFullScreen;
 end;
 
+//==============================================================================
+//
+// R_CmdExtremeflatfiltering
+//
+//==============================================================================
 procedure R_CmdExtremeflatfiltering(const parm1: string = '');
 var
   newflatfiltering: boolean;
@@ -349,6 +444,11 @@ begin
   R_CmdExtremeflatfiltering;
 end;
 
+//==============================================================================
+//
+// R_Cmd32bittexturepaletteeffects
+//
+//==============================================================================
 procedure R_Cmd32bittexturepaletteeffects(const parm1: string = '');
 var
   new_32bittexturepaletteeffects: boolean;
@@ -368,6 +468,11 @@ begin
   R_Cmd32bittexturepaletteeffects;
 end;
 
+//==============================================================================
+//
+// R_CmdUseExternalTextures
+//
+//==============================================================================
 procedure R_CmdUseExternalTextures(const parm1: string = '');
 var
   new_useexternaltextures: boolean;
@@ -388,8 +493,12 @@ begin
   R_CmdUseExternalTextures;
 end;
 
+//==============================================================================
+// R_ColorAdd
+//
 ////////////////////////////////////////////////////////////////////////////////
-
+//
+//==============================================================================
 function R_ColorAdd(const c1, c2: LongWord): LongWord; register;
 var
   r1, g1, b1: byte;
@@ -415,6 +524,11 @@ begin
   result := r + g shl 8 + b shl 16;
 end;
 
+//==============================================================================
+//
+// R_InitHiRes
+//
+//==============================================================================
 procedure R_InitHiRes;
 begin
   R_InitLightBoost;

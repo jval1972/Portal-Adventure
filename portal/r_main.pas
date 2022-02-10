@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -84,35 +84,87 @@ var
   chasecamera_viewxy: integer;
   chasecamera_viewz: integer;
 
+//==============================================================================
+// R_PointOnSide
 //
 // Utility functions.
 //
+//==============================================================================
 function R_PointOnSide(const x: fixed_t; const y: fixed_t; const node: Pnode_t): boolean;
 
+//==============================================================================
+//
+// R_PointToAngle
+//
+//==============================================================================
 function R_PointToAngle(x: fixed_t; y: fixed_t): angle_t;
 
+//==============================================================================
+//
+// R_PointToAngle2
+//
+//==============================================================================
 function R_PointToAngle2(const x1: fixed_t; const y1: fixed_t; const x2: fixed_t; const y2: fixed_t): angle_t;
 
+//==============================================================================
+//
+// R_PointInSubsector
+//
+//==============================================================================
 function R_PointInSubsector(const x: fixed_t; const y: fixed_t): Psubsector_t;
 
+//==============================================================================
+//
+// R_ResetSmooth
+//
+//==============================================================================
 procedure R_ResetSmooth;
 
+//==============================================================================
+// R_RenderPlayerView
 //
 // REFRESH - the actual rendering functions.
 //
-
 // Called by G_Drawer.
+//
+//==============================================================================
 procedure R_RenderPlayerView(player: Pplayer_t);
 
+//==============================================================================
+// R_Init
+//
 // Called by startup code.
+//
+//==============================================================================
 procedure R_Init;
+
+//==============================================================================
+//
+// R_ShutDown
+//
+//==============================================================================
 procedure R_ShutDown;
 
+//==============================================================================
+// R_SetViewSize
+//
 // Called by M_Responder.
+//
+//==============================================================================
 procedure R_SetViewSize;
 
+//==============================================================================
+//
+// R_ExecuteSetViewSize
+//
+//==============================================================================
 procedure R_ExecuteSetViewSize;
 
+//==============================================================================
+//
+// R_SetViewAngleOffset
+//
+//==============================================================================
 procedure R_SetViewAngleOffset(const angle: angle_t);
 
 var
@@ -196,6 +248,11 @@ var
 // Blocky mode, has default, 0 = high, 1 = normal
   screenblocks: integer;  // has default
 
+//==============================================================================
+//
+// R_Ticker
+//
+//==============================================================================
 procedure R_Ticker;
 
 var
@@ -244,12 +301,14 @@ const
 // Fineangles in the SCREENWIDTH wide window.
   FIELDOFVIEW = 2048;
 
+//==============================================================================
 //
 // R_PointOnSide
 // Traverse BSP (sub) tree,
 //  check point against partition plane.
 // Returns side 0 (front) or 1 (back).
 //
+//==============================================================================
 function R_PointOnSide(const x: fixed_t; const y: fixed_t; const node: Pnode_t): boolean;
 var
   dx: fixed_t;
@@ -291,6 +350,7 @@ begin
   result := right >= left;
 end;
 
+//==============================================================================
 //
 // R_PointToAngle
 // To get a global angle from cartesian coordinates,
@@ -302,6 +362,7 @@ end;
 //
 // JVAL  -> Calculates: result := round(683565275 * (arctan2(y, x)));
 //
+//==============================================================================
 function R_PointToAngle(x: fixed_t; y: fixed_t): angle_t;
 begin
   x := x - viewx;
@@ -392,22 +453,31 @@ begin
   result := 0;
 end;
 
+//==============================================================================
+//
+// R_PointToAngle2
+//
+//==============================================================================
 function R_PointToAngle2(const x1: fixed_t; const y1: fixed_t; const x2: fixed_t; const y2: fixed_t): angle_t;
 begin
   result := R_PointToAngle(x2 - x1 + viewx, y2 - y1 + viewy);
 end;
 
+//==============================================================================
 //
 // R_InitTables
 //
+//==============================================================================
 procedure R_InitTables;
 begin
   finecosine := Pfixed_tArray(@finesine[FINEANGLES div 4]);
 end;
 
+//==============================================================================
 //
 // R_InitTextureMapping
 //
+//==============================================================================
 procedure R_InitTextureMapping;
 var
   i: integer;
@@ -473,6 +543,11 @@ end;
 const
   DISTMAP = 2;
 
+//==============================================================================
+//
+// R_InitLightTables
+//
+//==============================================================================
 procedure R_InitLightTables;
 var
   i: integer;
@@ -532,6 +607,11 @@ var
   setblocks: integer = -1;
   olddetail: integer = -1;
 
+//==============================================================================
+//
+// R_SetViewSize
+//
+//==============================================================================
 procedure R_SetViewSize;
 begin
   if demoplayback then
@@ -553,9 +633,11 @@ begin
   end;
 end;
 
+//==============================================================================
 //
 // R_ExecuteSetViewSize
 //
+//==============================================================================
 procedure R_ExecuteSetViewSize;
 var
   i: integer;
@@ -648,7 +730,11 @@ begin
 
 end;
 
-
+//==============================================================================
+//
+// R_CmdZAxisShift
+//
+//==============================================================================
 procedure R_CmdZAxisShift(const parm1: string = '');
 var
   newz: boolean;
@@ -668,6 +754,11 @@ begin
   R_CmdZAxisShift;
 end;
 
+//==============================================================================
+//
+// R_CmdUse32boitfuzzeffect
+//
+//==============================================================================
 procedure R_CmdUse32boitfuzzeffect(const parm1: string = '');
 var
   newusefz: boolean;
@@ -686,6 +777,11 @@ begin
   R_CmdUse32boitfuzzeffect;
 end;
 
+//==============================================================================
+//
+// R_CmdDiher8bitTransparency
+//
+//==============================================================================
 procedure R_CmdDiher8bitTransparency(const parm1: string = '');
 var
   newdih: boolean;
@@ -704,16 +800,31 @@ begin
   R_CmdDiher8bitTransparency;
 end;
 
+//==============================================================================
+//
+// R_CmdScreenWidth
+//
+//==============================================================================
 procedure R_CmdScreenWidth;
 begin
   printf('ScreenWidth = %d.'#13#10, [SCREENWIDTH]);
 end;
 
+//==============================================================================
+//
+// R_CmdScreenHeight
+//
+//==============================================================================
 procedure R_CmdScreenHeight;
 begin
   printf('ScreenHeight = %d.'#13#10, [SCREENHEIGHT]);
 end;
 
+//==============================================================================
+//
+// R_CmdClearCache
+//
+//==============================================================================
 procedure R_CmdClearCache;
 begin
   gld_ClearTextureMemory;
@@ -721,15 +832,22 @@ begin
   printf('Texture cache clear'#13#10);
 end;
 
+//==============================================================================
+//
+// R_CmdResetCache
+//
+//==============================================================================
 procedure R_CmdResetCache;
 begin
   Z_FreeTags(PU_CACHE, PU_CACHE);
   printf('Texture cache reset'#13#10);
 end;
 
+//==============================================================================
 //
 // R_Init
 //
+//==============================================================================
 procedure R_Init;
 begin
   printf(#13#10 + 'R_InitProcs');
@@ -769,6 +887,11 @@ begin
   C_AddCmd('resetcache, resettexturecache', @R_CmdResetCache);
 end;
 
+//==============================================================================
+//
+// R_ShutDown
+//
+//==============================================================================
 procedure R_ShutDown;
 begin
   printf(#13#10 + 'R_ShutDownLightBoost');
@@ -782,9 +905,11 @@ begin
   printf(#13#10);
 end;
 
+//==============================================================================
 //
 // R_PointInSubsector
 //
+//==============================================================================
 function R_PointInSubsector(const x: fixed_t; const y: fixed_t): Psubsector_t;
 var
   node: Pnode_t;
@@ -822,6 +947,11 @@ const
 var
   lastchasex, lastchasey, lastchasez: fixed_t;
 
+//==============================================================================
+//
+// R_AdjustChaseCamera
+//
+//==============================================================================
 procedure R_AdjustChaseCamera;
 var
   c_an: angle_t;
@@ -1000,6 +1130,11 @@ end;
 var
   quakerndseed: integer = 0;
 
+//==============================================================================
+//
+// R_SetupFrame
+//
+//==============================================================================
 procedure R_SetupFrame(player: Pplayer_t);
 var
   i: integer;
@@ -1024,7 +1159,6 @@ begin
     viewx := viewx + (4 - (C_Random(quakerndseed) mod 8)) * FRACUNIT;
     viewy := viewy + (4 - (C_Random(quakerndseed) mod 8)) * FRACUNIT;
   end;
-
 
   viewpitch := 0;
   absviewpitch := 0;
@@ -1066,15 +1200,22 @@ begin
   inc(validcount);
 end;
 
+//==============================================================================
+//
+// R_SetViewAngleOffset
+//
+//==============================================================================
 procedure R_SetViewAngleOffset(const angle: angle_t);
 begin
   viewangleoffset := angle;
 end;
 
+//==============================================================================
+// R_RenderPlayerView
 //
 // R_RenderView
 //
-
+//==============================================================================
 procedure R_RenderPlayerView(player: Pplayer_t);
 begin
 
@@ -1116,11 +1257,21 @@ begin
 
 end;
 
+//==============================================================================
+//
+// R_Ticker
+//
+//==============================================================================
 procedure R_Ticker;
 begin
   R_InterpolateTicker;
 end;
 
+//==============================================================================
+//
+// R_ResetSmooth
+//
+//==============================================================================
 procedure R_ResetSmooth;
 begin
   qz.Clear;

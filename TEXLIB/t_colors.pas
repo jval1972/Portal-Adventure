@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -99,20 +99,81 @@ const
 var
   Palette: array[0..255] of integer;
 
+//==============================================================================
+//
+// RGB
+//
+//==============================================================================
 function RGB(RedValue, GreenValue, BlueValue: word): integer;
 
+//==============================================================================
+//
+// EncodeColor8
+//
+//==============================================================================
 function EncodeColor8(rgb: LongWord): LongWord;
+
+//==============================================================================
+//
+// EncodeColor15
+//
+//==============================================================================
 function EncodeColor15(rgb: LongWord): LongWord;
+
+//==============================================================================
+//
+// EncodeColor24
+//
+//==============================================================================
 function EncodeColor24(rgb: LongWord): LongWord;
 
+//==============================================================================
+//
+// DecodeColor8
+//
+//==============================================================================
 function DecodeColor8(color:integer):integer;
 
+//==============================================================================
+//
+// BrightenColor8
+//
+//==============================================================================
 function BrightenColor8(color:integer; light: integer): integer;
+
+//==============================================================================
+//
+// BrightenColor24
+//
+//==============================================================================
 function BrightenColor24(color:integer; light: integer): integer;
 
+//==============================================================================
+//
+// setDefaultPalette
+//
+//==============================================================================
 procedure setDefaultPalette(ofs: integer); overload;
+
+//==============================================================================
+//
+// SetRGBPalette
+//
+//==============================================================================
 procedure SetRGBPalette(index: word; color: integer); overload;
+
+//==============================================================================
+//
+// SetRGBPalette
+//
+//==============================================================================
 procedure SetRGBPalette(index, RedValue, GreenValue, BlueValue:word); overload;
+
+//==============================================================================
+//
+// SetRGBPalette
+//
+//==============================================================================
 procedure SetRGBPalette(value: pointer); overload;
 
 implementation
@@ -124,11 +185,21 @@ var
   VID_ITable8: PByteArray;
   VID_ITable24: PByteArray;
 
+//==============================================================================
+//
+// EncodeColor24
+//
+//==============================================================================
 function EncodeColor24(rgb: LongWord): LongWord; assembler;
 asm
   and eax, $FFFFFF
 end;
 
+//==============================================================================
+//
+// EncodeColor15
+//
+//==============================================================================
 function EncodeColor15(rgb: LongWord): LongWord; assembler;
 asm
   shr  ah, $3
@@ -137,6 +208,11 @@ asm
   shr  eax, $6
 end;
 
+//==============================================================================
+//
+// EncodeColor8
+//
+//==============================================================================
 function EncodeColor8(rgb: LongWord): LongWord; assembler;
 asm
   mov  edx, rgb            // 00000000 RRRRrrrr GGGGgggg BBBBbbbb
@@ -149,6 +225,11 @@ asm
   mov  al, [edx]
 end;
 
+//==============================================================================
+//
+// RGB
+//
+//==============================================================================
 function RGB(RedValue, GreenValue, BlueValue : word):integer; assembler;
 asm
   mov  ax, RedValue    // ------------------------RRRRRRRR
@@ -159,6 +240,11 @@ asm
   mov  al, dl          // --------RRRRRRRRGGGGGGGGBBBBBBBB
 end;
 
+//==============================================================================
+//
+// InitTables
+//
+//==============================================================================
 procedure InitTables(ofs: integer);
 var
   x, y: integer;
@@ -186,6 +272,11 @@ begin
    end;
 end;
 
+//==============================================================================
+//
+// SetDefaultPalette
+//
+//==============================================================================
 procedure SetDefaultPalette(ofs: integer);
 var
   r, b, g, i: integer;
@@ -202,6 +293,11 @@ begin
   InitTables(ofs);
 end;
 
+//==============================================================================
+//
+// SetRGBPalette
+//
+//==============================================================================
 procedure SetRGBPalette(index: word; color: integer);assembler;
 asm
   push ebx
@@ -226,6 +322,11 @@ asm
   pop  ebx
 end;
 
+//==============================================================================
+//
+// SetRGBPalette
+//
+//==============================================================================
 procedure SetRGBPalette(index, RedValue, GreenValue, BlueValue: word); assembler;
 asm
   push ecx // JVAL unneeded?
@@ -257,6 +358,11 @@ asm
   pop  ecx // JVAL unneeded?
 end;
 
+//==============================================================================
+//
+// SetRGBPalette
+//
+//==============================================================================
 procedure SetRGBPalette(value: pointer);
 var
   i: integer;
@@ -265,6 +371,11 @@ begin
    SetRGBPalette(i, PIntegerArray(value)[i]);
 end;
 
+//==============================================================================
+//
+// DecodeColor8
+//
+//==============================================================================
 function DecodeColor8(color: integer):integer;assembler;
 asm
   mov  edx, color
@@ -274,6 +385,11 @@ asm
   mov  eax, [edx]
 end;
 
+//==============================================================================
+//
+// BrightenColor8
+//
+//==============================================================================
 function BrightenColor8(color: integer; light: integer): integer; assembler;
 asm
   push light
@@ -285,6 +401,11 @@ asm
   mov  al, [edx]
 end;
 
+//==============================================================================
+//
+// BrightenColor24
+//
+//==============================================================================
 function BrightenColor24(color: integer; light: integer): integer; assembler;
 asm
   push ebx

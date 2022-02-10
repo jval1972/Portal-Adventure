@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -31,14 +31,39 @@ interface
 uses
   d_player;
 
+//==============================================================================
+//
+// gld_InitHud
+//
+//==============================================================================
 procedure gld_InitHud;
 
+//==============================================================================
+//
+// gld_HudDone
+//
+//==============================================================================
 procedure gld_HudDone;
 
+//==============================================================================
+//
+// gld_UpdateHud
+//
+//==============================================================================
 procedure gld_UpdateHud(const p: Pplayer_t);
 
+//==============================================================================
+//
+// gld_HudTicker
+//
+//==============================================================================
 procedure gld_HudTicker(const p: Pplayer_t);
 
+//==============================================================================
+//
+// gld_ReInit
+//
+//==============================================================================
 procedure gld_ReInit;
 
 implementation
@@ -84,6 +109,11 @@ const
   HUDTEXNAME = 'glhud.material';
   HUDPROGRESSTEXNAME = 'glhud_1.material';
 
+//==============================================================================
+//
+// gld_InitHud
+//
+//==============================================================================
 procedure gld_InitHud;
 begin
   if not glhudInitialized then
@@ -123,6 +153,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// gld_HudDone
+//
+//==============================================================================
 procedure gld_HudDone;
 begin
   if not glhudInitialized then
@@ -172,11 +207,21 @@ var
   glhud_curmoney: integer = 0;
   moneygoal: integer = 0;
 
+//==============================================================================
+//
+// gld_ReInit
+//
+//==============================================================================
 procedure gld_ReInit;
 begin
   glhud_curmoney := 0;
 end;
 
+//==============================================================================
+//
+// gld_HudTicker
+//
+//==============================================================================
 procedure gld_HudTicker(const p: Pplayer_t);
 var
   diff: integer;
@@ -205,6 +250,11 @@ begin
   end
 end;
 
+//==============================================================================
+//
+// gld_UpdateHud
+//
+//==============================================================================
 procedure gld_UpdateHud(const p: Pplayer_t);
 var
   h1, p1: integer;
@@ -229,7 +279,6 @@ begin
     h1 := p.health div 3;
   if (h1 = 0) and (p.health > 0) then
     h1 := 1;
-
 
   if p.ammo[Ord(am_cell)] >= 40 then
     p1 := 36 - (30 - p.ammo[Ord(am_cell)] div 10)
@@ -264,7 +313,6 @@ begin
         for j := 0 to 10 do
           hud_tex.RasterOPAdd32Aplha(94 + 11 * i, 48 + j, 8, prog2);
     end;
-
 
     hud_tex_gl := gld_LoadExternalTexture(hud_tex, True, GL_CLAMP)
   end;
@@ -446,7 +494,6 @@ begin
       keystart := keystart + 18;
     end;
 
-
     money := glhud_curmoney; // P_GetMobjCustomParamValue(p.mo, 'MONEY');
     if money > 0 then
     begin
@@ -483,7 +530,6 @@ begin
         l := l + 15;
       end;
     end;
-
 
     if demoplayback and (leveltime mod TICRATE > 10) then
     begin

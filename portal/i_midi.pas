@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -30,26 +30,81 @@ unit i_midi;
 
 interface
 
+//==============================================================================
+//
+// I_PlayMidi
+//
+//==============================================================================
 procedure I_PlayMidi(index: integer);
 
+//==============================================================================
+//
+// I_StopMidi
+//
+//==============================================================================
 procedure I_StopMidi;
 
+//==============================================================================
+//
+// AddMidiFileToPlayList
+//
+//==============================================================================
 procedure AddMidiFileToPlayList(const MidiFile: string);
 
+//==============================================================================
+//
+// DeleteMidiFileFromPlayList
+//
+//==============================================================================
 procedure DeleteMidiFileFromPlayList(const MidiFile: string);
 
+//==============================================================================
+//
+// ClearMidiFilePlayList
+//
+//==============================================================================
 procedure ClearMidiFilePlayList;
 
+//==============================================================================
+//
+// I_IsMidiPlaying
+//
+//==============================================================================
 function I_IsMidiPlaying: boolean;
 
+//==============================================================================
+//
+// I_ResumeMidi
+//
+//==============================================================================
 procedure I_ResumeMidi;
 
+//==============================================================================
+//
+// I_PauseMidi
+//
+//==============================================================================
 procedure I_PauseMidi;
 
+//==============================================================================
+//
+// I_InitMidi
+//
+//==============================================================================
 procedure I_InitMidi;
 
+//==============================================================================
+//
+// I_ShutDownMidi
+//
+//==============================================================================
 procedure I_ShutDownMidi;
 
+//==============================================================================
+//
+// _mciGetErrorString
+//
+//==============================================================================
 function _mciGetErrorString(const code: LongWord): string;
 
 implementation
@@ -76,10 +131,15 @@ const
   rsErrNoMIDIMapper = 'MIDI mapper unavailable';
   rsErrOutOfRange = 'I_PlayMidi(index): index out of playlist range.';
 
+//==============================================================================
+// playMIDIFile
+//
 // Plays a specified MIDI file by using MCI_OPEN and MCI_PLAY. Returns
 // as soon as playback begins. The window procedure function for the
 // specified window will be notified when playback is complete.
 // Returns 0L on success; otherwise, it returns an MCI error code.
+//
+//==============================================================================
 function playMIDIFile(hWndNotify: HWnd; lpszMIDIFileName: string; doCheckMidiMapper: boolean = false): DWORD;
 var
   mciOpenParms: MCI_OPEN_PARMS;
@@ -132,6 +192,11 @@ begin
   currentmidi := strupper(lpszMIDIFileName);
 end;
 
+//==============================================================================
+//
+// restartMIDIFile
+//
+//==============================================================================
 function restartMIDIFile(hWndNotify: HWnd): DWORD;
 var
   mciPlayParms: MCI_PLAY_PARMS;
@@ -153,6 +218,11 @@ begin
     mciSendCommand(wDeviceID, MCI_CLOSE, 0, 0);
 end;
 
+//==============================================================================
+//
+// StopPlayingMidi
+//
+//==============================================================================
 procedure StopPlayingMidi;
 begin
   mciSendCommand(wDeviceID, MCI_STOP, 0, 0);
@@ -160,6 +230,11 @@ begin
   currentmidi := '';
 end;
 
+//==============================================================================
+//
+// WindowProc
+//
+//==============================================================================
 function WindowProc(hWnd: HWND; Msg: UINT; wParam: WPARAM;
   lParam: LPARAM): LRESULT; stdcall; export;
 var
@@ -193,6 +268,11 @@ begin
   result := DefWindowProc(hWnd, Msg, WParam, LParam);
 end;
 
+//==============================================================================
+//
+// AddMidiFileToPlayList
+//
+//==============================================================================
 procedure AddMidiFileToPlayList(const MidiFile: string);
 begin
   if MidiFileNames = nil then
@@ -200,6 +280,11 @@ begin
   MidiFileNames.Add(MidiFile);
 end;
 
+//==============================================================================
+//
+// DeleteMidiFileFromPlayList
+//
+//==============================================================================
 procedure DeleteMidiFileFromPlayList(const MidiFile: string);
 var
   i: integer;
@@ -220,12 +305,22 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// ClearMidiFilePlayList
+//
+//==============================================================================
 procedure ClearMidiFilePlayList;
 begin
   if MidiFileNames <> nil then
     MidiFileNames.Clear;
 end;
 
+//==============================================================================
+//
+// I_PlayMidi
+//
+//==============================================================================
 procedure I_PlayMidi(index: integer);
 begin
   I_StopMidi;
@@ -267,6 +362,11 @@ begin
     printf(rsErrNoMIDIMapper);
 end;
 
+//==============================================================================
+//
+// I_StopMidi
+//
+//==============================================================================
 procedure I_StopMidi;
 begin
   if Window <> 0 then
@@ -278,21 +378,41 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// I_IsMidiPlaying
+//
+//==============================================================================
 function I_IsMidiPlaying: boolean;
 begin
   result := fIsMidiPlaying;
 end;
 
+//==============================================================================
+//
+// I_ResumeMidi
+//
+//==============================================================================
 procedure I_ResumeMidi;
 begin
   mciSendCommand(wDeviceID, MCI_RESUME, 0, 0);
 end;
 
+//==============================================================================
+//
+// I_PauseMidi
+//
+//==============================================================================
 procedure I_PauseMidi;
 begin
   mciSendCommand(wDeviceID, MCI_PAUSE, 0, 0);
 end;
 
+//==============================================================================
+//
+// _mciGetErrorString
+//
+//==============================================================================
 function _mciGetErrorString(const code: LongWord): string;
 var
   buf: array[0..127] of char;
@@ -309,6 +429,11 @@ begin
     end;
 end;
 
+//==============================================================================
+//
+// I_InitMidi
+//
+//==============================================================================
 procedure I_InitMidi;
 begin
   Window := 0;
@@ -317,6 +442,11 @@ begin
   fIsMidiPlaying := false;
 end;
 
+//==============================================================================
+//
+// I_ShutDownMidi
+//
+//==============================================================================
 procedure I_ShutDownMidi;
 begin
   StopPlayingMidi;
@@ -324,5 +454,4 @@ begin
 end;
 
 end.
-
 

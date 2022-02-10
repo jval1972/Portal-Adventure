@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -53,7 +53,6 @@ type
     cmds: Tcmds;
   end;
   Pdoomdata_t = ^doomdata_t;
-
 
 var
   netbuffer: Pdoomdata_t; // points inside doomcom

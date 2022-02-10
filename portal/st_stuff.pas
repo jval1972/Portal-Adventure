@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2019 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -32,7 +32,6 @@ uses
   gamedef,
   d_event;
 
-
 // Size of statusbar.
 // Now sensitive for scaling.
 const
@@ -42,26 +41,48 @@ const
 
 type
   stdrawoptions_t = (stdo_no, stdo_small, stdo_full);
+
+//==============================================================================
+// ST_Responder
 //
 // STATUS BAR
 //
-
 // Called by main loop.
+//
+//==============================================================================
 function ST_Responder(ev: Pevent_t): boolean;
 
+//==============================================================================
+// ST_Ticker
+//
 // Called by main loop.
+//
+//==============================================================================
 procedure ST_Ticker;
 
+//==============================================================================
+// ST_Drawer
+//
 // Called by main loop.
+//
+//==============================================================================
 procedure ST_Drawer(dopt: stdrawoptions_t; refresh: boolean);
 
+//==============================================================================
+// ST_Start
+//
 // Called when the console player is spawned on each level.
+//
+//==============================================================================
 procedure ST_Start;
 
+//==============================================================================
+// ST_Init
+//
 // Called by startup code.
+//
+//==============================================================================
 procedure ST_Init;
-
-
 
 // States for status bar code.
 type
@@ -172,7 +193,6 @@ const
   ST_RAMPAGEDELAY = 2 * TICRATE;
 
   ST_MUCHPAIN = 20;
-
 
 // Location and size of statistics,
 //  justified according to widget type.
@@ -304,7 +324,6 @@ const
  // Height, in lines.
   ST_OUTHEIGHT = 1;
 
-
   ST_MAPTITLEY = 0;
   ST_MAPHEIGHT = 1;
 
@@ -379,7 +398,6 @@ var
 // a random number per tick
   st_randomnumber: integer;
 
-
 const
 // Massive bunches of cheat shit
 //  to keep it from being easy to figure them out.
@@ -422,8 +440,6 @@ const
     Chr($2a), Chr($ff)  // idclip
   );
 
-
-
   cheat_powerup_seq0: array[0..9] of char = (
     Chr($66), Chr($26), Chr($62), Chr($a6), Chr($32),
     Chr($f6), Chr($36), Chr($26), Chr($6e), Chr($ff)  // fdbeholdv
@@ -459,7 +475,6 @@ const
     Chr($f6), Chr($36), Chr($26), Chr($ff)  // fdbehold
   );
 
-
   cheat_clev_seq: array[0..9] of char = (
     Chr($66), Chr($26), Chr($e2), Chr($36), Chr($a6),
     Chr($6e), Chr($1),  Chr($0),  Chr($0),  Chr($ff)  // idclev
@@ -470,7 +485,6 @@ const
     Chr($66), Chr($26), Chr($f2), Chr($a6), Chr($ba),
     Chr($ea), Chr($ff) // idkeys
   );
-
 
 var
 // Now what?
@@ -487,9 +501,12 @@ var
   cheat_choppers: cheatseq_t;
   cheat_clev: cheatseq_t;
 
+//==============================================================================
+// ST_CmdCheckPlayerStatus
 //
 // Commands
 //
+//==============================================================================
 function ST_CmdCheckPlayerStatus: boolean;
 begin
   if (plyr = nil) or (plyr.mo = nil) or (gamestate <> GS_LEVEL) or demoplayback or netgame then
@@ -501,6 +518,11 @@ begin
     result := true;
 end;
 
+//==============================================================================
+//
+// ST_CmdGod
+//
+//==============================================================================
 procedure ST_CmdGod;
 begin
   if not ST_CmdCheckPlayerStatus then
@@ -525,6 +547,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// ST_CmdMassacre
+//
+//==============================================================================
 procedure ST_CmdMassacre;
 begin
   if not ST_CmdCheckPlayerStatus then
@@ -534,6 +561,11 @@ begin
     P_Massacre;
 end;
 
+//==============================================================================
+//
+// ST_CmdLowGravity
+//
+//==============================================================================
 procedure ST_CmdLowGravity;
 begin
   if not ST_CmdCheckPlayerStatus then
@@ -542,6 +574,11 @@ begin
   plyr.cheats := plyr.cheats xor CF_LOWGRAVITY;
 end;
 
+//==============================================================================
+//
+// ST_CmdIDFA
+//
+//==============================================================================
 procedure ST_CmdIDFA;
 var
   i: integer;
@@ -571,6 +608,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// ST_CmdIDKFA
+//
+//==============================================================================
 procedure ST_CmdIDKFA;
 var
   i: integer;
@@ -603,6 +645,11 @@ begin
     plyr.cards[i] := true;
 end;
 
+//==============================================================================
+//
+// ST_CmdIDKEYS
+//
+//==============================================================================
 procedure ST_CmdIDKEYS;
 var
   i: integer;
@@ -614,6 +661,11 @@ begin
     plyr.cards[i] := true;
 end;
 
+//==============================================================================
+//
+// ST_CmdIDNoClip
+//
+//==============================================================================
 procedure ST_CmdIDNoClip;
 begin
   if not ST_CmdCheckPlayerStatus then
@@ -623,8 +675,13 @@ begin
 
 end;
 
+//==============================================================================
+// ST_Responder
+//
 // Respond to keyboard input events,
 //  intercept cheats.
+//
+//==============================================================================
 function ST_Responder(ev: Pevent_t): boolean;
 var
   i: integer;
@@ -780,6 +837,11 @@ begin
   result := result or ateit;
 end;
 
+//==============================================================================
+//
+// ST_Ticker
+//
+//==============================================================================
 procedure ST_Ticker;
 begin
   inc(st_clock);
@@ -787,6 +849,11 @@ begin
   st_oldhealth := plyr.health;
 end;
 
+//==============================================================================
+//
+// ST_doPaletteStuff
+//
+//==============================================================================
 procedure ST_doPaletteStuff;
 var
   palette: integer;
@@ -845,16 +912,31 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// ST_Drawer
+//
+//==============================================================================
 procedure ST_Drawer(dopt: stdrawoptions_t; refresh: boolean);
 begin
   ST_doPaletteStuff;
 end;
 
+//==============================================================================
+//
+// ST_loadData
+//
+//==============================================================================
 procedure ST_loadData;
 begin
   lu_palette := W_GetNumForName(PLAYPAL);
 end;
 
+//==============================================================================
+//
+// ST_InitData
+//
+//==============================================================================
 procedure ST_InitData;
 var
   i: integer;
@@ -887,6 +969,11 @@ end;
 var
   st_stopped: boolean;
 
+//==============================================================================
+//
+// ST_Stop
+//
+//==============================================================================
 procedure ST_Stop;
 var
   pal: PByteArray;
@@ -902,6 +989,11 @@ begin
   st_stopped := true;
 end;
 
+//==============================================================================
+//
+// ST_Start
+//
+//==============================================================================
 procedure ST_Start;
 begin
   if not st_stopped then
@@ -911,6 +1003,11 @@ begin
   st_stopped := false;
 end;
 
+//==============================================================================
+//
+// ST_Init
+//
+//==============================================================================
 procedure ST_Init;
 begin
 ////////////////////////////////////////////////////////////////////////////////

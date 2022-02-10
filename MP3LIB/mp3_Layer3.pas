@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -125,6 +125,11 @@ uses
 
 { TLayerIII_Decoder }
 
+//==============================================================================
+//
+// TLayerIII_Decoder.Antialias
+//
+//==============================================================================
 procedure TLayerIII_Decoder.Antialias(ch, gr: Cardinal);
 var ss, sb18, sb18lim: Cardinal;
     gr_info: PGRInfo;
@@ -229,6 +234,11 @@ begin
   GetMem(FSI, Sizeof(TIIISideInfo));
 end;
 
+//==============================================================================
+//
+// TLayerIII_Decoder.CreateBitReserve
+//
+//==============================================================================
 procedure TLayerIII_Decoder.CreateBitReserve;
 var
   cnt: integer;
@@ -249,6 +259,11 @@ begin
     I_Error('TLayerIII_Decoder.CreateBitReserve(): Can not create FBR');
 end;
 
+//==============================================================================
+//
+// TLayerIII_Decoder.Decode
+//
+//==============================================================================
 procedure TLayerIII_Decoder.Decode;
 var
   nSlots: Cardinal;
@@ -367,6 +382,11 @@ begin
   FBuffer.WriteBuffer;
 end;
 
+//==============================================================================
+//
+// TLayerIII_Decoder.DequantizeSample
+//
+//==============================================================================
 procedure TLayerIII_Decoder.DequantizeSample(var xr: TSArray; ch,
   gr: Cardinal);
 var
@@ -506,6 +526,11 @@ begin
   inherited Destroy;
 end;
 
+//==============================================================================
+//
+// TLayerIII_Decoder.DoDownmix
+//
+//==============================================================================
 procedure TLayerIII_Decoder.DoDownmix;
 var
   ss, sb: Cardinal;
@@ -535,6 +560,11 @@ const
 var
   ScaleFacBuffer: array[0..53] of Cardinal;
 
+//==============================================================================
+//
+// TLayerIII_Decoder.GetLSFScaleData
+//
+//==============================================================================
 procedure TLayerIII_Decoder.GetLSFScaleData(ch, gr: Cardinal);
 var
   new_slen: array[0..3] of Cardinal;
@@ -642,6 +672,11 @@ begin
     end;
 end;
 
+//==============================================================================
+//
+// TLayerIII_Decoder.GetLSFScaleFactors
+//
+//==============================================================================
 procedure TLayerIII_Decoder.GetLSFScaleFactors(ch, gr: Cardinal);
 var
   m: Cardinal;
@@ -698,6 +733,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// TLayerIII_Decoder.GetScaleFactors
+//
+//==============================================================================
 procedure TLayerIII_Decoder.GetScaleFactors(ch, gr: Cardinal);
 var
   sfb, window: Integer;
@@ -812,11 +852,15 @@ begin
   end;
 end;
 
+//==============================================================================
+// TLayerIII_Decoder.GetSideInfo
+//
 // Reads the side info from the stream, assuming the entire
 // frame has been read already.
-
 // Mono   : 136 bits (= 17 bytes)
 // Stereo : 256 bits (= 32 bytes)
+//
+//==============================================================================
 function TLayerIII_Decoder.GetSideInfo: Boolean;
 var
   ch, gr: Cardinal;
@@ -946,6 +990,11 @@ begin
   result := true;
 end;
 
+//==============================================================================
+//
+// TLayerIII_Decoder.HuffmanDecode
+//
+//==============================================================================
 procedure TLayerIII_Decoder.HuffmanDecode(ch, gr: Cardinal);
 var
   i: Cardinal;
@@ -1036,6 +1085,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// TLayerIII_Decoder.Hybrid
+//
+//==============================================================================
 procedure TLayerIII_Decoder.Hybrid(ch, gr: Cardinal);
 var
   rawout: array[0..35] of Single;
@@ -1102,6 +1156,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// TLayerIII_Decoder.IStereoKValues
+//
+//==============================================================================
 procedure TLayerIII_Decoder.IStereoKValues(IsPos, IOType, i: Cardinal);
 begin
   if IsPos = 0 then
@@ -1121,6 +1180,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// TLayerIII_Decoder.Reorder
+//
+//==============================================================================
 procedure TLayerIII_Decoder.Reorder(xr: PSArray; ch, gr: Cardinal);
 var
   gr_info: PGRInfo;
@@ -1180,6 +1244,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// TLayerIII_Decoder.SeekNotify
+//
+//==============================================================================
 procedure TLayerIII_Decoder.SeekNotify;
 begin
   FFrameStart := 0;
@@ -1190,6 +1259,11 @@ begin
   CreateBitReserve;
 end;
 
+//==============================================================================
+//
+// TLayerIII_Decoder.Stereo
+//
+//==============================================================================
 procedure TLayerIII_Decoder.Stereo(gr: Cardinal);
 var
   sb, ss: Integer;

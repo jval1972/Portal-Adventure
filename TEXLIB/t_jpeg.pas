@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -76,6 +76,11 @@ type
 const
   INPUT_BUF_SIZE = 4096;
 
+//==============================================================================
+//
+// init_source
+//
+//==============================================================================
 procedure init_source(cinfo: j_decompress_ptr); far;
 var
   src: my_src_ptr;
@@ -84,6 +89,11 @@ begin
   src^.start_of_file := TRUE;
 end;
 
+//==============================================================================
+//
+// fill_input_buffer
+//
+//==============================================================================
 function fill_input_buffer(cinfo: j_decompress_ptr): boolean; far;
 var
   src: my_src_ptr;
@@ -107,6 +117,11 @@ begin
   fill_input_buffer := TRUE;
 end;
 
+//==============================================================================
+//
+// skip_input_data
+//
+//==============================================================================
 procedure skip_input_data(cinfo: j_decompress_ptr;
                       num_bytes: long); far;
 var
@@ -127,11 +142,21 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// term_source
+//
+//==============================================================================
 procedure term_source(cinfo: j_decompress_ptr); far;
 begin
   { no work necessary here }
 end;
 
+//==============================================================================
+//
+// jpeg_stream_src
+//
+//==============================================================================
 procedure jpeg_stream_src(cinfo: j_decompress_ptr; const infile: TStream);
 var
   src: my_src_ptr;
@@ -204,6 +229,11 @@ type
     row_offset: INT32;              {position of next row to write to BMP}
   end;
 
+//==============================================================================
+//
+// write_bmp_header
+//
+//==============================================================================
 procedure write_bmp_header(cinfo: j_decompress_ptr; dest: bmp_dest_ptr);
 {Write a Windows-style BMP file header, including colormap if needed}
 var
@@ -323,6 +353,11 @@ begin
   dest^.row_offset := bmpfileheader.bfSize;
 end;
 
+//==============================================================================
+//
+// write_bmp_pixelrow
+//
+//==============================================================================
 procedure write_bmp_pixelrow(cinfo: j_decompress_ptr; dest: bmp_dest_ptr;
   rows_supplied: JDIMENSION);
 var
@@ -393,6 +428,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// write_bmp_image
+//
+//==============================================================================
 procedure write_bmp_image(cinfo: j_decompress_ptr; dest: bmp_dest_ptr);
 var
   row: JDIMENSION;
@@ -411,6 +451,11 @@ begin
     end;
 end;
 
+//==============================================================================
+//
+// jinit_write_bmp
+//
+//==============================================================================
 function jinit_write_bmp(cinfo: j_decompress_ptr; outfile: TStream;
   inmemory: boolean): bmp_dest_ptr;
 var
@@ -468,6 +513,11 @@ type
     pub: jpeg_error_mgr;
   end;
 
+//==============================================================================
+//
+// error_exit 
+//
+//==============================================================================
 procedure error_exit (cinfo: j_common_ptr); far;
 var
   buffer: string;
@@ -476,6 +526,11 @@ begin
   I_Error('TJPGTextureManager(): %s', [buffer]);
 end;
 
+//==============================================================================
+//
+// emit_message 
+//
+//==============================================================================
 procedure emit_message (cinfo: j_common_ptr; msg_level: int); far;
 var
   err: jpeg_error_mgr_ptr;
@@ -496,6 +551,11 @@ begin
       err^.output_message (cinfo);
 end;
 
+//==============================================================================
+//
+// output_message
+//
+//==============================================================================
 procedure output_message(cinfo: j_common_ptr); far;
 var
   buffer: string;
@@ -505,12 +565,22 @@ begin
   I_Warning('TJPGTextureManager(): %s', [buffer]);
 end;
 
+//==============================================================================
+//
+// format_message
+//
+//==============================================================================
 procedure format_message(cinfo: j_common_ptr; var buffer: string); far;
 begin
   buffer :=
     'JPEG ERROR -- #' + itoa(cinfo^.err^.msg_code);
 end;
 
+//==============================================================================
+//
+// reset_error_mgr 
+//
+//==============================================================================
 procedure reset_error_mgr (cinfo: j_common_ptr); far;
 begin
   cinfo^.err^.num_warnings := 0;
@@ -518,6 +588,11 @@ begin
   cinfo^.err^.msg_code := 0;      {may be useful as a flag for "no error"}
 end;
 
+//==============================================================================
+//
+// jpeg_my_error
+//
+//==============================================================================
 function jpeg_my_error(var err: my_error_mgr): jpeg_error_mgr_ptr;
 begin
   {methods}
@@ -545,6 +620,11 @@ end;
 {   for reference: DJPEG.PAS in PASJPG10 library                           }
 { ------------------------------------------------------------------------ }
 
+//==============================================================================
+//
+// LoadJPEG
+//
+//==============================================================================
 procedure LoadJPEG(const infile, outfile: TStream; inmemory: boolean;
                    {decompression parameters:}
                    numcolors: integer = 0);
@@ -602,6 +682,11 @@ begin
   Inherited Destroy;
 end;
 
+//==============================================================================
+//
+// TJPGTextureManager.LoadHeader
+//
+//==============================================================================
 function TJPGTextureManager.LoadHeader(stream: TStream): boolean;
 begin
   bmpstream.Seek(0, sFromBeginning);
@@ -610,6 +695,11 @@ begin
   LoadHeader := Inherited LoadHeader(bmpstream);
 end;
 
+//==============================================================================
+//
+// TJPGTextureManager.LoadImage
+//
+//==============================================================================
 function TJPGTextureManager.LoadImage(stream: TStream): boolean;
 begin
   result := Inherited LoadImage(bmpstream);

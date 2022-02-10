@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2019 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -33,24 +33,67 @@ uses
   m_fixed,
   r_defs;
 
+//==============================================================================
+// R_GetLumpForFlat
+//
 //-----------------------------------------------------------------------------
-
+//
+//==============================================================================
 function R_GetLumpForFlat(const flat: integer): integer;
 
+//==============================================================================
+// R_InitData
+//
 // I/O, setting up the stuff.
+//
+//==============================================================================
 procedure R_InitData;
+
+//==============================================================================
+//
+// R_FreeMemory
+//
+//==============================================================================
 procedure R_FreeMemory;
+
+//==============================================================================
+//
+// R_PrecacheLevel
+//
+//==============================================================================
 procedure R_PrecacheLevel;
 
+//==============================================================================
+// R_FlatNumForName
+//
 // Retrieval.
 // Floor/ceiling opaque texture tiles,
 // lookup by name. For animation?
+//
+//==============================================================================
 function R_FlatNumForName(const name: string): integer;
 
+//==============================================================================
+// R_CheckTextureNumForName
+//
 // Called by P_Ticker for switches and animations,
 // returns the texture number for the texture name.
+//
+//==============================================================================
 function R_CheckTextureNumForName(const name: string): integer;
+
+//==============================================================================
+//
+// R_SafeTextureNumForName
+//
+//==============================================================================
 function R_SafeTextureNumForName(const name: string): integer;
+
+//==============================================================================
+//
+// R_TextureNumForName
+//
+//==============================================================================
 function R_TextureNumForName(const name: string): integer;
 
 var
@@ -79,6 +122,11 @@ var
   numflats: integer;
   maxvisplane: integer;
 
+//==============================================================================
+//
+// R_SetupLevel
+//
+//==============================================================================
 procedure R_SetupLevel;
 
 var
@@ -111,9 +159,11 @@ uses
   z_zone,
   sc_engine;
 
+//==============================================================================
 //
 // R_GenerateLookup
 //
+//==============================================================================
 procedure R_GenerateLookup(const texnum: integer);
 var
   texture: Ptexture_t;
@@ -224,7 +274,6 @@ begin
 
   end;
 
-
   if texturecompositesize[texnum] > $10000 - texture.height then
     I_DevWarning('R_GenerateLookup(): texture %d is > 64k'#13#10, [texnum]);
 
@@ -232,16 +281,23 @@ begin
   memfree(pointer(postcount), texture.width * SizeOf(integer));
 end;
 
+//==============================================================================
+//
+// R_GetLumpForFlat
+//
+//==============================================================================
 function R_GetLumpForFlat(const flat: integer): integer;
 begin
   result := flats[flats[flat].translation].lump;
 end;
 
+//==============================================================================
 //
 // R_InitTextures
 // Initializes the texture list
 //  with the textures from the world map.
 //
+//==============================================================================
 procedure R_InitTextures;
 var
   mtexture: Pmaptexture_t;
@@ -408,12 +464,13 @@ begin
   for i := 0 to numtextures - 1 do
     texturetranslation[i] := i;
 
-
 end;
 
+//==============================================================================
 //
 // R_InitFlats
 //
+//==============================================================================
 procedure R_InitFlats;
 var
   i: integer;
@@ -442,12 +499,14 @@ begin
   end;
 end;
 
+//==============================================================================
 //
 // R_InitSpriteLumps
 // Finds the width and hoffset of all sprites in the wad,
 //  so the sprite does not need to be cached completely
 //  just for having the header info ready during rendering.
 //
+//==============================================================================
 procedure R_InitSpriteLumps;
 var
   i: integer;
@@ -513,10 +572,13 @@ begin
   end;
 end;
 
+//==============================================================================
+// R_SafeFreeMemory
 //
 // R_FreeMemory
 // JVAL: Free memory allocated without using zone
 //
+//==============================================================================
 procedure R_SafeFreeMemory;
 var
   i: integer;
@@ -553,6 +615,11 @@ begin
 
 end;
 
+//==============================================================================
+//
+// R_FreeMemory
+//
+//==============================================================================
 procedure R_FreeMemory;
 var
   i: integer;
@@ -592,9 +659,11 @@ begin
 
 end;
 
+//==============================================================================
 //
 // R_InitColormaps
 //
+//==============================================================================
 procedure R_InitColormaps;
 var
   lump: integer;
@@ -633,12 +702,14 @@ begin
   v_translation := colormaps;
 end;
 
+//==============================================================================
 //
 // R_InitData
 // Locates all the lumps
 //  that will be used by all views
 // Must be called after W_Init.
 //
+//==============================================================================
 procedure R_InitData;
 begin
   R_InitHiRes;
@@ -648,10 +719,12 @@ begin
   R_InitColormaps;
 end;
 
+//==============================================================================
 //
 // R_FlatNumForName
 // Retrieval, get a flat number for a flat name.
 //
+//==============================================================================
 function R_FlatNumForName(const name: string): integer;
 var
   i: integer;
@@ -688,11 +761,13 @@ begin
   end
 end;
 
+//==============================================================================
 //
 // R_CheckTextureNumForName
 // Check whether texture is available.
 // Filter out NoTexture indicator.
 //
+//==============================================================================
 function R_CheckTextureNumForName(const name: string): integer;
 var
   i: integer;
@@ -717,6 +792,11 @@ begin
   result := -1;
 end;
 
+//==============================================================================
+//
+// R_SafeTextureNumForName
+//
+//==============================================================================
 function R_SafeTextureNumForName(const name: string): integer;
 var
   i: integer;
@@ -747,11 +827,13 @@ begin
   result := 0;
 end;
 
+//==============================================================================
 //
 // R_TextureNumForName
 // Calls R_CheckTextureNumForName,
 //  aborts with error message.
 //
+//==============================================================================
 function R_TextureNumForName(const name: string): integer;
 begin
   result := R_CheckTextureNumForName(name);
@@ -760,10 +842,12 @@ begin
     I_Error('R_TextureNumForName(): %s not found', [name]);
 end;
 
+//==============================================================================
 //
 // R_PrecacheLevel
 // Preloads all relevant graphics for the level.
 //
+//==============================================================================
 procedure R_PrecacheLevel;
 var
   flatpresent: PByteArray;
@@ -889,6 +973,11 @@ begin
   memfree(pointer(sprpresent), numspritespresent);
 end;
 
+//==============================================================================
+//
+// R_SetupLevel
+//
+//==============================================================================
 procedure R_SetupLevel;
 begin
   maxvisplane := -1;
@@ -897,6 +986,5 @@ begin
   qz.Clear; // JVAL: WOLF
   qzz.Clear; // JVAL: WOLF
 end;
-
 
 end.

@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -68,14 +68,39 @@ type
     procedure ReduceMemory;
   end;
 
+//==============================================================================
+//
+// gld_InitModels
+//
+//==============================================================================
 procedure gld_InitModels;
 
+//==============================================================================
+//
+// gld_CleanModelTextures
+//
+//==============================================================================
 procedure gld_CleanModelTextures;
 
+//==============================================================================
+//
+// gld_ModelsDone
+//
+//==============================================================================
 procedure gld_ModelsDone;
 
+//==============================================================================
+//
+// gld_Init3DFloors
+//
+//==============================================================================
 procedure gld_Init3DFloors(const lumpname: string);
 
+//==============================================================================
+//
+// gld_Draw3DFloors
+//
+//==============================================================================
 procedure gld_Draw3DFloors;
 
 const
@@ -126,7 +151,6 @@ type
     items: Ptexturemanagetitem_tArray;
   end;
 
-
 type
   modelstate_t = record
     modelidx: integer;  // index to modelmanager item
@@ -152,6 +176,11 @@ const
   MODELINTERPOLATERANGE = 512 * FRACUNIT;
   MODELSHADOWRANGE = 1024 * FRACUNIT;
 
+//==============================================================================
+//
+// gld_GetModelTexture
+//
+//==============================================================================
 function gld_GetModelTexture(const texturename: string): GLuint;
 
 implementation
@@ -173,6 +202,11 @@ uses
   w_pak,
   w_wad;
 
+//==============================================================================
+//
+// gld_AddModel
+//
+//==============================================================================
 function gld_AddModel(const item: modelmanageritem_t): integer;
 var
   i: integer;
@@ -212,6 +246,11 @@ begin
   inc(modelmanager.size);
 end;
 
+//==============================================================================
+//
+// gld_AddModelState
+//
+//==============================================================================
 procedure gld_AddModelState(const item: modelstate_t);
 begin
   if item.state < 0 then
@@ -225,6 +264,11 @@ begin
   inc(nummodelstates);
 end;
 
+//==============================================================================
+//
+// gld_AddModelTexture
+//
+//==============================================================================
 function gld_AddModelTexture(const texturename: string; const mode: Integer = GL_CLAMP): integer;
 var
   i: integer;
@@ -250,6 +294,11 @@ begin
   inc(modeltexturemanager.size);
 end;
 
+//==============================================================================
+//
+// gld_GetModelTexture
+//
+//==============================================================================
 function gld_GetModelTexture(const texturename: string): GLuint;
 var
   id: integer;
@@ -266,10 +315,12 @@ end;
 const
   MODELDEFLUMPNAME = 'MODELDEF';
 
+//==============================================================================
 //
 // SC_ParseModelDefinition
 // JVAL: Parse MODELDEF LUMP
 //
+//==============================================================================
 procedure SC_ParseModelDefinition(const in_text: string);
 var
   sc: TScriptEngine;
@@ -537,10 +588,13 @@ begin
   modelitem.framemerge.Free;
 end;
 
+//==============================================================================
+// SC_ParseModelDefinitions
 //
 // SC_ParceDynamicLights
 // JVAL: Parse all MODELDEF lumps
 //
+//==============================================================================
 procedure SC_ParseModelDefinitions;
 var
   i: integer;
@@ -558,7 +612,11 @@ begin
       modelmanager.items[i].model.ReduceMemory;
 end;
 
-
+//==============================================================================
+//
+// gld_InitModels
+//
+//==============================================================================
 procedure gld_InitModels;
 begin
   modelmanager.size := 0;
@@ -571,6 +629,11 @@ begin
   SC_ParseModelDefinitions;
 end;
 
+//==============================================================================
+//
+// gld_CleanModelTextures
+//
+//==============================================================================
 procedure gld_CleanModelTextures;
 var
   i: integer;
@@ -588,6 +651,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// gld_ModelsDone
+//
+//==============================================================================
 procedure gld_ModelsDone;
 var
   i: integer;
@@ -668,7 +736,11 @@ var
   procs3d: array[0..MAXLEVELPROCS - 1] of Pprocedure;
   numprocs3d: integer;
 
-
+//==============================================================================
+//
+// gld_Init3DFloors
+//
+//==============================================================================
 procedure gld_Init3DFloors(const lumpname: string);
 var
   sc: TScriptEngine;
@@ -869,6 +941,11 @@ begin
   tokens.Free;
 end;
 
+//==============================================================================
+//
+// gld_Draw3DFloors
+//
+//==============================================================================
 procedure gld_Draw3DFloors;
 var
   i, j: integer;
@@ -922,7 +999,6 @@ begin
     end;
   end;
 
-
   if numterrains3d > 0 then
   begin
     glActiveTextureARB(GL_TEXTURE0_ARB);
@@ -963,7 +1039,6 @@ begin
     procs3d[i];
 
 end;
-
 
 //------------------------------------------------------------------------------
 //--------------------------- MD2 Model Class ----------------------------------
@@ -1234,8 +1309,12 @@ begin
 
 end;
 
+//==============================================================================
+// TModel.MergeFrames
+//
 //------------------------------------------------------------------------------
-
+//
+//==============================================================================
 function TModel.MergeFrames(const model: TModel): boolean;
 var
   i: integer;
@@ -1296,6 +1375,11 @@ begin
   memfree(pointer(TheVectorsArray), fNumFrames * SizeOf(GLVertexArraysP));
 end;
 
+//==============================================================================
+//
+// TModel.ReduceMemory
+//
+//==============================================================================
 procedure TModel.ReduceMemory;
 var
   i: integer;
@@ -1331,6 +1415,11 @@ var
   dbg_frm1, dbg_frm2: integer;
   dbg_offset: float;
 
+//==============================================================================
+//
+// TModel.Draw
+//
+//==============================================================================
 procedure TModel.Draw(const frm1, frm2: integer; const offset: float; const shadow: boolean; const shadowplane: float);
 var
   w2: float;
@@ -1390,8 +1479,12 @@ begin
   end;
 end;
 
+//==============================================================================
+// TModel.DrawSimple
+//
 //------------------------------------------------------------------------------
-
+//
+//==============================================================================
 procedure TModel.DrawSimple(const frm: integer; const shadow: boolean; const shadowplane: float);
 var
   i: integer;
@@ -1424,6 +1517,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// TModel.fCalcFrameTop
+//
+//==============================================================================
 procedure TModel.fCalcFrameTop(const frm: integer);
 var
   i: integer;
@@ -1440,11 +1538,21 @@ begin
   fTops[frm] := m;
 end;
 
+//==============================================================================
+//
+// TModel.GetTop
+//
+//==============================================================================
 function TModel.GetTop(const frm: integer): float;
 begin
   result := fTops[frm];
 end;
 
+//==============================================================================
+//
+// TModel.DrawShadow
+//
+//==============================================================================
 procedure TModel.DrawShadow(const frm: Integer);
 var
   i: integer;

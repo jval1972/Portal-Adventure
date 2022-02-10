@@ -51,19 +51,81 @@ var
   mobjinfo: PmobjinfoArray_t = nil;
   nummobjtypes: integer = Ord(DO_NUMMOBJTYPES);
 
+//==============================================================================
+//
+// Info_Init
+//
+//==============================================================================
 procedure Info_Init(const usethinkers: boolean);
 
+//==============================================================================
+//
+// Info_GetNewState
+//
+//==============================================================================
 function Info_GetNewState: integer;
+
+//==============================================================================
+//
+// Info_GetNewMobjInfo
+//
+//==============================================================================
 function Info_GetNewMobjInfo: integer;
+
+//==============================================================================
+//
+// Info_GetSpriteNumForName
+//
+//==============================================================================
 function Info_GetSpriteNumForName(const name: string): integer;
+
+//==============================================================================
+//
+// Info_CheckSpriteNumForName
+//
+//==============================================================================
 function Info_CheckSpriteNumForName(const name: string): integer;
+
+//==============================================================================
+//
+// Info_GetMobjNumForName
+//
+//==============================================================================
 function Info_GetMobjNumForName(const name: string): integer;
+
+//==============================================================================
+//
+// Info_GetMobjNumForDoomNum
+//
+//==============================================================================
 function Info_GetMobjNumForDoomNum(const dn: integer): integer;
+
+//==============================================================================
+//
+// Info_SetMobjName
+//
+//==============================================================================
 procedure Info_SetMobjName(const mobj_no: integer; const name: string);
+
+//==============================================================================
+//
+// Info_GetMobjName
+//
+//==============================================================================
 function Info_GetMobjName(const mobj_no: integer): string;
 
+//==============================================================================
+//
+// Info_ShutDown
+//
+//==============================================================================
 procedure Info_ShutDown;
 
+//==============================================================================
+//
+// Info_GetInheritance
+//
+//==============================================================================
 function Info_GetInheritance(const imo: Pmobjinfo_t): integer;
 
 implementation
@@ -102,6 +164,11 @@ const // Doom Original Sprite Names
 var // Doom Original mobjinfo
   DO_mobjinfo: array[0..Ord(DO_NUMMOBJTYPES) - 1] of mobjinfo_t;
 
+//==============================================================================
+//
+// Info_Init
+//
+//==============================================================================
 procedure Info_Init(const usethinkers: boolean);
 var
   i: integer;
@@ -137,6 +204,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// Info_GetNewState
+//
+//==============================================================================
 function Info_GetNewState: integer;
 begin
   realloc(pointer(states), numstates * SizeOf(state_t), (numstates + 1) * SizeOf(state_t));
@@ -145,6 +217,11 @@ begin
   inc(numstates);
 end;
 
+//==============================================================================
+//
+// Info_GetNewMobjInfo
+//
+//==============================================================================
 function Info_GetNewMobjInfo: integer;
 begin
   realloc(pointer(mobjinfo), nummobjtypes * SizeOf(mobjinfo_t), (nummobjtypes + 1) * SizeOf(mobjinfo_t));
@@ -155,6 +232,11 @@ begin
   inc(nummobjtypes);
 end;
 
+//==============================================================================
+//
+// Info_GetSpriteNumForName
+//
+//==============================================================================
 function Info_GetSpriteNumForName(const name: string): integer;
 var
   spr_name: string;
@@ -165,7 +247,6 @@ begin
 
   if (result >= 0) and (result < numsprites) and (itoa(result) = name) then
     exit;
-
 
   if Length(name) <> 4 then
     I_Error('Info_GetSpriteNumForName(): Sprite name "%s" must have 4 characters', [name]);
@@ -192,6 +273,11 @@ begin
   sprnames[numsprites] := 0;
 end;
 
+//==============================================================================
+//
+// Info_CheckSpriteNumForName
+//
+//==============================================================================
 function Info_CheckSpriteNumForName(const name: string): integer;
 var
   spr_name: string;
@@ -202,7 +288,6 @@ begin
 
   if (result >= 0) and (result < numsprites) and (itoa(result) = name) then
     exit;
-
 
   if Length(name) <> 4 then
     I_Error('Info_CheckSpriteNumForName(): Sprite name "%s" must have 4 characters', [name]);
@@ -224,6 +309,11 @@ begin
   result := -1;
 end;
 
+//==============================================================================
+//
+// Info_GetMobjNumForName
+//
+//==============================================================================
 function Info_GetMobjNumForName(const name: string): integer;
 var
   mobj_name: string;
@@ -272,6 +362,11 @@ begin
   result := -1;
 end;
 
+//==============================================================================
+//
+// Info_GetMobjNumForDoomNum
+//
+//==============================================================================
 function Info_GetMobjNumForDoomNum(const dn: integer): integer;
 var
   i: integer;
@@ -287,6 +382,11 @@ begin
   result := -1;
 end;
 
+//==============================================================================
+//
+// Info_SetMobjName
+//
+//==============================================================================
 procedure Info_SetMobjName(const mobj_no: integer; const name: string);
 var
   i: integer;
@@ -301,6 +401,11 @@ begin
     mobjinfo[mobj_no].name[i] := #0;
 end;
 
+//==============================================================================
+//
+// Info_GetMobjName
+//
+//==============================================================================
 function Info_GetMobjName(const mobj_no: integer): string;
 var
   i: integer;
@@ -318,6 +423,11 @@ begin
     end;
 end;
 
+//==============================================================================
+//
+// Info_ShutDown
+//
+//==============================================================================
 procedure Info_ShutDown;
 var
   i: integer;
@@ -337,6 +447,11 @@ begin
   memfree(pointer(sprnames), numsprites * 4);
 end;
 
+//==============================================================================
+//
+// Info_GetInheritance
+//
+//==============================================================================
 function Info_GetInheritance(const imo: Pmobjinfo_t): integer;
 var
   mo: Pmobjinfo_t;

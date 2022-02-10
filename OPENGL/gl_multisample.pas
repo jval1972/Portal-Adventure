@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -50,10 +50,20 @@ var
   arbMultisampleSupported: boolean = false;
   arbMultisampleFormat: integer = 0;
 
+//==============================================================================
+//
+// InitMultisample
+//
+//==============================================================================
 function InitMultisample(hInstance: HINST; hWnd: HWND; pfd: PIXELFORMATDESCRIPTOR): boolean;
 
 implementation
 
+//==============================================================================
+//
+// WGLisExtensionSupported
+//
+//==============================================================================
 function WGLisExtensionSupported(const extension: string): boolean;
 var
   wglGetExtString: function(hdc: HDC): Pchar; stdcall;
@@ -78,6 +88,11 @@ begin
   Result := true;
 end;
 
+//==============================================================================
+//
+// InitMultisample
+//
+//==============================================================================
 function InitMultisample(hInstance: HINST; hWnd: HWND; pfd: PIXELFORMATDESCRIPTOR): boolean;
 var
   wglChoosePixelFormatARB: function(hdc: HDC; const piAttribIList: PGLint; const pfAttribFList: PGLfloat; nMaxFormats: GLuint; piFormats: PGLint; nNumFormats: PGLuint): BOOL; stdcall;

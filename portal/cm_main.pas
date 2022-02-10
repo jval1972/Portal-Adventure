@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -33,16 +33,46 @@ uses
   t_main,
   p_mobj_h;
 
+//==============================================================================
+//
+// CM_Init
+//
+//==============================================================================
 procedure CM_Init;
 
+//==============================================================================
+//
+// CM_InitLevel
+//
+//==============================================================================
 procedure CM_InitLevel;
 
+//==============================================================================
+//
+// CM_ShutDown
+//
+//==============================================================================
 procedure CM_ShutDown;
 
+//==============================================================================
+//
+// CM_DialogID
+//
+//==============================================================================
 function CM_DialogID(const s: string): integer;
 
+//==============================================================================
+//
+// CM_PrepareComicDialog
+//
+//==============================================================================
 procedure CM_PrepareComicDialog(const id: integer);
 
+//==============================================================================
+//
+// CM_ExecComicDialog
+//
+//==============================================================================
 procedure CM_ExecComicDialog(const actor: Pmobj_t; const id: integer);
 
 type
@@ -117,10 +147,25 @@ var
   numdialogs: integer;
   cmtexts: TDStringList;
 
+//==============================================================================
+//
+// CM_DecDlgRef
+//
+//==============================================================================
 procedure CM_DecDlgRef(const d: Pdialogdef_t);
 
+//==============================================================================
+//
+// CM_ExecComicDialogInFuture
+//
+//==============================================================================
 procedure CM_ExecComicDialogInFuture(const actor: Pmobj_t; const id: integer; const tics: integer);
 
+//==============================================================================
+//
+// CM_Ticker
+//
+//==============================================================================
 procedure CM_Ticker;
 
 var
@@ -139,7 +184,6 @@ const
 
 var
   futuredialogs: array[0..NUMFUTUREDIALOGS - 1] of futuredialog_t;
-
 
 implementation
 
@@ -198,6 +242,11 @@ const
 const
   COMICDEFLUMPNAME = 'COMICDEF';
 
+//==============================================================================
+//
+// CM_AddBubble
+//
+//==============================================================================
 procedure CM_AddBubble(const b: bubbledef_t);
 begin
   realloc(pointer(bubbles), numbubbles * SizeOf(bubbledef_t), (numbubbles + 1) * SizeOf(bubbledef_t));
@@ -205,6 +254,11 @@ begin
   Inc(numbubbles);
 end;
 
+//==============================================================================
+//
+// CM_FindBubble
+//
+//==============================================================================
 function CM_FindBubble(const s: string): integer;
 var
   i: integer;
@@ -218,6 +272,11 @@ begin
   result := -1;
 end;
 
+//==============================================================================
+//
+// CM_FindFont
+//
+//==============================================================================
 function CM_FindFont(const s: string): integer;
 var
   i: integer;
@@ -231,6 +290,11 @@ begin
     end;
 end;
 
+//==============================================================================
+//
+// CM_AddFont
+//
+//==============================================================================
 procedure CM_AddFont(const f: fontdef_t);
 begin
   realloc(pointer(fonts), numfonts * SizeOf(fontdef_t), (numfonts + 1) * SizeOf(fontdef_t));
@@ -238,6 +302,11 @@ begin
   Inc(numfonts);
 end;
 
+//==============================================================================
+//
+// CM_AddCharSet
+//
+//==============================================================================
 function CM_AddCharSet(const s: string): integer;
 begin
   result := charsets.IndexOf(s);
@@ -245,6 +314,11 @@ begin
     result := charsets.Add(s)
 end;
 
+//==============================================================================
+//
+// CM_AddDialog
+//
+//==============================================================================
 procedure CM_AddDialog(const d: dialogdef_t);
 var
   bubble: Pbubbledef_t;
@@ -273,6 +347,11 @@ begin
   Inc(numdialogs);
 end;
 
+//==============================================================================
+//
+// SC_ParseComicDef
+//
+//==============================================================================
 procedure SC_ParseComicDef(const in_text: string);
 var
   sc: TScriptEngine;
@@ -601,6 +680,7 @@ end;
 // SC_ParseComicDefinitions
 // JVAL: Parse all COMICDEF lumps
 //
+//==============================================================================
 procedure SC_ParseComicDefinitions;
 var
   i: integer;
@@ -614,12 +694,21 @@ begin
   PAK_StringIterator(COMICDEFLUMPNAME + '.txt', SC_ParseComicDef);
 end;
 
-
+//==============================================================================
+//
+// CM_InitLevel
+//
+//==============================================================================
 procedure CM_InitLevel;
 begin
   ZeroMemory(@futuredialogs, SizeOf(futuredialogs));
 end;
 
+//==============================================================================
+//
+// CM_Init
+//
+//==============================================================================
 procedure CM_Init;
 begin
   CM_InitLevel;
@@ -642,6 +731,11 @@ begin
   SC_ParseComicDefinitions;
 end;
 
+//==============================================================================
+//
+// CM_ShutDown
+//
+//==============================================================================
 procedure CM_ShutDown;
 var
   i, j: integer;
@@ -675,6 +769,11 @@ begin
   charsets.Free;
 end;
 
+//==============================================================================
+//
+// CM_DialogID
+//
+//==============================================================================
 function CM_DialogID(const s: string): integer;
 var
   i: integer;
@@ -691,6 +790,11 @@ begin
   result := -1;
 end;
 
+//==============================================================================
+//
+// string2list
+//
+//==============================================================================
 procedure string2list(const s: string; const l: TDStringList);
 var
   i: integer;
@@ -733,6 +837,11 @@ const
   TEX_WIDTH = 512;
   TEX_HEIGHT = 512;
 
+//==============================================================================
+//
+// CM_PrepareComicDialog
+//
+//==============================================================================
 procedure CM_PrepareComicDialog(const id: integer);
 var
   dlg: Pdialogdef_t;
@@ -861,6 +970,11 @@ begin
   Inc(dlg.usability);
 end;
 
+//==============================================================================
+//
+// CM_ExecComicDialog
+//
+//==============================================================================
 procedure CM_ExecComicDialog(const actor: Pmobj_t; const id: integer);
 var
   mo: Pmobj_t;
@@ -886,6 +1000,11 @@ begin
   mo.target := actor;
 end;
 
+//==============================================================================
+//
+// CM_ExecComicDialogInFuture
+//
+//==============================================================================
 procedure CM_ExecComicDialogInFuture(const actor: Pmobj_t; const id: integer; const tics: integer);
 var
   i: integer;
@@ -910,7 +1029,11 @@ begin
   end;
 end;
 
-
+//==============================================================================
+//
+// CM_Ticker
+//
+//==============================================================================
 procedure CM_Ticker;
 var
   i: integer;
@@ -945,9 +1068,13 @@ begin
     currentthinker := currentthinker.next;
   end;     }
 
-
 end;
 
+//==============================================================================
+//
+// CM_DecDlgRef
+//
+//==============================================================================
 procedure CM_DecDlgRef(const d: Pdialogdef_t);
 begin
   if d = nil then

@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -218,11 +218,9 @@ const
   KEY_PAGEUP = $80 + $46;
   KEY_INS = $80 + $47;
 
-
   KEY_HOME = $80 + $48;
   KEY_END = $80 + $49;
   KEY_DELETE = $80 + $4a;
-
 
   KEY_LALT = KEY_RALT;
 

@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2019 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -34,9 +34,19 @@ uses
   r_data,
   r_defs;
 
+//==============================================================================
+// R_ClearPlanes
+//
 //-----------------------------------------------------------------------------
+//
+//==============================================================================
 procedure R_ClearPlanes;
 
+//==============================================================================
+//
+// R_FindPlane
+//
+//==============================================================================
 function R_FindPlane(height: fixed_t; picnum: integer; lightlevel: integer; xoffs, yoffs: fixed_t): Pvisplane_t;
 
 var
@@ -85,16 +95,19 @@ var
   visplanes: array[0..MAXVISPLANES - 1] of visplane_t;
   lastvisplane: integer;
 
+//==============================================================================
 //
 // R_ClearPlanes
 // At begining of frame.
 //
+//==============================================================================
 procedure R_ClearPlanes;
 begin
   lastvisplane := 0;
   lastopening := 0;
 end;
 
+//==============================================================================
 //
 // R_NewVisPlane
 //
@@ -102,6 +115,7 @@ end;
 //   Create a new visplane
 //   Uses zone memory to allocate top and bottom arrays
 //
+//==============================================================================
 procedure R_NewVisPlane;
 begin
   if lastvisplane > maxvisplane then
@@ -109,9 +123,11 @@ begin
   inc(lastvisplane);
 end;
 
+//==============================================================================
 //
 // R_FindPlane
 //
+//==============================================================================
 function R_FindPlane(height: fixed_t; picnum: integer; lightlevel: integer; xoffs, yoffs: fixed_t): Pvisplane_t;
 var
   check: integer;

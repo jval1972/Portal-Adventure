@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -34,11 +34,26 @@ uses
   p_mobj_h,
   d_player;
 
+//==============================================================================
+//
+// P_PlayerThink
+//
+//==============================================================================
 procedure P_PlayerThink(player: Pplayer_t);
 
+//==============================================================================
+//
+// P_CalcHeight
+//
+//==============================================================================
 procedure P_CalcHeight(player: Pplayer_t);
 
+//==============================================================================
+// P_PlayerFaceMobj
+//
 // JVAL: XMEN
+//
+//==============================================================================
 procedure P_PlayerFaceMobj(const player: Pplayer_t; const face: Pmobj_t; const ticks: integer);
 
 implementation
@@ -78,10 +93,12 @@ const
 var
   onground: boolean;
 
+//==============================================================================
 //
 // P_Thrust
 // Moves the given origin along a given angle.
 //
+//==============================================================================
 procedure P_Thrust(player: Pplayer_t; angle: angle_t; const move: fixed_t);
 begin
   angle := angle shr ANGLETOFINESHIFT;
@@ -90,10 +107,12 @@ begin
   player.mo.momy := player.mo.momy + FixedMul(move, finesine[angle]);
 end;
 
+//==============================================================================
 //
 // P_CalcHeight
 // Calculate the walking / running height adjustment
 //
+//==============================================================================
 procedure P_CalcHeight(player: Pplayer_t);
 var
   angle: integer;
@@ -159,9 +178,12 @@ begin
     player.viewz := player.mo.ceilingz - 4 * FRACUNIT;
 end;
 
+//==============================================================================
+// PlayerInIdleFrame
 //
 // P_MovePlayer
 //
+//==============================================================================
 function PlayerInIdleFrame(const p: Pplayer_t): Boolean;
 begin
   if p.mo.state = @states[Ord(S_PLAY)] then
@@ -177,6 +199,11 @@ begin
   result := false;
 end;
 
+//==============================================================================
+//
+// P_MovePlayer
+//
+//==============================================================================
 procedure P_MovePlayer(player: Pplayer_t);
 var
   cmd: Pticcmd_t;
@@ -205,7 +232,6 @@ begin
     else if cmd.forwardmove < -forwardmove[1] div 2 then
       cmd.forwardmove := -forwardmove[1] div 2;
   end;
-
 
   player.mo.angle := player.mo.angle + _SHLW(cmd.angleturn, 16);
 
@@ -366,7 +392,6 @@ begin
     player.mo.momz := player.mo.momz * 11 div 12;
   end;
 
-
   if Psubsector_t(player.mo.subsector).sector.tag = 666 then
   begin
     player.mo.momx := 0;
@@ -388,12 +413,13 @@ begin
   end;
 end;
 
+//==============================================================================
 //
 // P_DeathThink
 // Fall on your face when dying.
 // Decrease POV height to floor height.
 //
-
+//==============================================================================
 procedure P_DeathThink(player: Pplayer_t);
 var
   angle: angle_t;
@@ -446,7 +472,12 @@ begin
     player.playerstate := PST_REBORN; }
 end;
 
+//==============================================================================
+// P_AngleTarget
+//
 // JVAL: XMEN
+//
+//==============================================================================
 procedure P_AngleTarget(player: Pplayer_t);
 var
   ticks: LongWord;
@@ -472,9 +503,11 @@ begin
   Dec(player.angletargetticks);
 end;
 
+//==============================================================================
 //
 // P_PlayerThink
 //
+//==============================================================================
 procedure P_PlayerThink(player: Pplayer_t);
 var
   cmd: Pticcmd_t;
@@ -513,7 +546,6 @@ begin
     cmd.sidemove := 0;
     player.mo.flags := player.mo.flags and (not MF_JUSTATTACKED);
   end;
-
 
   if player.playerstate = PST_DEAD then
   begin
@@ -561,13 +593,11 @@ begin
           newweapon := wp_fist;
     end;
 
-
     if (gamemode = commercial) and
        (newweapon = wp_shotgun) and
        (player.weaponowned[Ord(wp_supershotgun)] <> 0) and
        (player.readyweapon <> wp_supershotgun) then
       newweapon := wp_supershotgun;
-
 
     if (player.weaponowned[Ord(newweapon)] <> 0) and
        (newweapon <> player.readyweapon) then
@@ -653,7 +683,12 @@ begin
 //  A_PlayerWalk(player);
 end;
 
+//==============================================================================
+// P_PlayerFaceMobj
+//
 // JVAL
+//
+//==============================================================================
 procedure P_PlayerFaceMobj(const player: Pplayer_t; const face: Pmobj_t; const ticks: integer);
 begin
   player.angletargetx := face.x;

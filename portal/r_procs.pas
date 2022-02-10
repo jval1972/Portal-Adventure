@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -40,10 +40,25 @@ type
 const
   NUMRPROCS = 128;
 
+//==============================================================================
+//
+// R_InitProcs
+//
+//==============================================================================
 procedure R_InitProcs;
 
+//==============================================================================
+//
+// R_FindProc
+//
+//==============================================================================
 function R_FindProc(const name: string): Pprocedure;
 
+//==============================================================================
+//
+// R_E1M6Sealevel
+//
+//==============================================================================
 function R_E1M6Sealevel: integer;
 
 implementation
@@ -68,6 +83,11 @@ uses
 var
   rprocs: array[0..NUMRPROCS - 1] of rproc_t;
 
+//==============================================================================
+//
+// R_LevelTime
+//
+//==============================================================================
 function R_LevelTime: float;
 begin
   if isgamesuspended then
@@ -76,6 +96,11 @@ begin
     result := leveltime + ticfrac / FRACUNIT;
 end;
 
+//==============================================================================
+//
+// R_BindProcTexture
+//
+//==============================================================================
 procedure R_BindProcTexture(const texname: string; var tex: GLuint);
 begin
   if tex = 0 then
@@ -83,21 +108,41 @@ begin
   glBindTexture(GL_TEXTURE_2D, tex);
 end;
 
+//==============================================================================
+//
+// X
+//
+//==============================================================================
 function X(const xx: float): float;
 begin
   result := -xx / MAP_COEFF;
 end;
 
+//==============================================================================
+//
+// Y
+//
+//==============================================================================
 function Y(const yy: float): float;
 begin
   result := yy / MAP_COEFF;
 end;
 
+//==============================================================================
+//
+// Z
+//
+//==============================================================================
 function Z(const zz: float): float;
 begin
   result := zz / MAP_COEFF;
 end;
 
+//==============================================================================
+//
+// R_Vertex
+//
+//==============================================================================
 procedure R_Vertex(const xx, yy, zz: float);
 begin
   glVertex3f(X(xx), Z(zz), Y(yy));
@@ -106,6 +151,11 @@ end;
 var
   waterfalltexture: GLuint = 0;
 
+//==============================================================================
+//
+// R_E1M5WaterFall
+//
+//==============================================================================
 procedure R_E1M5WaterFall;
 var
   dv: float;
@@ -150,18 +200,26 @@ begin
 
   glEnd;
 
-
 end;
-
 
 var
   e1m6sealevel: fixed_t = 0;
 
+//==============================================================================
+//
+// R_E1M6Sealevel
+//
+//==============================================================================
 function R_E1M6Sealevel: integer;
 begin
   result := e1m6sealevel;
 end;
 
+//==============================================================================
+//
+// R_E1M6Sea
+//
+//==============================================================================
 procedure R_E1M6Sea;
 var
   dv: float;
@@ -253,6 +311,11 @@ end;
 var
   e1m6crate1tex: GLuint = 0;
 
+//==============================================================================
+//
+// R_E1M6Crate
+//
+//==============================================================================
 procedure R_E1M6Crate;
 begin
   if viewz > 16 * FRACUNIT then
@@ -303,6 +366,11 @@ end;
 var
   e1m6gstex: GLuint = 0;
 
+//==============================================================================
+//
+// R_E1M6GS
+//
+//==============================================================================
 procedure R_E1M6GS;
 begin
   if viewz < -16 * FRACUNIT then
@@ -328,7 +396,6 @@ begin
 
 end;
 
-
 ////////////////////////////////////////////////////////////////////////////////
 // Procedural generation
 ////////////////////////////////////////////////////////////////////////////////
@@ -341,7 +408,11 @@ type
   rprocvertex_tArray = array[0..$FF] of rprocvertex_t;
   Prprocvertex_tArray = ^rprocvertex_tArray;
 
-
+//==============================================================================
+//
+// QuickSortVertexes
+//
+//==============================================================================
 procedure QuickSortVertexes(const A: Prprocvertex_tArray; iLo, iHi: Integer) ;
 var
   Lo, Hi: Integer;
@@ -367,7 +438,6 @@ begin
   if Lo < iHi then QuickSortVertexes(A, Lo, iHi);
 end;
 
-
 type
   rproclayerparams_t = record
     height: fixed_t;
@@ -385,6 +455,8 @@ type
 const
   MAXLAYERS = 5;
 
+//==============================================================================
+// R_CreateProceduralRock
 //
 // params:
 //
@@ -393,6 +465,7 @@ const
 // <height> <height_rnd> <width> <width_rnd>
 // ....
 //
+//==============================================================================
 procedure R_CreateProceduralRock(const xx, yy: fixed_t; const sparams: string; const rndbase: integer = 0; const top: Boolean = True);
 var
   flayers: array[0..MAXLAYERS - 1] of rproclayer_t;
@@ -485,7 +558,6 @@ begin
     vv := vv + P_Distance(vertexes[j1].x - vertexes[j].x, vertexes[j1].y - vertexes[j].y) / (64 * FRACUNIT);
   end;
 
-
 // Create additional layers
   rnd := rndbase;
   basez := sec.floorheight;
@@ -505,7 +577,6 @@ begin
       layer.vertexes[j].angle := prevlayer.vertexes[j].angle;
     end;
   end;
-
 
     glBegin(GL_QUADS);
 
@@ -559,6 +630,11 @@ var
   e1m7grondtex: GLuint = 0;
   list1: GLuint = 0;
 
+//==============================================================================
+//
+// R_E1M7Rocks
+//
+//==============================================================================
 procedure R_E1M7Rocks;
 begin
 
@@ -603,8 +679,11 @@ var
   e1m8kal: GLuint = 0;
   Tunnels: array[0..TUNEL_LENGTH, 0..TUNEL_LENGTH] of GLVertex;
 
-
-
+//==============================================================================
+//
+// R_E1M8Drawer
+//
+//==============================================================================
 procedure R_E1M8Drawer;
 var
   angle: float;
@@ -661,15 +740,12 @@ begin
     glEnd();
   end;
 
-
   glMatrixMode(GL_MODELVIEW);
   glPopMatrix;
-
 
   glEnable(GL_LINE_SMOOTH);
   glLineWidth(SCREENWIDTH / 320);
   glColor3f(1.0, 1.0, 0.2);
-
 
   glBegin(GL_LINES);
     for i := 0 to 60 do
@@ -685,6 +761,11 @@ begin
   glEnd;
 end;
 
+//==============================================================================
+//
+// R_InitProcs
+//
+//==============================================================================
 procedure R_InitProcs;
 var
   i: integer;
@@ -709,7 +790,11 @@ begin
   rprocs[5].name := strupper('E1M8Drawer');
 end;
 
-
+//==============================================================================
+//
+// R_FindProc
+//
+//==============================================================================
 function R_FindProc(const name: string): Pprocedure;
 var
   i: integer;
@@ -726,6 +811,5 @@ begin
   end;
   result := nil;
 end;
-
 
 end.

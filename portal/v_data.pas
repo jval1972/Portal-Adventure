@@ -83,6 +83,11 @@ var
 const
   PLAYPAL = 'PLAYPAL';
 
+//==============================================================================
+//
+// V_ReadPalette
+//
+//==============================================================================
 function V_ReadPalette(tag: integer): PByteArray;
 
 var
@@ -102,8 +107,13 @@ uses
 const
   playpalnum: integer = -2;
 
+//==============================================================================
+// V_ReadPalette
+//
 // JVAL
 // Reads the 'PLAYPAL' lump, optimized, keep lump number
+//
+//==============================================================================
 function V_ReadPalette(tag: integer): PByteArray;
 begin
   if playpalnum < 0 then

@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -41,14 +41,39 @@ uses
 var
   activeceilings: array[0..MAXCEILINGS - 1] of Pceiling_t;
 
+//==============================================================================
+//
+// T_MoveCeiling
+//
+//==============================================================================
 procedure T_MoveCeiling(ceiling: Pceiling_t);
 
+//==============================================================================
+//
+// EV_DoCeiling
+//
+//==============================================================================
 function EV_DoCeiling(line: Pline_t; _type: ceiling_e): integer;
 
+//==============================================================================
+//
+// P_AddActiveCeiling
+//
+//==============================================================================
 procedure P_AddActiveCeiling(c: Pceiling_t);
 
+//==============================================================================
+//
+// EV_CeilingCrushStop
+//
+//==============================================================================
 function EV_CeilingCrushStop(line: Pline_t): integer;
 
+//==============================================================================
+//
+// P_ActivateInStasisCeiling
+//
+//==============================================================================
 function P_ActivateInStasisCeiling(line: Pline_t): integer;
 
 implementation
@@ -62,9 +87,12 @@ uses
   p_setup,
   p_floor;
 
+//==============================================================================
+// P_AddActiveCeiling
 //
 // Add an active ceiling
 //
+//==============================================================================
 procedure P_AddActiveCeiling(c: Pceiling_t);
 var
   i: integer;
@@ -78,9 +106,12 @@ begin
   I_Warning('P_AddActiveCeiling(): Can not add ceiling, limit %d reached'#13#10, [MAXCEILINGS]);
 end;
 
+//==============================================================================
+// P_RemoveActiveCeiling
 //
 // Remove a ceiling's thinker
 //
+//==============================================================================
 procedure P_RemoveActiveCeiling(c: Pceiling_t);
 var
   i: integer;
@@ -95,9 +126,12 @@ begin
     end;
 end;
 
+//==============================================================================
+// P_ActivateInStasisCeiling
 //
 // Restart a ceiling that's in-stasis
 //
+//==============================================================================
 function P_ActivateInStasisCeiling(line: Pline_t): integer;
 var
   i: integer;
@@ -114,10 +148,11 @@ begin
     end;
 end;
 
+//==============================================================================
 //
 // T_MoveCeiling
 //
-
+//==============================================================================
 procedure T_MoveCeiling(ceiling: Pceiling_t);
 var
   res: result_e;
@@ -261,10 +296,12 @@ begin
   end;
 end;
 
+//==============================================================================
 //
 // EV_DoCeiling
 // Move a ceiling up/down and all around!
 //
+//==============================================================================
 function EV_DoCeiling(line: Pline_t; _type: ceiling_e): integer;
 var
   initial: boolean;
@@ -364,10 +401,12 @@ begin
   end;
 end;
 
+//==============================================================================
 //
 // EV_CeilingCrushStop
 // Stop a ceiling from crushing!
 //
+//==============================================================================
 function EV_CeilingCrushStop(line: Pline_t): integer;
 var
   i: integer;

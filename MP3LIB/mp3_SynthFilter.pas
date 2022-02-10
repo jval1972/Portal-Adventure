@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -229,9 +229,13 @@ const
      0.600219727, -0.090927124,  0.084182739, -0.030517578,
      0.007919312, -0.003326416,  0.000473022,  0.000015259);
 
-
 { TSynthesisFilter }
 
+//==============================================================================
+//
+// TSynthesisFilter.CalculatePCMSamples
+//
+//==============================================================================
 procedure TSynthesisFilter.CalculatePCMSamples(Buffer: TOBuffer);
 begin
   ComputeNewV;
@@ -246,6 +250,11 @@ begin
   FillChar(FSamples, Sizeof(FSamples), 0);
 end;
 
+//==============================================================================
+//
+// TSynthesisFilter.Clip
+//
+//==============================================================================
 function TSynthesisFilter.Clip(Sample: Single): SmallInt;
 var
   Samp: Integer;
@@ -259,6 +268,11 @@ begin
     result := Samp;
 end;
 
+//==============================================================================
+//
+// TSynthesisFilter.ComputeNewV
+//
+//==============================================================================
 procedure TSynthesisFilter.ComputeNewV;
 var
   new_v: array[0..31] of Single;  // new V[0-15] and V[33-48] of Figure 3-A.2 in ISO DIS 11172-3
@@ -564,6 +578,11 @@ begin
   x2[496] := x1[16];
 end;
 
+//==============================================================================
+//
+// TSynthesisFilter.ComputePCMSample
+//
+//==============================================================================
 procedure TSynthesisFilter.ComputePCMSample(Buffer: TOBuffer);
 var vp: PSingleArray;
     dp: PSingleArray;
@@ -1048,12 +1067,22 @@ begin
   FScalefactor := ScaleFactor;
 end;
 
+//==============================================================================
+//
+// TSynthesisFilter.InputSample
+//
+//==============================================================================
 procedure TSynthesisFilter.InputSample(Sample: Single;
   SubBandNumber: Cardinal);
 begin
   FSamples[subbandnumber] := sample;
 end;
 
+//==============================================================================
+//
+// TSynthesisFilter.Reset
+//
+//==============================================================================
 procedure TSynthesisFilter.Reset;
 begin
   FillChar(FV1, sizeof(FV1), 0);

@@ -59,7 +59,6 @@ uses
   t_main,
   v_video;
 
-
 const
   DFS_NEVER = 0;
   DFS_SINGLEPLAYER = 1;
@@ -626,7 +625,6 @@ const
      defaultbvalue: false;
      _type: tBoolean),
 
-
      // Navigation
     (name: 'Controls';
      location: nil;
@@ -783,7 +781,6 @@ const
      defaultbvalue: false;
       _type: tInteger),
 
-
      // JVAL Look LEFT/RIGHT
     (name: 'key_lookright';
      location: @key_lookright;
@@ -811,7 +808,6 @@ const
      defaultivalue: KEY_ENTER;
      defaultbvalue: false;
      _type: tInteger),}
-
 
      // Mouse
 

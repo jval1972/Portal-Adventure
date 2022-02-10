@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -47,10 +47,39 @@ const
 var
   maxvissprite: integer;
 
+//==============================================================================
+//
+// R_AddSprites
+//
+//==============================================================================
 procedure R_AddSprites(sec: Psector_t);
+
+//==============================================================================
+//
+// R_InitSprites
+//
+//==============================================================================
 procedure R_InitSprites(namelist: PIntegerArray);
+
+//==============================================================================
+//
+// R_ClearSprites
+//
+//==============================================================================
 procedure R_ClearSprites;
+
+//==============================================================================
+//
+// R_DrawPlayer
+//
+//==============================================================================
 procedure R_DrawPlayer;
+
+//==============================================================================
+//
+// R_ProjectSprite2
+//
+//==============================================================================
 procedure R_ProjectSprite2(thing: Pmobj_t);
 
 var
@@ -131,10 +160,12 @@ var
   maxframe: integer;
   spritename: string;
 
+//==============================================================================
 //
 // R_InstallSpriteLump
 // Local function for R_InitSprites.
 //
+//==============================================================================
 procedure R_InstallSpriteLump(lump: integer;
   frame: LongWord; rotation: LongWord; flipped: boolean);
 var
@@ -175,6 +206,7 @@ begin
   sprtemp[frame].flip[rotation] := flipped;
 end;
 
+//==============================================================================
 //
 // R_InitSpriteDefs
 // Pass a null terminated list of sprite names
@@ -190,6 +222,7 @@ end;
 //  letter/number appended.
 // The rotation character can be 0 to signify no rotations.
 //
+//==============================================================================
 procedure R_InitSpriteDefs(namelist: PIntegerArray);
 
   procedure sprtempreset;
@@ -321,10 +354,12 @@ var
   vissprites: array[0..MAXVISSPRITES - 1] of Pvissprite_t;
   vissprite_p: integer;
 
+//==============================================================================
 //
 // R_InitSprites
 // Called at program start.
 //
+//==============================================================================
 procedure R_InitSprites(namelist: PIntegerArray);
 var
   i: integer;
@@ -335,10 +370,12 @@ begin
   R_InitSpriteDefs(namelist);
 end;
 
+//==============================================================================
 //
 // R_ClearSprites
 // Called at frame start.
 //
+//==============================================================================
 procedure R_ClearSprites;
 begin
   vissprite_p := 0;
@@ -352,6 +389,11 @@ end;
 var
   overflowsprite: vissprite_t;
 
+//==============================================================================
+//
+// R_NewVisSprite
+//
+//==============================================================================
 function R_NewVisSprite: Pvissprite_t;
 begin
   if vissprite_p = MAXVISSPRITES then
@@ -378,6 +420,11 @@ var
   dbg_sprite: integer;
   dbg_lump: Integer = -1;
 
+//==============================================================================
+//
+// R_ProjectSprite
+//
+//==============================================================================
 procedure R_ProjectSprite(thing: Pmobj_t);
 var
   tr_x: fixed_t;
@@ -514,7 +561,6 @@ begin
 
     gld_AddSprite(vis); // JVAL: OPENGL
 
-
     exit;
   end;
   sprdef := @sprites[thing.sprite];
@@ -608,6 +654,11 @@ begin
   gld_AddSprite(vis); // JVAL: OPENGL
 end;
 
+//==============================================================================
+//
+// R_ProjectSprite2
+//
+//==============================================================================
 procedure R_ProjectSprite2(thing: Pmobj_t);
 var
   tr_x: fixed_t;
@@ -700,7 +751,6 @@ begin
 
     gld_AddSprite(vis); // JVAL: OPENGL
 
-
     exit;
   end;
   sprdef := @sprites[thing.sprite];
@@ -771,13 +821,18 @@ begin
   gld_AddSprite(vis); // JVAL: OPENGL
 end;
 
-
 //
 // R_AddSprites
 // During BSP traversal, this adds sprites by sector.
 //
 var
   dbg_sector: Psector_t;
+
+//==============================================================================
+//
+// R_AddSprites
+//
+//==============================================================================
 procedure R_AddSprites(sec: Psector_t);
 var
   thing: Pmobj_t;
@@ -812,9 +867,11 @@ begin
   end;
 end;
 
+//==============================================================================
 //
 // R_DrawPSprite
 //
+//==============================================================================
 procedure R_DrawPSprite(psp: Ppspdef_t);
 var
   tx: fixed_t;
@@ -895,9 +952,11 @@ begin
   gld_DrawWeapon(lump, vis, lightlevel); // JVAL OPENGL
 end;
 
+//==============================================================================
 //
 // R_DrawPlayerSprites
 //
+//==============================================================================
 procedure R_DrawPlayerSprites;
 var
   i: integer;
@@ -931,6 +990,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// R_DrawPlayer
+//
+//==============================================================================
 procedure R_DrawPlayer;
 var
   old_centery: fixed_t;

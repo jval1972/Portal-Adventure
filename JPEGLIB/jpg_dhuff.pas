@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -40,8 +40,6 @@ unit jpg_dHuff;
 
 { Original: jdhuff.h+jdhuff.c;  Copyright (C) 1991-1997, Thomas G. Lane. }
 
-
-
 interface
 
 {$I jconfig.inc}
@@ -52,10 +50,7 @@ uses
   jpg_utils,
   jpg_lib;
 
-
 { Declarations shared with jdphuff.c }
-
-
 
 { Derived data constructed for each Huffman table }
 
@@ -103,7 +98,6 @@ type
   at least the requested number of bits --- dummy zeroes are inserted if
   necessary. }
 
-
 type
   bit_buf_type = INT32 ;        { type of bit-extraction buffer }
 const
@@ -140,9 +134,21 @@ type
 { Module initialization routine for Huffman entropy decoding. }
 
 {GLOBAL}
+
+//==============================================================================
+//
+// jinit_huff_decoder 
+//
+//==============================================================================
 procedure jinit_huff_decoder (cinfo: j_decompress_ptr);
 
 {GLOBAL}
+
+//==============================================================================
+//
+// jpeg_huff_decode
+//
+//==============================================================================
 function jpeg_huff_decode(var state: bitread_working_state;
                           get_buffer: bit_buf_type; {register}
                           bits_left: int; {register}
@@ -153,6 +159,12 @@ function jpeg_huff_decode(var state: bitread_working_state;
   Note this is also used by jdphuff.c. }
 
 {GLOBAL}
+
+//==============================================================================
+//
+// jpeg_make_d_derived_tbl 
+//
+//==============================================================================
 procedure jpeg_make_d_derived_tbl (cinfo: j_decompress_ptr;
                                    isDC: boolean;
                                    tblno: int;
@@ -160,6 +172,11 @@ procedure jpeg_make_d_derived_tbl (cinfo: j_decompress_ptr;
 
 { Load up the bit buffer to a depth of at least nbits }
 
+//==============================================================================
+//
+// jpeg_fill_bit_buffer  
+//
+//==============================================================================
 function jpeg_fill_bit_buffer  (var state: bitread_working_state;
                                  get_buffer: bit_buf_type;  {register}
                            bits_left: int; {register}
@@ -170,7 +187,6 @@ implementation
 uses
   d_delphi,
   jpg_defErr;
-
 
 {$IFDEF MACRO}
 
@@ -193,7 +209,6 @@ uses
   permstate.get_buffer := get_buffer;
   permstate.bits_left := bits_left;
 
-
 { These macros provide the in-line portion of bit fetching.
   Use CHECK_BIT_BUFFER to ensure there are N bits in get_buffer
   before using GET_BITS, PEEK_BITS, or DROP_BITS.
@@ -210,7 +225,6 @@ uses
   The value N should be a simple variable, not an expression, because it
   is evaluated multiple times. }
 
-
 {$define CHECK_BIT_BUFFER(state,nbits,action)}
   if (bits_left < (nbits)) then
   begin
@@ -223,7 +237,6 @@ uses
     bits_left := state.bits_left;
   end;
 
-
 {$define GET_BITS(nbits)}
   Dec(bits_left, (nbits));
   ( (int(get_buffer shr bits_left)) and ( pred(1 shl (nbits)) ) )
@@ -233,9 +246,6 @@ uses
 
 {$define DROP_BITS(nbits)}
   Dec(bits_left, nbits);
-
-
-
 
 { Code for extracting next Huffman-coded symbol from input bit stream.
   Again, this is time-critical and we make the main paths be macros.
@@ -251,9 +261,6 @@ uses
   2. If the lookahead table contains no entry, the next code must be
      more than HUFF_LOOKAHEAD bits long.
   3. jpeg_huff_decode returns -1 if forced to suspend. }
-
-
-
 
 macro HUFF_DECODE(s,br_state,htbl,return FALSE,slowlabel);
 label showlabel;
@@ -302,7 +309,6 @@ slowlabel:
   end;
 end;
 
-
 {$ENDIF} {MACRO}
 
 { Expanded entropy decoder object for Huffman decoding.
@@ -314,7 +320,6 @@ type
   savable_state = record
     last_dc_val: array[0..MAX_COMPS_IN_SCAN-1] of int; { last DC coef for each component }
   end;
-
 
 type
   huff_entropy_ptr = ^huff_entropy_decoder;
@@ -344,11 +349,15 @@ type
     ac_needed: array[0..D_MAX_BLOCKS_IN_MCU-1] of boolean;
   end;
 
-
-
 { Initialize for a Huffman-compressed scan. }
 
 {METHODDEF}
+
+//==============================================================================
+//
+// start_pass_huff_decoder 
+//
+//==============================================================================
 procedure start_pass_huff_decoder (cinfo: j_decompress_ptr); far;
 var
   entropy: huff_entropy_ptr;
@@ -411,13 +420,18 @@ begin
   entropy^.restarts_to_go := cinfo^.restart_interval;
 end;
 
-
 { Compute the derived values for a Huffman table.
   This routine also performs some validation checks on the table.
 
   Note this is also used by jdphuff.c. }
 
 {GLOBAL}
+
+//==============================================================================
+//
+// jpeg_make_d_derived_tbl 
+//
+//==============================================================================
 procedure jpeg_make_d_derived_tbl (cinfo: j_decompress_ptr;
                                    isDC: boolean;
                                    tblno: int;
@@ -560,7 +574,6 @@ begin
   end;
 end;
 
-
 { Out-of-line code for bit fetching (shared with jdphuff.c).
   See jdhuff.h for info about usage.
   Note: current values of get_buffer and bits_left are passed as parameters,
@@ -582,8 +595,13 @@ const
   MIN_GET_BITS = (BIT_BUF_SIZE-7);
 {$endif}
 
-
 {GLOBAL}
+
+//==============================================================================
+//
+// jpeg_fill_bit_buffer
+//
+//==============================================================================
 function jpeg_fill_bit_buffer(var state: bitread_working_state;
   get_buffer: bit_buf_type; bits_left: int; nbits: int): boolean;
 label
@@ -624,7 +642,6 @@ begin
       Dec(bytes_in_buffer);
       c := GETJOCTET(next_input_byte^);
       Inc(next_input_byte);
-
 
       { If it's $FF, check and discard stuffed zero byte }
       if (c = $FF) then
@@ -710,11 +727,16 @@ no_more_bytes:
   jpeg_fill_bit_buffer := TRUE;
 end;
 
-
 { Out-of-line code for Huffman code decoding.
   See jdhuff.h for info about usage. }
 
 {GLOBAL}
+
+//==============================================================================
+//
+// jpeg_huff_decode 
+//
+//==============================================================================
 function jpeg_huff_decode (var state: bitread_working_state;
               {register} get_buffer: bit_buf_type;
                           {register} bits_left: int;
@@ -786,7 +808,6 @@ begin
   jpeg_huff_decode := htbl^.pub^.huffval[ int (code + htbl^.valoffset[l]) ];
 end;
 
-
 { Figure F.12: extend sign bit.
   On some machines, a shift and add will be faster than a table lookup. }
 
@@ -817,11 +838,16 @@ const
 
 {$endif} { AVOID_TABLES }
 
-
 { Check for a restart marker & resynchronize decoder.
   Returns FALSE if must suspend. }
 
 {LOCAL}
+
+//==============================================================================
+//
+// process_restart 
+//
+//==============================================================================
 function process_restart (cinfo: j_decompress_ptr): boolean;
 var
   entropy: huff_entropy_ptr;
@@ -859,7 +885,6 @@ begin
   process_restart := TRUE;
 end;
 
-
 { Decode and return one MCU's worth of Huffman-compressed coefficients.
   The coefficients are reordered from zigzag order into natural array order,
   but are not dequantized.
@@ -874,6 +899,12 @@ end;
   this module, since we'll just re-assign them on the next call.) }
 
 {METHODDEF}
+
+//==============================================================================
+//
+// decode_mcu 
+//
+//==============================================================================
 function decode_mcu (cinfo: j_decompress_ptr;
   var MCU_data: array of JBLOCKROW): boolean; far;
 label
@@ -1205,10 +1236,15 @@ begin
   decode_mcu := TRUE;
 end;
 
-
 { Module initialization routine for Huffman entropy decoding. }
 
 {GLOBAL}
+
+//==============================================================================
+//
+// jinit_huff_decoder 
+//
+//==============================================================================
 procedure jinit_huff_decoder (cinfo: j_decompress_ptr);
 var
   entropy: huff_entropy_ptr;

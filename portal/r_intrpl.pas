@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -35,18 +35,53 @@ interface
 uses
   m_fixed;
 
+//==============================================================================
+//
+// R_InitInterpolations
+//
+//==============================================================================
 procedure R_InitInterpolations;
 
+//==============================================================================
+//
+// R_ResetInterpolationBuffer
+//
+//==============================================================================
 procedure R_ResetInterpolationBuffer;
 
+//==============================================================================
+//
+// R_StoreInterpolationData
+//
+//==============================================================================
 procedure R_StoreInterpolationData(const tick: integer);
 
+//==============================================================================
+//
+// R_RestoreInterpolationData
+//
+//==============================================================================
 procedure R_RestoreInterpolationData;
 
+//==============================================================================
+//
+// R_Interpolate
+//
+//==============================================================================
 function R_Interpolate: boolean;
 
+//==============================================================================
+//
+// R_InterpolateTicker
+//
+//==============================================================================
 procedure R_InterpolateTicker;
 
+//==============================================================================
+//
+// R_SetInterpolateSkipTicks
+//
+//==============================================================================
 procedure R_SetInterpolateSkipTicks(const ticks: integer);
 
 var
@@ -106,6 +141,11 @@ const
 var
   istruct: istruct_t;
 
+//==============================================================================
+//
+// R_InitInterpolations
+//
+//==============================================================================
 procedure R_InitInterpolations;
 begin
   istruct.numitems := 0;
@@ -113,6 +153,11 @@ begin
   istruct.items := nil;
 end;
 
+//==============================================================================
+//
+// R_ResetInterpolationBuffer
+//
+//==============================================================================
 procedure R_ResetInterpolationBuffer;
 begin
   memfree(pointer(istruct.items), istruct.realsize * SizeOf(iitem_t));
@@ -121,6 +166,11 @@ begin
   R_ResetSmooth;
 end;
 
+//==============================================================================
+//
+// R_InterpolationCalcI
+//
+//==============================================================================
 function R_InterpolationCalcI(const prev, next: fixed_t; const frac: fixed_t): fixed_t;
 begin
   if next = prev then
@@ -129,6 +179,11 @@ begin
     result := prev + round((next - prev) / FRACUNIT * frac);
 end;
 
+//==============================================================================
+//
+// R_InterpolationCalcF
+//
+//==============================================================================
 function R_InterpolationCalcF(const prev, next: float; const frac: fixed_t): float;
 begin
   if next = prev then
@@ -137,6 +192,11 @@ begin
     result := prev + ((next - prev) / FRACUNIT * frac);
 end;
 
+//==============================================================================
+//
+// R_InterpolationCalcSI
+//
+//==============================================================================
 function R_InterpolationCalcSI(const prev, next: smallint; const frac: fixed_t): smallint;
 begin
   if next = prev then
@@ -145,6 +205,11 @@ begin
     result := prev + round((next - prev) / FRACUNIT * frac);
 end;
 
+//==============================================================================
+//
+// R_InterpolationCalcB
+//
+//==============================================================================
 function R_InterpolationCalcB(const prev, next: byte; const frac: fixed_t): byte;
 begin
   if next = prev then
@@ -157,6 +222,11 @@ begin
     result := prev + (next - prev) * frac div FRACUNIT;
 end;
 
+//==============================================================================
+//
+// R_InterpolationCalcA
+//
+//==============================================================================
 function R_InterpolationCalcA(const prev, next: angle_t; const frac: fixed_t): angle_t;
 begin
   if prev = next then
@@ -184,6 +254,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// R_AddInterpolationItem
+//
+//==============================================================================
 procedure R_AddInterpolationItem(const addr: pointer; const typ: itype; const key: integer);
 var
   newrealsize: integer;
@@ -234,6 +309,11 @@ end;
 var
   interpolationstoretime: fixed_t;
 
+//==============================================================================
+//
+// R_StoreInterpolationData
+//
+//==============================================================================
 procedure R_StoreInterpolationData(const tick: integer);
 var
   sec: Psector_t;
@@ -315,6 +395,11 @@ begin
 
 end;
 
+//==============================================================================
+//
+// R_RestoreInterpolationData
+//
+//==============================================================================
 procedure R_RestoreInterpolationData;
 var
   i: integer;
@@ -338,6 +423,11 @@ end;
 var
   skipinterpolationticks: integer = -1;
 
+//==============================================================================
+//
+// R_Interpolate
+//
+//==============================================================================
 function R_Interpolate: boolean;
 var
   i: integer;
@@ -371,12 +461,22 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// R_InterpolateTicker
+//
+//==============================================================================
 procedure R_InterpolateTicker;
 begin
   if skipinterpolationticks >= 0 then
     dec(skipinterpolationticks)
 end;
 
+//==============================================================================
+//
+// R_SetInterpolateSkipTicks
+//
+//==============================================================================
 procedure R_SetInterpolateSkipTicks(const ticks: integer);
 begin
   skipinterpolationticks := ticks;

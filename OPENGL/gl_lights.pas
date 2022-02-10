@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -31,6 +31,11 @@ interface
 uses
   d_delphi;
 
+//==============================================================================
+//
+// gld_SetUplight
+//
+//==============================================================================
 procedure gld_SetUplight(const r, g, b: float);
 
 const
@@ -49,6 +54,11 @@ uses
 var
   lighttexture: PGLTexture;
 
+//==============================================================================
+//
+// gld_BindLightTexture
+//
+//==============================================================================
 procedure gld_BindLightTexture;
 var
   buffer: PLongWordArray;
@@ -111,6 +121,11 @@ begin
   glBindTexture(GL_TEXTURE_2D, lighttexture.glTexID[Ord(CR_DEFAULT)]);
 end;
 
+//==============================================================================
+//
+// gld_SetUplight
+//
+//==============================================================================
 procedure gld_SetUplight(const r, g, b: float);
 begin
   gld_BindLightTexture;

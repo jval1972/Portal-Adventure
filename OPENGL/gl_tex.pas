@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -56,55 +56,175 @@ var
   transparent_pal_index: integer;
   gld_palmap: array[0..255] of byte;
 
+//==============================================================================
+//
+// gld_InitPalettedTextures
+//
+//==============================================================================
 procedure gld_InitPalettedTextures;
 
+//==============================================================================
+//
+// gld_GetTexDimension
+//
+//==============================================================================
 function gld_GetTexDimension(value: integer): integer;
 
+//==============================================================================
+//
+// gld_AddNewGLTexture
+//
+//==============================================================================
 function gld_AddNewGLTexture(texture_num: integer): PGLTexture;
 
+//==============================================================================
+//
+// gld_AddNewGLPatchTexture
+//
+//==============================================================================
 function gld_AddNewGLPatchTexture(lump: integer): PGLTexture;
 
+//==============================================================================
+//
+// gld_SetTexturePalette
+//
+//==============================================================================
 procedure gld_SetTexturePalette(target: TGLenum);
 
+//==============================================================================
+//
+// gld_AddPatchToTexture_UnTranslated
+//
+//==============================================================================
 procedure gld_AddPatchToTexture_UnTranslated(gltexture: PGLTexture; buffer: PByteArray;
   const patch: Ppatch_t; originx, originy: integer; paletted: boolean);
 
+//==============================================================================
+//
+// gld_AddPatchToTexture
+//
+//==============================================================================
 procedure gld_AddPatchToTexture(gltexture: PGLTexture; buffer: PByteArray;
   const patch: Ppatch_t; originx, originy: integer; cm: integer; paletted: boolean);
 
+//==============================================================================
+//
+// gld_AddFlatToTexture
+//
+//==============================================================================
 procedure gld_AddFlatToTexture(gltexture: PGLTexture; buffer: PByteArray; const flat: PByteArray;
   paletted: boolean);
 
+//==============================================================================
+//
+// gld_RegisterTexture
+//
+//==============================================================================
 function gld_RegisterTexture(texture_num: integer; mipmap:  boolean): PGLTexture;
 
+//==============================================================================
+//
+// gld_BindTexture
+//
+//==============================================================================
 procedure gld_BindTexture(gltexture: PGLTexture);
 
+//==============================================================================
+//
+// gld_RegisterPatch
+//
+//==============================================================================
 function gld_RegisterPatch(lump: integer; cm: integer): PGLTexture;
 
+//==============================================================================
+//
+// gld_BindPatch
+//
+//==============================================================================
 procedure gld_BindPatch(gltexture: PGLTexture; cm: integer);
 
+//==============================================================================
+//
+// gld_RegisterFlat
+//
+//==============================================================================
 function gld_RegisterFlat(lump: integer; mipmap: boolean): PGLTexture;
 
+//==============================================================================
+//
+// gld_BindFlat
+//
+//==============================================================================
 procedure gld_BindFlat(gltexture: PGLTexture);
 
+//==============================================================================
+//
+// gld_CleanTextures
+//
+//==============================================================================
 procedure gld_CleanTextures;
 
+//==============================================================================
+//
+// gld_CleanPatchTextures
+//
+//==============================================================================
 procedure gld_CleanPatchTextures;
 
+//==============================================================================
+//
+// gld_ShutDownTextures
+//
+//==============================================================================
 procedure gld_ShutDownTextures;
 
+//==============================================================================
+//
+// gld_Precache
+//
+//==============================================================================
 procedure gld_Precache;
 
+//==============================================================================
+//
+// gld_ResetLastTexture
+//
+//==============================================================================
 procedure gld_ResetLastTexture;
 
+//==============================================================================
+//
+// gld_LoadExternalTexture
+//
+//==============================================================================
 function gld_LoadExternalTexture(const texname: string; const transparent: boolean; const texmode: GLUint): GLUint; overload;
 
+//==============================================================================
+//
+// gld_LoadExternalTexture
+//
+//==============================================================================
 function gld_LoadExternalTexture(const t: PTexture; const transparent: boolean; const texmode: GLUint): GLUint; overload;
 
+//==============================================================================
+//
+// gld_LoadExternalTextureAlpha
+//
+//==============================================================================
 function gld_LoadExternalTextureAlpha(const texname: string; const alpha: byte; const texmode: GLUint): GLUint; overload;
 
+//==============================================================================
+//
+// gld_LoadExternalTextureAlpha
+//
+//==============================================================================
 function gld_LoadExternalTextureAlpha(const texname: string; const alphatexname: string; const texmode: GLUint): GLUint; overload;
 
+//==============================================================================
+//
+// gld_ClearTextureMemory
+//
+//==============================================================================
 procedure gld_ClearTextureMemory;
 
 var
@@ -131,6 +251,11 @@ uses
   d_player,
   v_data;
 
+//==============================================================================
+//
+// gld_InitPalettedTextures
+//
+//==============================================================================
 procedure gld_InitPalettedTextures;
 var
   playpal: PByteArray;
@@ -159,6 +284,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// gld_GetTexDimension
+//
+//==============================================================================
 function gld_GetTexDimension(value: integer): integer;
 begin
   result := 1;
@@ -168,6 +298,11 @@ begin
     result := gld_max_texturesize;
 end;
 
+//==============================================================================
+//
+// gld_ReduceTexSize
+//
+//==============================================================================
 procedure gld_ReduceTexSize(var x, y: Integer);
 begin
   while x * y > gl_maxtexwidth * gl_maxtexwidth do
@@ -177,6 +312,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// gld_AddNewGLTexture
+//
+//==============================================================================
 function gld_AddNewGLTexture(texture_num: integer): PGLTexture;
 begin
   if (texture_num < 0) or (texture_num >= numtextures) then
@@ -194,6 +334,11 @@ begin
   result := gld_GLTextures[texture_num];
 end;
 
+//==============================================================================
+//
+// gld_AddNewGLPatchTexture
+//
+//==============================================================================
 function gld_AddNewGLPatchTexture(lump: integer): PGLTexture;
 var
   numlumps: integer;
@@ -214,6 +359,11 @@ begin
   result := gld_GLPatchTextures[lump];
 end;
 
+//==============================================================================
+//
+// gld_SetTexturePalette
+//
+//==============================================================================
 procedure gld_SetTexturePalette(target: TGLenum);
 var
   playpal: PByteArray;
@@ -242,6 +392,11 @@ begin
   gld_ColorTableEXT(target, GL_RGBA, 256, GL_RGBA, GL_UNSIGNED_BYTE, @pal);
 end;
 
+//==============================================================================
+//
+// gld_AddPatchToTexture_UnTranslated
+//
+//==============================================================================
 procedure gld_AddPatchToTexture_UnTranslated(gltexture: PGLTexture; buffer: PByteArray;
   const patch: Ppatch_t; originx, originy: integer; paletted: boolean);
 var
@@ -318,6 +473,11 @@ begin
   Z_ChangeTag(playpal, PU_CACHE);
 end;
 
+//==============================================================================
+//
+// gld_AddPatchToTexture
+//
+//==============================================================================
 procedure gld_AddPatchToTexture(gltexture: PGLTexture; buffer: PByteArray;
   const patch: Ppatch_t; originx, originy: integer; cm: integer; paletted: boolean);
 var
@@ -405,6 +565,11 @@ begin
   Z_ChangeTag(playpal, PU_CACHE);
 end;
 
+//==============================================================================
+//
+// gld_AddFlatToTexture
+//
+//==============================================================================
 procedure gld_AddFlatToTexture(gltexture: PGLTexture; buffer: PByteArray; const flat: PByteArray;
   paletted: boolean);
 var
@@ -448,6 +613,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// gld_AddPatchForTransparencyCheck
+//
+//==============================================================================
 procedure gld_AddPatchForTransparencyCheck(gltexture: PGLTexture; buffer: PByteArray;
   const patch: Ppatch_t; originx, originy: integer);
 var
@@ -497,6 +667,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// gld_CheckTextureTransparency
+//
+//==============================================================================
 function gld_CheckTextureTransparency(gltexture: PGLTexture): boolean;
 var
   buffer: PByteArray;
@@ -528,7 +703,6 @@ begin
     result := false;
     exit;
   end;
-
 
   bufsize := gltexture.realtexwidth * gltexture.realtexheight;
   buffer := mallocz(bufsize);
@@ -580,7 +754,11 @@ begin
   memfree(pointer(buffer), bufsize);
 end;
 
-
+//==============================================================================
+//
+// gld_LoadExternalTexture
+//
+//==============================================================================
 function gld_LoadExternalTexture(const texname: string; const transparent: boolean; const texmode: GLUint): GLUint;
 var
   t: PTexture;
@@ -639,6 +817,11 @@ begin
   dispose(t, destroy);
 end;
 
+//==============================================================================
+//
+// gld_LoadExternalTexture
+//
+//==============================================================================
 function gld_LoadExternalTexture(const t: PTexture; const transparent: boolean; const texmode: GLUint): GLUint; overload;
 var
   twidth: integer;
@@ -694,6 +877,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// gld_LoadExternalTextureAlpha
+//
+//==============================================================================
 function gld_LoadExternalTextureAlpha(const texname: string; const alpha: byte; const texmode: GLUint): GLUint;
 var
   t: PTexture;
@@ -744,6 +932,11 @@ begin
   dispose(t, destroy);
 end;
 
+//==============================================================================
+//
+// gld_LoadExternalTextureAlpha
+//
+//==============================================================================
 function gld_LoadExternalTextureAlpha(const texname: string; const alphatexname: string; const texmode: GLUint): GLUint;
 var
   t: PTexture;
@@ -803,6 +996,11 @@ begin
   dispose(t, destroy);
 end;
 
+//==============================================================================
+//
+// gld_LoadHiresTexture
+//
+//==============================================================================
 function gld_LoadHiresTexture(gltexture: PGLTexture; const texname: string): boolean;
 var
   t: PTexture;
@@ -968,6 +1166,11 @@ begin
   result := true;
 end;
 
+//==============================================================================
+//
+// gld_RegisterTexture
+//
+//==============================================================================
 function gld_RegisterTexture(texture_num: integer; mipmap:  boolean): PGLTexture;
 var
   texture: Ptexture_t;
@@ -1015,6 +1218,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// gld_BindTexture
+//
+//==============================================================================
 procedure gld_BindTexture(gltexture: PGLTexture);
 var
   patch: Ppatch_t;
@@ -1117,6 +1325,11 @@ begin
   memfree(pointer(buffer), gltexture.buffer_size);
 end;
 
+//==============================================================================
+//
+// gld_RegisterPatch
+//
+//==============================================================================
 function gld_RegisterPatch(lump: integer; cm: integer): PGLTexture;
 var
   patch: Ppatch_t;
@@ -1156,6 +1369,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// gld_BindPatch
+//
+//==============================================================================
 procedure gld_BindPatch(gltexture: PGLTexture; cm: integer);
 var
   patch: Ppatch_t;
@@ -1217,6 +1435,11 @@ begin
   Z_ChangeTag(patch, PU_CACHE);
 end;
 
+//==============================================================================
+//
+// gld_RegisterFlat
+//
+//==============================================================================
 function gld_RegisterFlat(lump: integer; mipmap: boolean): PGLTexture;
 var
   lumplen: integer;
@@ -1270,6 +1493,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// gld_BindFlat
+//
+//==============================================================================
 procedure gld_BindFlat(gltexture: PGLTexture);
 var
   flat: PByteArray;
@@ -1343,6 +1571,11 @@ begin
   Z_ChangeTag(flat, PU_CACHE);
 end;
 
+//==============================================================================
+//
+// gld_CleanTextures
+//
+//==============================================================================
 procedure gld_CleanTextures;
 var
   i, j: integer;
@@ -1361,6 +1594,11 @@ begin
   ZeroMemory(gld_GLTextures, numtextures * SizeOf(PGLTexture));
 end;
 
+//==============================================================================
+//
+// gld_CleanPatchTextures
+//
+//==============================================================================
 procedure gld_CleanPatchTextures;
 var
   i, j: integer;
@@ -1381,6 +1619,11 @@ begin
   ZeroMemory(gld_GLPatchTextures, numlumps * SizeOf(PGLTexture));
 end;
 
+//==============================================================================
+//
+// gld_ShutDownTextures
+//
+//==============================================================================
 procedure gld_ShutDownTextures;
 var
   i, j: integer;
@@ -1417,6 +1660,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// gld_Precache
+//
+//==============================================================================
 procedure gld_Precache;
 var
   i, j, k: integer;
@@ -1506,11 +1754,21 @@ begin
   memfree(pointer(hitlist), size);
 end;
 
+//==============================================================================
+//
+// gld_ResetLastTexture
+//
+//==============================================================================
 procedure gld_ResetLastTexture;
 begin
   last_gltexture := nil;
 end;
 
+//==============================================================================
+//
+// gld_ClearTextureMemory
+//
+//==============================================================================
 procedure gld_ClearTextureMemory;
 begin
   gld_CleanTextures;

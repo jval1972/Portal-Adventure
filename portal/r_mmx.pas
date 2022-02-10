@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -31,6 +31,11 @@ interface
 uses
   d_delphi;
 
+//==============================================================================
+//
+// R_BatchColorAdd32_MMX
+//
+//==============================================================================
 function R_BatchColorAdd32_MMX(const dest0: PLongWord; const color: LongWord; const numpixels: integer): boolean;
 
 implementation
@@ -40,6 +45,11 @@ type
     dwords: array[0..1] of LongWord;
   end;
 
+//==============================================================================
+//
+// R_BatchColorAdd32_MMX
+//
+//==============================================================================
 function R_BatchColorAdd32_MMX(const dest0: PLongWord; const color: LongWord; const numpixels: integer): boolean;
 var
   data: rec_2lw;
@@ -159,6 +169,5 @@ begin
   end;
 
 end;
-
 
 end.

@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -26,7 +26,6 @@
 
 unit jpg_dMainCt;
 
-
 { This file is part of the Independent JPEG Group's software.
   For conditions of distribution and use, see the accompanying README file.
 
@@ -38,7 +37,6 @@ unit jpg_dMainCt;
   supplies the equivalent of the main buffer in that case. }
 
 { Original: jdmainct.c ; Copyright (C) 1994-1996, Thomas G. Lane.  }
-
 
 { In the current system design, the main buffer need never be a full-image
   buffer; any full-height buffers will be found inside the coefficient or
@@ -141,11 +139,15 @@ uses
   jpg_error,
   jpg_lib;
 
-
 {GLOBAL}
+
+//==============================================================================
+//
+// jinit_d_main_controller 
+//
+//==============================================================================
 procedure jinit_d_main_controller (cinfo: j_decompress_ptr;
                                    need_full_buffer: boolean);
-
 
 implementation
 
@@ -176,21 +178,31 @@ type
     iMCU_row_ctr: JDIMENSION;  { counts iMCU rows to detect image top/bot }
   end; { my_main_controller; }
 
-
 { context_state values: }
 const
   CTX_PREPARE_FOR_IMCU  = 0;  { need to prepare for MCU row }
   CTX_PROCESS_IMCU      = 1;  { feeding iMCU to postprocessor }
   CTX_POSTPONED_ROW     = 2;  { feeding postponed row group }
 
-
 { Forward declarations }
 {METHODDEF}
+
+//==============================================================================
+//
+// process_data_simple_main
+//
+//==============================================================================
 procedure process_data_simple_main(cinfo: j_decompress_ptr;
                                    output_buf: JSAMPARRAY;
                              var out_row_ctr: JDIMENSION;
                                    out_rows_avail: JDIMENSION); far; forward;
 {METHODDEF}
+
+//==============================================================================
+//
+// process_data_context_main 
+//
+//==============================================================================
 procedure process_data_context_main (cinfo: j_decompress_ptr;
                                      output_buf: JSAMPARRAY;
                                var out_row_ctr: JDIMENSION;
@@ -198,14 +210,25 @@ procedure process_data_context_main (cinfo: j_decompress_ptr;
 
 {$ifdef QUANT_2PASS_SUPPORTED}
 {METHODDEF}
+
+//==============================================================================
+//
+// process_data_crank_post 
+//
+//==============================================================================
 procedure process_data_crank_post (cinfo: j_decompress_ptr;
                                      output_buf: JSAMPARRAY;
                                var out_row_ctr: JDIMENSION;
                                      out_rows_avail: JDIMENSION); far; forward;
 {$endif}
 
-
 {LOCAL}
+
+//==============================================================================
+//
+// alloc_funny_pointers 
+//
+//==============================================================================
 procedure alloc_funny_pointers (cinfo: j_decompress_ptr);
 { Allocate space for the funny pointer lists.
   This is done only once, not once per pass. }
@@ -247,6 +270,12 @@ begin
 end;
 
 {LOCAL}
+
+//==============================================================================
+//
+// make_funny_pointers 
+//
+//==============================================================================
 procedure make_funny_pointers (cinfo: j_decompress_ptr);
 { Create the funny pointer lists discussed in the comments above.
   The actual workspace is already allocated (in main^.buffer),
@@ -302,8 +331,13 @@ begin
   end;
 end;
 
-
 {LOCAL}
+
+//==============================================================================
+//
+// set_wraparound_pointers 
+//
+//==============================================================================
 procedure set_wraparound_pointers (cinfo: j_decompress_ptr);
 { Set up the "wraparound" pointers at top and bottom of the pointer lists.
   This changes the pointer list state from top-of-image to the normal state. }
@@ -348,8 +382,13 @@ begin
   end;
 end;
 
-
 {LOCAL}
+
+//==============================================================================
+//
+// set_bottom_pointers 
+//
+//==============================================================================
 procedure set_bottom_pointers (cinfo: j_decompress_ptr);
 { Change the pointer lists to duplicate the last sample row at the bottom
   of the image.  whichptr indicates which xbuffer holds the final iMCU row.
@@ -390,10 +429,15 @@ begin
   end;
 end;
 
-
 { Initialize for a processing pass. }
 
 {METHODDEF}
+
+//==============================================================================
+//
+// start_pass_main 
+//
+//==============================================================================
 procedure start_pass_main (cinfo: j_decompress_ptr;
                            pass_mode: J_BUF_MODE); far;
 var
@@ -430,11 +474,16 @@ begin
   end;
 end;
 
-
 { Process some data.
   This handles the simple case where no context is required. }
 
 {METHODDEF}
+
+//==============================================================================
+//
+// process_data_simple_main 
+//
+//==============================================================================
 procedure process_data_simple_main (cinfo: j_decompress_ptr;
                   output_buf: JSAMPARRAY;
                                     var out_row_ctr: JDIMENSION;
@@ -475,11 +524,16 @@ begin
   end;
 end;
 
-
 { Process some data.
   This handles the case where context rows must be provided. }
 
 {METHODDEF}
+
+//==============================================================================
+//
+// process_data_context_main 
+//
+//==============================================================================
 procedure process_data_context_main (cinfo: j_decompress_ptr;
                    output_buf: JSAMPARRAY;
                                      var out_row_ctr: JDIMENSION;
@@ -560,7 +614,6 @@ begin
   end;
 end;
 
-
 { Process some data.
   Final pass of two-pass quantization: just call the postprocessor.
   Source data will be the postprocessor controller's internal buffer. }
@@ -568,6 +621,12 @@ end;
 {$ifdef QUANT_2PASS_SUPPORTED}
 
 {METHODDEF}
+
+//==============================================================================
+//
+// process_data_crank_post 
+//
+//==============================================================================
 procedure process_data_crank_post (cinfo: j_decompress_ptr;
                  output_buf: JSAMPARRAY;
                                    var out_row_ctr: JDIMENSION;
@@ -586,10 +645,15 @@ end;
 
 {$endif} { QUANT_2PASS_SUPPORTED }
 
-
 { Initialize main buffer controller. }
 
 {GLOBAL}
+
+//==============================================================================
+//
+// jinit_d_main_controller 
+//
+//==============================================================================
 procedure jinit_d_main_controller (cinfo: j_decompress_ptr;
                                    need_full_buffer: boolean);
 var

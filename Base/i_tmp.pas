@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -28,10 +28,25 @@ unit i_tmp;
 
 interface
 
+//==============================================================================
+//
+// I_InitTempFiles
+//
+//==============================================================================
 procedure I_InitTempFiles;
 
+//==============================================================================
+//
+// I_ShutDownTempFiles
+//
+//==============================================================================
 procedure I_ShutDownTempFiles;
 
+//==============================================================================
+//
+// I_NewTempFile
+//
+//==============================================================================
 function I_NewTempFile(const name: string): string;
 
 implementation
@@ -43,11 +58,21 @@ uses
 var
   tempfiles: TDStringList;
 
+//==============================================================================
+//
+// I_InitTempFiles
+//
+//==============================================================================
 procedure I_InitTempFiles;
 begin
   tempfiles := TDStringList.Create;
 end;
 
+//==============================================================================
+//
+// I_ShutDownTempFiles
+//
+//==============================================================================
 procedure I_ShutDownTempFiles;
 var
   i: integer;
@@ -59,6 +84,11 @@ begin
   tempfiles.Free;
 end;
 
+//==============================================================================
+//
+// I_NewTempFile
+//
+//==============================================================================
 function I_NewTempFile(const name: string): string;
 var
   buf: array[0..1024] of char;

@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -90,6 +90,11 @@ type
 
 implementation
 
+//==============================================================================
+//
+// TTGATextureManager.LoadPalette
+//
+//==============================================================================
 function TTGATextureManager.LoadPalette(stream: TStream): boolean;
 var
   palet: pointer;
@@ -119,6 +124,11 @@ begin
   LoadPalette := true;
 end;
 
+//==============================================================================
+//
+// TTGATextureManager.Load8bitpaltga
+//
+//==============================================================================
 function TTGATextureManager.Load8bitpaltga(stream: TStream): boolean;
 var
   pixel, rle: byte;
@@ -189,11 +199,21 @@ begin
   memfree(buffer, hdr.width);
 end;
 
+//==============================================================================
+//
+// TTGATextureManager.load8bitgraytga
+//
+//==============================================================================
 function TTGATextureManager.load8bitgraytga(stream: TStream): boolean;
 begin
   load8bitgraytga := false;
 end;
 
+//==============================================================================
+//
+// TTGATextureManager.load16bittga
+//
+//==============================================================================
 function TTGATextureManager.load16bittga(stream: TStream): boolean;
 var
   rle: byte;
@@ -260,6 +280,11 @@ begin
   memfree(buffer, hdr.width * 2);
 end;
 
+//==============================================================================
+//
+// TTGATextureManager.load24bittga
+//
+//==============================================================================
 function TTGATextureManager.load24bittga(stream: TStream):boolean;
 var
   rle: byte;
@@ -326,6 +351,11 @@ begin
   memfree(buffer, hdr.width * 3);
 end;
 
+//==============================================================================
+//
+// TTGATextureManager.Load32bittga
+//
+//==============================================================================
 function TTGATextureManager.Load32bittga(stream: TStream):boolean;
 var
   rle: byte;
@@ -399,6 +429,11 @@ begin
   FFrameCount := 10;
 end;
 
+//==============================================================================
+//
+// TTGATextureManager.LoadHeader
+//
+//==============================================================================
 function TTGATextureManager.LoadHeader(stream: TStream):boolean;
 begin
   if id <> nil then
@@ -428,6 +463,11 @@ begin
   LoadHeader := true;
 end;
 
+//==============================================================================
+//
+// TTGATextureManager.LoadImage
+//
+//==============================================================================
 function TTGATextureManager.LoadImage(stream: TStream):boolean;
 begin
   LoadImage := true;

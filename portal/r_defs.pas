@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2019 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -62,7 +62,6 @@ var
 
 const
   NUMCOLORMAPS = 32;
-
 
 type
 //
@@ -453,7 +452,6 @@ type
   spriteframe_tArray = packed array[0..$FFFF] of spriteframe_t;
   Pspriteframe_tArray = ^spriteframe_tArray;
 
-
 //
 // A sprite definition:
 //  a number of animation frames.
@@ -579,7 +577,6 @@ var
 //  but any columns with multiple patches
 //  will have new column_ts generated.
 //
-
 
 implementation
 

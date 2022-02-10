@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2019 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -38,14 +38,39 @@ var
   stdoutbuffer: TDStringList;
   quietIO: Boolean = false;
 
+//==============================================================================
+//
+// I_InitializeIO
+//
+//==============================================================================
 procedure I_InitializeIO;
 
+//==============================================================================
+//
+// I_ShutDownIO
+//
+//==============================================================================
 procedure I_ShutDownIO;
 
+//==============================================================================
+//
+// I_IOErrorMessageBox
+//
+//==============================================================================
 procedure I_IOErrorMessageBox(const s: string);
 
+//==============================================================================
+//
+// I_IOprintf
+//
+//==============================================================================
 procedure I_IOprintf(const s: string);
 
+//==============================================================================
+//
+// I_IOSetWindowHandle
+//
+//==============================================================================
 procedure I_IOSetWindowHandle(const handle: integer);
 
 implementation
@@ -61,6 +86,11 @@ uses
 var
   msghandle: integer = 0;
 
+//==============================================================================
+//
+// I_IOErrorMessageBox
+//
+//==============================================================================
 procedure I_IOErrorMessageBox(const s: string);
 begin
   MessageBox(msghandle, PChar(s), AppTitle, MB_OK or MB_ICONERROR or MB_APPLMODAL);
@@ -69,6 +99,11 @@ end;
 var
   io_lastNL: boolean = true;
 
+//==============================================================================
+//
+// I_IOprintf
+//
+//==============================================================================
 procedure I_IOprintf(const s: string);
 var
   len: integer;
@@ -120,6 +155,11 @@ end;
 const
   basename = 'portal';
 
+//==============================================================================
+//
+// I_InitializeIO
+//
+//==============================================================================
 procedure I_InitializeIO;
 var
   dfilename: string;
@@ -151,7 +191,11 @@ begin
   stdout := TFile.Create(sfilename, fCreate);
 end;
 
-
+//==============================================================================
+//
+// I_ShutDownIO
+//
+//==============================================================================
 procedure I_ShutDownIO;
 begin
   stderr.Free;
@@ -160,6 +204,11 @@ begin
   SUC_Close;
 end;
 
+//==============================================================================
+//
+// I_IOSetWindowHandle
+//
+//==============================================================================
 procedure I_IOSetWindowHandle(const handle: integer);
 begin
   if handle > 0 then

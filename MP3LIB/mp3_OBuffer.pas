@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -74,6 +74,11 @@ type
 {$ENDIF}
   end;
 
+//==============================================================================
+//
+// TOBuffer_Wave_Failure
+//
+//==============================================================================
 procedure TOBuffer_Wave_Failure;
 
 implementation
@@ -81,6 +86,11 @@ implementation
 uses
   i_system;
 
+//==============================================================================
+//
+// TOBuffer_Wave_Failure
+//
+//==============================================================================
 procedure TOBuffer_Wave_Failure;
 begin
   I_Error('TOBuffer_Wave(): Output device failure');

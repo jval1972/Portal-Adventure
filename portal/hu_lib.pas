@@ -96,59 +96,135 @@ type
 // Widget creation, access, and update routines
 //
 
+//==============================================================================
+// HUlib_clearTextLine
 //
 // textline code
 //
-
 // clear a line of text
+//
+//==============================================================================
 procedure HUlib_clearTextLine(t: Phu_textline_t);
 
+//==============================================================================
+//
+// HUlib_initTextLine
+//
+//==============================================================================
 procedure HUlib_initTextLine(t: Phu_textline_t; x: integer; y: integer; f: Ppatch_tPArray; sc: integer);
 
+//==============================================================================
+// HUlib_addCharToTextLine
+//
 // returns success
+//
+//==============================================================================
 function HUlib_addCharToTextLine(t: Phu_textline_t; ch: char): boolean;
 
+//==============================================================================
+// HUlib_delCharFromTextLine
+//
 // returns success
+//
+//==============================================================================
 function HUlib_delCharFromTextLine(t: Phu_textline_t): boolean;
 
+//==============================================================================
+// HUlib_eraseTextLine
+//
 // erases text line
+//
+//==============================================================================
 procedure HUlib_eraseTextLine(l: Phu_textline_t);
 
+//==============================================================================
+// HUlib_initSText
 //
 // Scrolling Text window widget routines
 //
-
 // ?
+//
+//==============================================================================
 procedure HUlib_initSText(s: Phu_stext_t; x: integer; y: integer; h: integer;
   font: Ppatch_tPArray; startchar: integer; _on: Pboolean);
 
+//==============================================================================
+// HUlib_addLineToSText
+//
 // add a new line
+//
+//==============================================================================
 procedure HUlib_addLineToSText(s: Phu_stext_t);
 
+//==============================================================================
+//
+// HUlib_removeLineFromSText
+//
+//==============================================================================
 procedure HUlib_removeLineFromSText(s: Phu_stext_t);
 
+//==============================================================================
+// HUlib_addMessageToSText
+//
 // ?
+//
+//==============================================================================
 procedure HUlib_addMessageToSText(s: Phu_stext_t; prefix: string; msg: string);
 
+//==============================================================================
+//
+// HUlib_addMessageToSText2
+//
+//==============================================================================
 procedure HUlib_addMessageToSText2(s: Phu_stext_t; prefix: string; msg: string);
 
+//==============================================================================
+// HUlib_eraseSText
+//
 // erases all stext lines
+//
+//==============================================================================
 procedure HUlib_eraseSText(s: Phu_stext_t);
 
+//==============================================================================
+// HUlib_initIText
+//
 // Input Text Line widget routines
+//
+//==============================================================================
 procedure HUlib_initIText(it: Phu_itext_t; x: integer; y: integer; font: Ppatch_tPArray;
   startchar: integer; _on: Pboolean);
 
+//==============================================================================
+// HUlib_delCharFromIText
+//
 // enforces left margin
+//
+//==============================================================================
 procedure HUlib_delCharFromIText(it: Phu_itext_t);
 
+//==============================================================================
+// HUlib_resetIText
+//
 // resets line and left margin
+//
+//==============================================================================
 procedure HUlib_resetIText(it: Phu_itext_t);
 
+//==============================================================================
+// HUlib_keyInIText
+//
 // whether eaten
+//
+//==============================================================================
 function HUlib_keyInIText(it: Phu_itext_t; ch: byte): boolean;
 
+//==============================================================================
+// HUlib_eraseIText
+//
 // erases all itext lines
+//
+//==============================================================================
 procedure HUlib_eraseIText(it: Phu_itext_t);
 
 implementation
@@ -158,6 +234,11 @@ uses
   v_data,
   v_video;
 
+//==============================================================================
+//
+// HUlib_clearTextLine
+//
+//==============================================================================
 procedure HUlib_clearTextLine(t: Phu_textline_t);
 begin
   t.len := 0;
@@ -165,6 +246,11 @@ begin
   t.needsupdate := 1; //true;
 end;
 
+//==============================================================================
+//
+// HUlib_initTextLine
+//
+//==============================================================================
 procedure HUlib_initTextLine(t: Phu_textline_t; x: integer; y: integer; f: Ppatch_tPArray; sc: integer);
 begin
   t.x := x;
@@ -174,6 +260,11 @@ begin
   HUlib_clearTextLine(t);
 end;
 
+//==============================================================================
+//
+// HUlib_addCharToTextLine
+//
+//==============================================================================
 function HUlib_addCharToTextLine(t: Phu_textline_t; ch: char): boolean;
 begin
   if t.len = HU_MAXLINELENGTH then
@@ -188,6 +279,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// HUlib_delCharFromTextLine
+//
+//==============================================================================
 function HUlib_delCharFromTextLine(t: Phu_textline_t): boolean;
 begin
   if t.len = 0 then
@@ -201,7 +297,12 @@ begin
   end;
 end;
 
+//==============================================================================
+// HUlib_countLineLines
+//
 // sorta called by HU_Erase and just better darn get things straight
+//
+//==============================================================================
 function HUlib_countLineLines(l: Phu_textline_t): integer;
 var
   i: integer;
@@ -217,6 +318,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// HUlib_eraseTextLine
+//
+//==============================================================================
 procedure HUlib_eraseTextLine(l: Phu_textline_t);
 var
   lh: integer;
@@ -253,6 +359,11 @@ begin
     l.needsupdate := l.needsupdate - 1;
 end;
 
+//==============================================================================
+//
+// HUlib_initSText
+//
+//==============================================================================
 procedure HUlib_initSText(s: Phu_stext_t; x: integer; y: integer; h: integer;
   font: Ppatch_tPArray; startchar: integer; _on: Pboolean);
 var
@@ -267,6 +378,11 @@ begin
       font, startchar);
 end;
 
+//==============================================================================
+//
+// HUlib_addLineToSText
+//
+//==============================================================================
 procedure HUlib_addLineToSText(s: Phu_stext_t);
 var
   i: integer;
@@ -282,6 +398,11 @@ begin
     s.lines[i].needsupdate := 4;
 end;
 
+//==============================================================================
+//
+// HUlib_removeLineFromSText
+//
+//==============================================================================
 procedure HUlib_removeLineFromSText(s: Phu_stext_t);
 var
   i: integer;
@@ -313,6 +434,11 @@ begin
   s.lines[s.curline].needsupdate := 4;
 end;
 
+//==============================================================================
+//
+// HUlib_addMessageToSText
+//
+//==============================================================================
 procedure HUlib_addMessageToSText(s: Phu_stext_t; prefix: string; msg: string);
 var
   i: integer;
@@ -326,6 +452,11 @@ begin
     HUlib_addCharToTextLine(@s.lines[s.curline], msg[i]);
 end;
 
+//==============================================================================
+//
+// HUlib_addMessageToSText2
+//
+//==============================================================================
 procedure HUlib_addMessageToSText2(s: Phu_stext_t; prefix: string; msg: string);
 var
   i: integer;
@@ -351,6 +482,11 @@ begin
 
 end;
 
+//==============================================================================
+//
+// HUlib_eraseSText
+//
+//==============================================================================
 procedure HUlib_eraseSText(s: Phu_stext_t);
 var
   i: integer;
@@ -364,6 +500,11 @@ begin
   s.laston := s._on^;
 end;
 
+//==============================================================================
+//
+// HUlib_initIText
+//
+//==============================================================================
 procedure HUlib_initIText(it: Phu_itext_t; x: integer; y: integer; font: Ppatch_tPArray;
   startchar: integer; _on: Pboolean);
 begin
@@ -373,22 +514,37 @@ begin
   HUlib_initTextLine(@it.line, x, y, font, startchar);
 end;
 
+//==============================================================================
+// HUlib_delCharFromIText
+//
 // The following deletion routines adhere to the left margin restriction
+//
+//==============================================================================
 procedure HUlib_delCharFromIText(it: Phu_itext_t);
 begin
   if it.line.len <> it.lm then
     HUlib_delCharFromTextLine(@it.line);
 end;
 
+//==============================================================================
+// HUlib_resetIText
+//
 // Resets left margin as well
+//
+//==============================================================================
 procedure HUlib_resetIText(it: Phu_itext_t);
 begin
   it.lm := 0;
   HUlib_clearTextLine(@it.line);
 end;
 
+//==============================================================================
+// HUlib_keyInIText
+//
 // wrapper function for handling general keyed input.
 // returns true if it ate the key
+//
+//==============================================================================
 function HUlib_keyInIText(it: Phu_itext_t; ch: byte): boolean;
 begin
   if (ch >= Ord(' ')) and (ch <= Ord('_')) then
@@ -405,6 +561,11 @@ begin
   result := true; // ate the key
 end;
 
+//==============================================================================
+//
+// HUlib_eraseIText
+//
+//==============================================================================
 procedure HUlib_eraseIText(it: Phu_itext_t);
 begin
   if it.laston and (not it._on^) then
@@ -412,7 +573,6 @@ begin
   HUlib_eraseTextLine(@it.line);
   it.laston := it._on^;
 end;
-
 
 end.
 

@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -28,10 +28,25 @@ unit gl_menu;
 
 interface
 
+//==============================================================================
+//
+// gld_InitMenus
+//
+//==============================================================================
 procedure gld_InitMenus;
 
+//==============================================================================
+//
+// gld_MenusDone
+//
+//==============================================================================
 procedure gld_MenusDone;
 
+//==============================================================================
+//
+// gld_MenuDrawer
+//
+//==============================================================================
 procedure gld_MenuDrawer;
 
 implementation
@@ -56,6 +71,11 @@ var
   menutextures: array[0..NUMMENUTEXTURES - 1] of glmenuitem_t;
   bckshade: LongWord;
 
+//==============================================================================
+//
+// gld_InitMenus
+//
+//==============================================================================
 procedure gld_InitMenus;
 var
   i, k: integer;
@@ -92,6 +112,11 @@ begin
   bckshade := gld_LoadExternalTexture('menushade.material', True, GL_REPEAT);
 end;
 
+//==============================================================================
+//
+// gld_MenusDone
+//
+//==============================================================================
 procedure gld_MenusDone;
 var
   i: integer;
@@ -102,6 +127,11 @@ begin
   glDeleteTextures(1, @bckshade);
 end;
 
+//==============================================================================
+//
+// f_findmenutextureindex
+//
+//==============================================================================
 function f_findmenutextureindex(const s: string): integer;
 var
   i: integer;
@@ -116,6 +146,11 @@ begin
   result := -1;
 end;
 
+//==============================================================================
+//
+// gld_MenuDrawer
+//
+//==============================================================================
 procedure gld_MenuDrawer;
 var
   i: integer;

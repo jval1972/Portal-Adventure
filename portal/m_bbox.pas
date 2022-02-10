@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -31,7 +31,6 @@ interface
 uses
   m_fixed;
 
-
 // Bounding box coordinate storage.
 const
   BOXTOP = 0;
@@ -39,17 +38,31 @@ const
   BOXLEFT = 2;
   BOXRIGHT = 3;
 
+//==============================================================================
+// M_ClearBox
+//
 // Bounding box functions.
+//
+//==============================================================================
 procedure M_ClearBox(box: Pfixed_tArray);
 
+//==============================================================================
+//
+// M_AddToBox
+//
+//==============================================================================
 procedure M_AddToBox(box: Pfixed_tArray; x: fixed_t; y: fixed_t);
-
 
 implementation
 
 uses
   d_delphi;
 
+//==============================================================================
+//
+// M_ClearBox
+//
+//==============================================================================
 procedure M_ClearBox(box: Pfixed_tArray);
 begin
   box[BOXTOP] := MININT;
@@ -58,6 +71,11 @@ begin
   box[BOXLEFT] := MAXINT;
 end;
 
+//==============================================================================
+//
+// M_AddToBox
+//
+//==============================================================================
 procedure M_AddToBox(box: Pfixed_tArray; x: fixed_t; y: fixed_t);
 begin
   if x < box[BOXLEFT] then

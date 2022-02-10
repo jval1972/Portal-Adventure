@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2019 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -31,12 +31,32 @@ interface
 uses
   d_delphi;
 
+//==============================================================================
+//
+// SC_ParseActorDefLumps
+//
+//==============================================================================
 procedure SC_ParseActorDefLumps;
 
+//==============================================================================
+//
+// SC_Init
+//
+//==============================================================================
 procedure SC_Init;
 
+//==============================================================================
+//
+// SC_ShutDown
+//
+//==============================================================================
 procedure SC_ShutDown;
 
+//==============================================================================
+//
+// SC_SoundAlias
+//
+//==============================================================================
 function SC_SoundAlias(const snd: string): string;
 
 implementation
@@ -60,6 +80,11 @@ var
 const
   MAXSTATES = 512;
 
+//==============================================================================
+//
+// fixsndaliasstr
+//
+//==============================================================================
 function fixsndaliasstr(const src: string): string;
 var
   i: integer;
@@ -76,6 +101,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// SC_SoundAlias
+//
+//==============================================================================
 function SC_SoundAlias(const snd: string): string;
 var
   check: string;
@@ -133,27 +163,46 @@ type
     function MatchFlag2Ex(const flag2_ex: string): boolean;
   end;
 
+//==============================================================================
+//
+// TActordefScriptEngine.MatchFlag
+//
+//==============================================================================
 function TActordefScriptEngine.MatchFlag(const flag: string): boolean;
 begin
   result := MatchString(flag) or MatchString('+' + flag) or MatchString('MF_' + flag);
 end;
 
+//==============================================================================
+//
+// TActordefScriptEngine.MatchFlagEx
+//
+//==============================================================================
 function TActordefScriptEngine.MatchFlagEx(const flag_ex: string): boolean;
 begin
   result := MatchString(flag_ex) or MatchString('+' + flag_ex) or MatchString('MF_' + flag_ex) or MatchString('MF_EX_' + flag_ex);
 end;
 
+//==============================================================================
+//
+// TActordefScriptEngine.MatchFlag2Ex
+//
+//==============================================================================
 function TActordefScriptEngine.MatchFlag2Ex(const flag2_ex: string): boolean;
 begin
   result := MatchString(flag2_ex) or MatchString('+' + flag2_ex) or MatchString('MF2_' + flag2_ex) or MatchString('MF2_EX_' + flag2_ex);
 end;
-
 
 const
   ORIGINALSTATEMARKER = $FFFFF;
   ACTORDEFLUMPNAME = 'ACTORDEF';
   SNDINFOLUMPNAME = 'SNDINFO';
 
+//==============================================================================
+//
+// SC_ParseActordefLump
+//
+//==============================================================================
 procedure SC_ParseActordefLump(const in_text: string);
 var
   mobj: rtl_mobjinfo_t;
@@ -585,7 +634,6 @@ var
     DEH_Parse(res);
   end;
 
-
 var
   slist: TDStringList;
   stmp: string;
@@ -781,7 +829,6 @@ begin
           mobj.alpha := round(0.67 * FRACUNIT);
           sc.GetString;
         end
-
 
         else if sc.MatchString('radius') or sc.MatchString('width') then  // JVAL: width -> DelphiDoom specific
         begin
@@ -1000,7 +1047,6 @@ begin
 
     end;
 
-
   end;
 
   SubmitParsedData;
@@ -1010,6 +1056,11 @@ begin
 
 end;
 
+//==============================================================================
+//
+// SC_ParseActorDefLumps
+//
+//==============================================================================
 procedure SC_ParseActorDefLumps;
 var
   i: integer;
@@ -1080,12 +1131,22 @@ begin
   SUC_Enable;
 end;
 
+//==============================================================================
+//
+// SC_Init
+//
+//==============================================================================
 procedure SC_Init;
 begin
   soundaliases := TDStringList.Create;
   statenames := TDStringList.Create;
 end;
 
+//==============================================================================
+//
+// SC_ShutDown
+//
+//==============================================================================
 procedure SC_ShutDown;
 begin
   soundaliases.Free;

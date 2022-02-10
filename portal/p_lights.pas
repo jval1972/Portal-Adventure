@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -35,24 +35,74 @@ uses
   r_defs,
   z_zone;
 
+//==============================================================================
+//
+// P_SpawnFireFlicker
+//
+//==============================================================================
 procedure P_SpawnFireFlicker(sector: Psector_t);
 
+//==============================================================================
+//
+// P_SpawnLightFlash
+//
+//==============================================================================
 procedure P_SpawnLightFlash(sector: Psector_t);
 
+//==============================================================================
+//
+// T_StrobeFlash
+//
+//==============================================================================
 procedure T_StrobeFlash(flash: Pstrobe_t);
 
+//==============================================================================
+//
+// P_SpawnStrobeFlash
+//
+//==============================================================================
 procedure P_SpawnStrobeFlash(sector: Psector_t; fastOrSlow, inSync: integer);
 
+//==============================================================================
+//
+// EV_StartLightStrobing
+//
+//==============================================================================
 function EV_StartLightStrobing(line: Pline_t): integer;
 
+//==============================================================================
+//
+// EV_TurnTagLightsOff
+//
+//==============================================================================
 function EV_TurnTagLightsOff(line: Pline_t): integer;
 
+//==============================================================================
+//
+// EV_LightTurnOn
+//
+//==============================================================================
 function EV_LightTurnOn(line: Pline_t; bright: integer): integer;
 
+//==============================================================================
+//
+// T_Glow
+//
+//==============================================================================
 procedure T_Glow(g: Pglow_t);
 
+//==============================================================================
+//
+// P_SpawnGlowingLight
+//
+//==============================================================================
 procedure P_SpawnGlowingLight(sector: Psector_t);
 
+//==============================================================================
+//
+// T_LightFlash
+//
+//==============================================================================
 procedure T_LightFlash(flash: Plightflash_t);
 
 implementation
@@ -62,13 +112,13 @@ uses
   p_tick,
   p_setup;
 
+//==============================================================================
 //
 // FIRELIGHT FLICKER
 //
-
-//
 // T_FireFlicker
 //
+//==============================================================================
 procedure T_FireFlicker(flick: Pfireflicker_t);
 var
   amount: integer;
@@ -87,9 +137,11 @@ begin
   flick.count := 4;
 end;
 
+//==============================================================================
 //
 // P_SpawnFireFlicker
 //
+//==============================================================================
 procedure P_SpawnFireFlicker(sector: Psector_t);
 var
   flick: Pfireflicker_t;
@@ -109,15 +161,14 @@ begin
   flick.count := 4;
 end;
 
+//==============================================================================
 //
 // BROKEN LIGHT FLASHING
-//
-
-
 //
 // T_LightFlash
 // Do flashing lights.
 //
+//==============================================================================
 procedure T_LightFlash(flash: Plightflash_t);
 begin
   flash.count := flash.count - 1;
@@ -136,11 +187,13 @@ begin
   end;
 end;
 
+//==============================================================================
 //
 // P_SpawnLightFlash
 // After the map has been loaded, scan each sector
 // for specials that spawn thinkers
 //
+//==============================================================================
 procedure P_SpawnLightFlash(sector: Psector_t);
 var
   flash: Plightflash_t;
@@ -162,14 +215,13 @@ begin
   flash.count := (P_Random and flash.maxtime) + 1;
 end;
 
+//==============================================================================
 //
 // STROBE LIGHT FLASHING
 //
-
-
-//
 // T_StrobeFlash
 //
+//==============================================================================
 procedure T_StrobeFlash(flash: Pstrobe_t);
 begin
   flash.count := flash.count - 1;
@@ -188,11 +240,13 @@ begin
   end;
 end;
 
+//==============================================================================
 //
 // P_SpawnStrobeFlash
 // After the map has been loaded, scan each sector
 // for specials that spawn thinkers
 //
+//==============================================================================
 procedure P_SpawnStrobeFlash(sector: Psector_t; fastOrSlow, inSync: integer);
 var
   flash: Pstrobe_t;
@@ -220,9 +274,12 @@ begin
     flash.count := 1;
 end;
 
+//==============================================================================
+// EV_StartLightStrobing
 //
 // Start strobing lights (usually from a trigger)
 //
+//==============================================================================
 function EV_StartLightStrobing(line: Pline_t): integer;
 var
   secnum: integer;
@@ -243,9 +300,12 @@ begin
   until secnum < 0;
 end;
 
+//==============================================================================
+// EV_TurnTagLightsOff
 //
 // TURN LINE'S TAG LIGHTS OFF
 //
+//==============================================================================
 function EV_TurnTagLightsOff(line: Pline_t): integer;
 var
   i: integer;
@@ -278,9 +338,12 @@ begin
   end;
 end;
 
+//==============================================================================
+// EV_LightTurnOn
 //
 // TURN LINE'S TAG LIGHTS ON
 //
+//==============================================================================
 function EV_LightTurnOn(line: Pline_t; bright: integer): integer;
 var
   i: integer;
@@ -317,9 +380,12 @@ begin
   end;
 end;
 
+//==============================================================================
+// T_Glow
 //
 // Spawn glowing light
 //
+//==============================================================================
 procedure T_Glow(g: Pglow_t);
 begin
   case g.direction of
@@ -346,6 +412,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// P_SpawnGlowingLight
+//
+//==============================================================================
 procedure P_SpawnGlowingLight(sector: Psector_t);
 var
   g: Pglow_t;

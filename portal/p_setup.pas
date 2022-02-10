@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -36,12 +36,27 @@ uses
   p_mobj_h,
   r_defs;
 
+//==============================================================================
+//
+// P_GetMapName
+//
+//==============================================================================
 function P_GetMapName(const episode, map: integer): string;
 
+//==============================================================================
+// P_SetupLevel
+//
 // NOT called by W_Ticker. Fixme.
+//
+//==============================================================================
 procedure P_SetupLevel(episode, map, playermask: integer; skill: skill_t);
 
+//==============================================================================
+// P_Init
+//
 // Called by startup code.
+//
+//==============================================================================
 procedure P_Init;
 
 var
@@ -125,8 +140,18 @@ var
 
   playerstarts: array[0..MAXPLAYERS - 1] of mapthing_t;
 
+//==============================================================================
+//
+// P_GameValidThing
+//
+//==============================================================================
 function P_GameValidThing(const doomdnum: integer): boolean;
 
+//==============================================================================
+//
+// P_IdendifyGameParams
+//
+//==============================================================================
 procedure P_IdendifyGameParams;
 
 var
@@ -174,9 +199,11 @@ uses
 var
   glmapnum: integer;
 
+//==============================================================================
 //
 // P_LoadVertexes
 //
+//==============================================================================
 procedure P_LoadVertexes(lump: integer);
 var
   data: pointer;
@@ -214,6 +241,11 @@ end;
 var
   firstglvert: integer;
 
+//==============================================================================
+//
+// P_GLLoadVertexes
+//
+//==============================================================================
 procedure P_GLLoadVertexes(lump, gllump: integer);
 var
   data: pointer;
@@ -261,6 +293,11 @@ begin
 
 end;
 
+//==============================================================================
+//
+// GetDistance
+//
+//==============================================================================
 function GetDistance(dx, dy: integer): float;
 var
   fx, fy: float;
@@ -270,9 +307,11 @@ begin
   result := sqrt(fx * fx + fy * fy);
 end;
 
+//==============================================================================
 //
 // P_LoadSegs
 //
+//==============================================================================
 procedure P_LoadSegs(lump: integer);
 var
   data: pointer;
@@ -316,6 +355,11 @@ begin
   Z_Free(data);
 end;
 
+//==============================================================================
+//
+// CheckGLVertex
+//
+//==============================================================================
 function CheckGLVertex(num: integer): integer;
 begin
   if glnodesver < 3 then
@@ -337,6 +381,11 @@ begin
   result := num;
 end;
 
+//==============================================================================
+//
+// GetOffset
+//
+//==============================================================================
 function GetOffset(v1, v2: Pvertex_t): fixed_t;
 var
   a, b: single;
@@ -346,9 +395,11 @@ begin
   result := round(sqrt(a * a + b * b) * FRACUNIT);
 end;
 
+//==============================================================================
 //
 // P_LoadGLSegs
 //
+//==============================================================================
 procedure P_LoadGLSegs(lump: integer);
 var
   data: pointer;
@@ -410,10 +461,11 @@ begin
   Z_Free(data);
 end;
 
-
+//==============================================================================
 //
 // P_LoadSubsectors
 //
+//==============================================================================
 procedure P_LoadSubsectors(lump: integer);
 var
   data: pointer;
@@ -440,9 +492,11 @@ begin
   Z_Free(data);
 end;
 
+//==============================================================================
 //
 // P_LoadSectors
 //
+//==============================================================================
 procedure P_LoadSectors(lump: integer);
 var
   data: pointer;
@@ -490,9 +544,11 @@ begin
   Z_Free(data);
 end;
 
+//==============================================================================
 //
 // P_LoadNodes
 //
+//==============================================================================
 procedure P_LoadNodes(lump: integer);
 var
   data: pointer;
@@ -527,6 +583,11 @@ begin
   Z_Free (data);
 end;
 
+//==============================================================================
+//
+// P_GameValidThing
+//
+//==============================================================================
 function P_GameValidThing(const doomdnum: integer): boolean;
 begin
   // Do not spawn cool, new monsters if !commercial
@@ -552,6 +613,11 @@ begin
   result := true;
 end;
 
+//==============================================================================
+//
+// P_DontDrawDuplicateThings
+//
+//==============================================================================
 procedure P_DontDrawDuplicateThings(const _type: integer);
 var
   i, j, count: integer;
@@ -592,11 +658,15 @@ begin
   Z_Free(mobjs);
 end;
 
-
 // JVAL: WOLF
 const
   ID_SUN = 20011;
 
+//==============================================================================
+//
+// P_IdentifySun
+//
+//==============================================================================
 procedure P_IdentifySun;
 var
   think: Pthinker_t;
@@ -615,6 +685,11 @@ begin
   P_SetSun(nil);
 end;
 
+//==============================================================================
+//
+// P_CheckThings
+//
+//==============================================================================
 procedure P_CheckThings;
 begin
   if hidedoublicatedbarrels then
@@ -622,6 +697,11 @@ begin
   P_IdentifySun;
 end;
 
+//==============================================================================
+//
+// P_IdendifyGameParams
+//
+//==============================================================================
 procedure P_IdendifyGameParams;
 var
   think: Pthinker_t;
@@ -641,9 +721,12 @@ begin
 
 end;
 
+//==============================================================================
 //
 // P_LoadThings
 //                sdf
+//
+//==============================================================================
 procedure P_LoadThings(lump: integer);
 var
   data: pointer;
@@ -672,13 +755,14 @@ end;
 var
   delphidoom_ver8_map: boolean;
 
+//==============================================================================
 //
 // JVAL: Changed for compatibility with DelphiDoom ver 0.8
-
 //
 // P_LoadLineDefs
 // Also counts secret lines for intermissions.
 //
+//==============================================================================
 procedure P_LoadLineDefs(lump: integer);
 var
   data: pointer;
@@ -788,9 +872,11 @@ begin
   Z_Free (data);
 end;
 
+//==============================================================================
 //
 // P_LoadSideDefs
 //
+//==============================================================================
 procedure P_LoadSideDefs(lump: integer);
 var
   data: pointer;
@@ -842,11 +928,13 @@ type
   linelist_tPArray = array[0..$FFFF] of Plinelist_t;
   Plinelist_tPArray = ^linelist_tPArray;
 
+//==============================================================================
+// AddBlockLine
 //
 // Subroutine to add a line number to a block list
 // It simply returns if the line is already in the block
 //
-
+//==============================================================================
 procedure AddBlockLine(lists: Plinelist_tPArray; count: PIntegerArray; done: PIntegerArray;
   blockno: integer; lineno: integer);
 var
@@ -863,6 +951,8 @@ begin
   done[blockno] := 1;
 end;
 
+//==============================================================================
+// P_CreateBlockMap
 //
 // Actually construct the blockmap lump from the level data
 //
@@ -870,7 +960,7 @@ end;
 // row lines at the left and bottom of each blockmap cell. It then
 // adds the line to all block lists touching the intersection.
 //
-
+//==============================================================================
 procedure P_CreateBlockMap;
 var
   xorg, yorg: integer;            // blockmap origin (lower left)
@@ -1005,7 +1095,6 @@ begin
     bx := _SHR(x2 - xorg, blkshift);
     by := _SHR(y2 - yorg, blkshift);
     AddBlockLine(blocklists, blockcount, blockdone, by * ncols + bx, i);
-
 
     // For each column, see where the line along its left edge, which
     // it contains, intersects the Linedef i. Add i to each corresponding
@@ -1172,9 +1261,11 @@ begin
   memfree(pointer(blockdone), NBlocks * SizeOf(integer));
 end;
 
+//==============================================================================
 //
 // P_LoadBlockMap
 //
+//==============================================================================
 procedure P_LoadBlockMap(lump: integer);
 var
   i, count: integer;
@@ -1221,11 +1312,13 @@ begin
   ZeroMemory(blocklinks, count);
 end;
 
+//==============================================================================
 //
 // P_GroupLines
 // Builds sector line lists and subsector sector numbers.
 // Finds block bounding boxes for sectors.
 //
+//==============================================================================
 procedure P_GroupLines;
 var
   linebuffer: Pline_tPArray; // pointer to an array of pointers Pline_t
@@ -1330,6 +1423,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// P_GetMapName
+//
+//==============================================================================
 function P_GetMapName(const episode, map: integer): string;
 begin
   // find map name
@@ -1344,6 +1442,8 @@ begin
     sprintf(result, 'E%dM%d', [episode, map]);
 end;
 
+//==============================================================================
+// P_RemoveSlimeTrails
 //
 // killough 10/98
 //
@@ -1389,7 +1489,7 @@ end;
 //
 // Firelines (TM) is a Rezistered Trademark of MBF Productions
 //
-
+//==============================================================================
 procedure P_RemoveSlimeTrails;  // killough 10/98
 var
   hit: PByteArray;
@@ -1439,9 +1539,11 @@ begin                        exit;
   memfree(pointer(hit), numvertexes);
 end;
 
+//==============================================================================
 //
 // P_SetupLevel
 //
+//==============================================================================
 procedure P_SetupLevel(episode, map, playermask: integer; skill: skill_t);
 var
   i: integer;
@@ -1494,7 +1596,6 @@ begin
 
   printf(#13#10'-------------'#13#10);
   printf('Loading LEVEL %d'#13#10, [map]);
-
 
   // find map name
   lumpname := P_GetMapName(episode, map);
@@ -1596,9 +1697,11 @@ begin
   noblit := false;
 end;
 
+//==============================================================================
 //
 // P_Init
 //
+//==============================================================================
 procedure P_Init;
 begin
   R_InitSprites(sprnames);

@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -43,12 +43,32 @@ var
 // Both the head and tail of the thinker list.
   thinkercap: thinker_t;
 
+//==============================================================================
+//
+// P_InitThinkers
+//
+//==============================================================================
 procedure P_InitThinkers;
 
+//==============================================================================
+//
+// P_AddThinker
+//
+//==============================================================================
 procedure P_AddThinker(thinker: Pthinker_t);
 
+//==============================================================================
+//
+// P_RemoveThinker
+//
+//==============================================================================
 procedure P_RemoveThinker(thinker: Pthinker_t);
 
+//==============================================================================
+//
+// P_Ticker
+//
+//==============================================================================
 procedure P_Ticker;
 
 var
@@ -72,16 +92,23 @@ uses
   p_mobj,
   z_zone;
 
+//==============================================================================
+//
+// P_InitThinkers
+//
+//==============================================================================
 procedure P_InitThinkers;
 begin
   thinkercap.prev := @thinkercap;
   thinkercap.next := @thinkercap;
 end;
 
+//==============================================================================
 //
 // P_AddThinker
 // Adds a new thinker at the end of the list.
 //
+//==============================================================================
 procedure P_AddThinker(thinker: Pthinker_t);
 begin
   thinkercap.prev.next := thinker;
@@ -90,20 +117,24 @@ begin
   thinkercap.prev := thinker;
 end;
 
+//==============================================================================
 //
 // P_RemoveThinker
 // Deallocation is lazy -- it will not actually be freed
 // until its thinking turn comes up.
 //
+//==============================================================================
 procedure P_RemoveThinker(thinker: Pthinker_t);
 begin
   // FIXME: NOP.
   thinker._function.acv := nil;
 end;
 
+//==============================================================================
 //
 // P_RunThinkers
 //
+//==============================================================================
 procedure P_RunThinkers;
 var
   currentthinker: Pthinker_t;
@@ -127,9 +158,11 @@ begin
   end;
 end;
 
+//==============================================================================
 //
 // P_Ticker
 //
+//==============================================================================
 procedure P_Ticker;
 var
   i: integer;

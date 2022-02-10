@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -40,16 +40,46 @@ uses
   dstrings,
   d_englsh;
 
+//==============================================================================
+//
+// T_VerticalDoor
+//
+//==============================================================================
 procedure T_VerticalDoor(door: Pvldoor_t);
 
+//==============================================================================
+//
+// EV_DoLockedDoor
+//
+//==============================================================================
 function EV_DoLockedDoor(line: Pline_t; _type: vldoor_e; thing: Pmobj_t): integer;
 
+//==============================================================================
+//
+// EV_DoDoor
+//
+//==============================================================================
 function EV_DoDoor(line: Pline_t; _type: vldoor_e): integer;
 
+//==============================================================================
+//
+// EV_VerticalDoor
+//
+//==============================================================================
 procedure EV_VerticalDoor(line: Pline_t; thing: Pmobj_t);
 
+//==============================================================================
+//
+// P_SpawnDoorCloseIn30
+//
+//==============================================================================
 procedure P_SpawnDoorCloseIn30(sec: Psector_t);
 
+//==============================================================================
+//
+// P_SpawnDoorRaiseIn5Mins
+//
+//==============================================================================
 procedure P_SpawnDoorRaiseIn5Mins(sec: Psector_t; secnum: integer);
 
 implementation
@@ -66,13 +96,13 @@ uses
   p_setup,
   p_floor;
 
+//==============================================================================
 //
 // VERTICAL DOORS
 //
-
-//
 // T_VerticalDoor
 //
+//==============================================================================
 procedure T_VerticalDoor(door: Pvldoor_t);
 var
   res: result_e;
@@ -268,11 +298,12 @@ begin
   end;
 end;
 
+//==============================================================================
 //
 // EV_DoLockedDoor
 // Move a locked door up/down
 //
-
+//==============================================================================
 function EV_DoLockedDoor(line: Pline_t; _type: vldoor_e; thing: Pmobj_t): integer;
 var
   p: Pplayer_t;
@@ -336,6 +367,11 @@ begin
   result := EV_DoDoor(line, _type);
 end;
 
+//==============================================================================
+//
+// EV_DoDoor
+//
+//==============================================================================
 function EV_DoDoor(line: Pline_t; _type: vldoor_e): integer;
 var
   initial: boolean;
@@ -420,9 +456,11 @@ begin
   end;
 end;
 
+//==============================================================================
 //
 // EV_VerticalDoor : open a door manually, no tag value
 //
+//==============================================================================
 procedure EV_VerticalDoor(line: Pline_t; thing: Pmobj_t);
 var
   player: Pplayer_t;
@@ -595,9 +633,12 @@ begin
   door.topheight := P_FindLowestCeilingSurrounding(sec) - 4 * FRACUNIT;
 end;
 
+//==============================================================================
+// P_SpawnDoorCloseIn30
 //
 // Spawn a door that closes after 30 seconds
 //
+//==============================================================================
 procedure P_SpawnDoorCloseIn30(sec: Psector_t);
 var
   door: Pvldoor_t;
@@ -618,9 +659,12 @@ begin
   door.line := nil; // remember line that triggered us
 end;
 
+//==============================================================================
+// P_SpawnDoorRaiseIn5Mins
 //
 // Spawn a door that opens after 5 minutes
 //
+//==============================================================================
 procedure P_SpawnDoorRaiseIn5Mins(sec: Psector_t; secnum: integer);
 var
   door: Pvldoor_t;
@@ -642,6 +686,5 @@ begin
   door.topcountdown := 5 * 60 * TICKRATE;
   door.line := nil; // remember line that triggered us
 end;
-
 
 end.

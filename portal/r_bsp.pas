@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2019 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -32,14 +32,27 @@ uses
   d_delphi,
   r_defs;
 
+//==============================================================================
+// R_ClearClipSegs
+//
 //-----------------------------------------------------------------------------
-
 // BSP?
+//
+//==============================================================================
 procedure R_ClearClipSegs;
 
-
+//==============================================================================
+//
+// R_RenderBSP
+//
+//==============================================================================
 procedure R_RenderBSP;
 
+//==============================================================================
+//
+// R_FakeFlat
+//
+//==============================================================================
 function R_FakeFlat(sec: Psector_t; tempsec: Psector_t;
   floorlightlevel, ceilinglightlevel: PSmallInt; back: boolean): Psector_t;
 
@@ -57,8 +70,18 @@ var
   linedef: Pline_t;
   drawsegs: array[0..MAXDRAWSEGS - 1] of Pdrawseg_t;
 
+//==============================================================================
+//
+// R_UnderWater
+//
+//==============================================================================
 function R_UnderWater: boolean;
 
+//==============================================================================
+//
+// R_RenderAdditionalSprites
+//
+//==============================================================================
 procedure R_RenderAdditionalSprites;
 
 implementation
@@ -85,6 +108,8 @@ uses
   r_draw,
   r_sky;
 
+//==============================================================================
+// R_FakeFlat
 //
 // killough 3/7/98: Hack floor/ceiling heights for deep water etc.
 //
@@ -97,7 +122,7 @@ uses
 //
 // killough 4/11/98, 4/13/98: fix bugs, add 'back' parameter
 //
-
+//==============================================================================
 function R_FakeFlat(sec: Psector_t; tempsec: Psector_t;
   floorlightlevel, ceilinglightlevel: PSmallInt; back: boolean): Psector_t;
 begin
@@ -119,6 +144,11 @@ begin
   result := sec;
 end;
 
+//==============================================================================
+//
+// R_UnderWater
+//
+//==============================================================================
 function R_UnderWater: boolean;
 begin
   if viewplayer <> nil then
@@ -167,9 +197,11 @@ var
   newend: Pcliprange_t;
   solidsegs: array[0..MAXSEGS - 1] of cliprange_t;
 
+//==============================================================================
 //
 // R_ClearClipSegs
 //
+//==============================================================================
 procedure R_ClearClipSegs;
 begin
   newend := @solidsegs[0];
@@ -187,6 +219,11 @@ var
 var
   tempsec_back, tempsec_front: sector_t;
 
+//==============================================================================
+//
+// R_CheckClip
+//
+//==============================================================================
 function R_CheckClip(seg: Pseg_t; frontsector, backsector: Psector_t): boolean;
 begin
   backsector := R_FakeFlat(backsector, @tempsec_back, nil, nil, true);
@@ -252,11 +289,13 @@ begin
   result := false;
 end;
 
+//==============================================================================
 //
 // R_AddLine
 // Clips the given segment
 // and adds any visible pieces to the line list.
 //
+//==============================================================================
 procedure R_AddLine(line: Pseg_t);
 var
   x1: integer;
@@ -370,6 +409,11 @@ const
     (0, 0, 0, 0)
   );
 
+//==============================================================================
+//
+// R_CheckBBox
+//
+//==============================================================================
 function R_CheckBBox(bspcoordA: Pfixed_tArray; const side: integer): boolean;
 var
   bspcoord: Pfixed_tArray;
@@ -423,12 +467,14 @@ begin
   result := gld_clipper_SafeCheckRange(angle2, angle1);
 end;
 
+//==============================================================================
 //
 // R_Subsector
 // Determine floor/ceiling planes.
 // Add sprites of things in sector.
 // Draw one or more line segments.
 //
+//==============================================================================
 procedure R_Subsector(const num: integer);
 var
   count: integer;
@@ -611,11 +657,15 @@ begin
   end;
 end;
 
+//==============================================================================
+// R_RenderBSPNode
 //
 // RenderBSPNode
 // Renders all subsectors below a given node,
 //  traversing subtree recursively.
 // Just call with BSP root.
+//
+//==============================================================================
 procedure R_RenderBSPNode(bspnum: integer);
 var
   bsp: Pnode_t;
@@ -647,12 +697,22 @@ begin
     R_Subsector(bspnum and not NF_SUBSECTOR);
 end;
 
+//==============================================================================
+//
+// R_RenderBSP
+//
+//==============================================================================
 procedure R_RenderBSP;
 begin
   Inc(rendervalidcount);
   R_RenderBSPNode(numnodes - 1);
 end;
 
+//==============================================================================
+//
+// R_RenderAdditionalSprites
+//
+//==============================================================================
 procedure R_RenderAdditionalSprites;
 var
   th: Pthinker_t;

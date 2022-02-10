@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -50,16 +50,46 @@ var
   canuselightmaps: boolean = true;
   canusemultitexture: boolean = true;
 
+//==============================================================================
+//
+// gld_InitLightmap
+//
+//==============================================================================
 procedure gld_InitLightmap;
 
+//==============================================================================
+//
+// gld_LightmapDone
+//
+//==============================================================================
 procedure gld_LightmapDone;
 
+//==============================================================================
+//
+// gld_ActivateLightmap
+//
+//==============================================================================
 procedure gld_ActivateLightmap;
 
+//==============================================================================
+//
+// gld_DeactivateLightmap
+//
+//==============================================================================
 procedure gld_DeactivateLightmap;
 
+//==============================================================================
+//
+// gld_PauseLightmap
+//
+//==============================================================================
 procedure gld_PauseLightmap;
 
+//==============================================================================
+//
+// gld_ResumeLightmap
+//
+//==============================================================================
 procedure gld_ResumeLightmap;
 
 implementation
@@ -122,6 +152,11 @@ type
   exportlightmap_t = array[0..LIGHTMAPSIZEX - 1, 0..LIGHTMAPSIZEX - 1, 0..LIGHTMAPSIZEX - 1] of LongWord;
   exportlightmap_p = ^exportlightmap_t;
 
+//==============================================================================
+//
+// Vox_ExportLightmap
+//
+//==============================================================================
 procedure Vox_ExportLightmap(const fname: string);
 var
   x, y, z: integer;
@@ -204,6 +239,11 @@ begin
   freemem(pointer(lp), SizeOf(exportlightmap_t));
 end;
 
+//==============================================================================
+//
+// gld_InitLightmap
+//
+//==============================================================================
 procedure gld_InitLightmap;
 var
   i: integer;
@@ -249,6 +289,11 @@ begin
   C_AddCmd('vox_exportlightmap', @Vox_ExportLightmap);
 end;
 
+//==============================================================================
+//
+// gld_LightmapDone
+//
+//==============================================================================
 procedure gld_LightmapDone;
 begin
   memfree(pointer(rtllightmap), SizeOf(lightmaprtlitem_tArray));
@@ -263,34 +308,62 @@ var
   l3dy: float = -LIGHTMAPSIZEY * LIGHTMAPUNIT / MAP_COEFF / 2;
   l3dz: float = -LIGHTMAPSIZEZ * LIGHTMAPUNIT / MAP_COEFF / 2;
 
+//==============================================================================
+// opengl2lightmapx
 //
 // Utility functions to switch coordinates (LIGHMAP TEXTURE/OpenGL).
 //
+//==============================================================================
 function opengl2lightmapx(const f: float): integer;
 begin
   result := trunc((f - l3dx) * (MAP_COEFF / LIGHTMAPUNIT));
 end;
 
+//==============================================================================
+//
+// opengl2lightmapy
+//
+//==============================================================================
 function opengl2lightmapy(const f: float): integer;
 begin
   result := trunc((f - l3dy) * (MAP_COEFF / LIGHTMAPUNIT));
 end;
 
+//==============================================================================
+//
+// opengl2lightmapz
+//
+//==============================================================================
 function opengl2lightmapz(const f: float): integer;
 begin
   result := trunc((f - l3dz) * (MAP_COEFF / LIGHTMAPUNIT));
 end;
 
+//==============================================================================
+//
+// lightmap2openglx
+//
+//==============================================================================
 function lightmap2openglx(const i: integer): float;
 begin
   result := (i * LIGHTMAPUNIT / MAP_COEFF) + l3dx;
 end;
 
+//==============================================================================
+//
+// lightmap2opengly
+//
+//==============================================================================
 function lightmap2opengly(const i: integer): float;
 begin
   result := (i * LIGHTMAPUNIT / MAP_COEFF) + l3dy;
 end;
 
+//==============================================================================
+//
+// lightmap2openglz
+//
+//==============================================================================
 function lightmap2openglz(const i: integer): float;
 begin
   result := (i * LIGHTMAPUNIT / MAP_COEFF) + l3dz;
@@ -306,6 +379,11 @@ var
 const
   MINLIGHTMAPRADIOUS = 1.7321 * LIGHTMAPUNIT / MAP_COEFF;
 
+//==============================================================================
+//
+// _float_to_byte
+//
+//==============================================================================
 function _float_to_byte(const f: float): byte;
 begin
   if f <= 0.5 then
@@ -316,6 +394,11 @@ begin
     Result := Round(f);
 end;
 
+//==============================================================================
+//
+// gld_ClearLightmapMarkSTD
+//
+//==============================================================================
 procedure gld_ClearLightmapMarkSTD(const markp: lightmapmark_p);
 var
   ix, iy, iz: integer;
@@ -342,6 +425,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// gld_CalculateLightmapSTD
+//
+//==============================================================================
 procedure gld_CalculateLightmapSTD;
 var
   i: integer;
@@ -652,11 +740,13 @@ begin
   end;
 end;
 
+//==============================================================================
 //
 // gld_PlaceLightmapTexture
 //
 // Texture positioning in world coordinates
 //
+//==============================================================================
 procedure gld_PlaceLightmapTexture;
 begin
   glMatrixMode(GL_TEXTURE);
@@ -668,11 +758,14 @@ begin
   glMatrixMode(GL_MODELVIEW);
 end;
 
+//==============================================================================
+// gld_ActivateLightmap
 //
 // JVAL
 //
 // Activate Lightmap 3D texture, calls gld_CalculateLightmap
 //
+//==============================================================================
 procedure gld_ActivateLightmap;
 var
   TexGenSPlane, TexGenTPlane, TexGenRPlane: TVector4f;
@@ -732,11 +825,14 @@ begin
   glEnable(GL_TEXTURE_2D);
 end;
 
+//==============================================================================
+// gld_DeactivateLightmap
 //
 // JVAL
 //
 // Deactivate Lightmap
 //
+//==============================================================================
 procedure gld_DeactivateLightmap;
 begin
   glActiveTextureARB(GL_TEXTURE1_ARB);
@@ -748,6 +844,11 @@ begin
   glEnable(GL_TEXTURE_2D);
 end;
 
+//==============================================================================
+//
+// gld_PauseLightmap
+//
+//==============================================================================
 procedure gld_PauseLightmap;
 begin
   glActiveTextureARB(GL_TEXTURE1_ARB);
@@ -755,6 +856,11 @@ begin
   glActiveTextureARB(GL_TEXTURE0_ARB);
 end;
 
+//==============================================================================
+//
+// gld_ResumeLightmap
+//
+//==============================================================================
 procedure gld_ResumeLightmap;
 begin
   glActiveTextureARB(GL_TEXTURE1_ARB);

@@ -32,12 +32,32 @@ uses
   m_fixed,
   p_mobj_h;
 
+//==============================================================================
+//
+// P_CheckSight
+//
+//==============================================================================
 function P_CheckSight(t1: Pmobj_t; t2: Pmobj_t): boolean;
 
+//==============================================================================
+//
+// P_CheckCameraSight
+//
+//==============================================================================
 function P_CheckCameraSight(const camx, camy, camz: fixed_t; mo: Pmobj_t): boolean;
 
+//==============================================================================
+//
+// P_CheckVisibility
+//
+//==============================================================================
 function P_CheckVisibility(const atx, aty, atz: fixed_t; const atradious: fixed_t): boolean;
 
+//==============================================================================
+//
+// R_CheckCameraSight
+//
+//==============================================================================
 function R_CheckCameraSight(camx, camy, camz: fixed_t; mo: Pmobj_t): boolean;
 
 var
@@ -68,10 +88,12 @@ var
   t2x: fixed_t;
   t2y: fixed_t;
 
+//==============================================================================
 //
 // P_DivlineSide
 // Returns side 0 (front), 1 (back), or 2 (on).
 //
+//==============================================================================
 function P_DivlineSide(const x, y: fixed_t; const node: Pdivline_t): integer;
 var
   dx: fixed_t;
@@ -141,12 +163,14 @@ begin
     result := 1; // back side
 end;
 
+//==============================================================================
 //
 // P_InterceptVector2
 // Returns the fractional intercept point
 // along the first divline.
 // This is only called by the addthings and addlines traversers.
 //
+//==============================================================================
 function P_InterceptVector2(v2, v1: Pdivline_t): fixed_t;
 var
   num: fixed_t;
@@ -167,11 +191,13 @@ begin
   result := FixedDiv(num , den);
 end;
 
+//==============================================================================
 //
 // P_CrossSubsector
 // Returns true
 //  if strace crosses the given subsector successfully.
 //
+//==============================================================================
 function P_CrossSubsector(const num: integer): boolean;
 var
   seg: Pseg_t;
@@ -292,11 +318,13 @@ begin
   result := true;
 end;
 
+//==============================================================================
 //
 // P_CrossBSPNode
 // Returns true
 //  if strace crosses the given node successfully.
 //
+//==============================================================================
 function P_CrossBSPNode(bspnum: integer): boolean;
 var
   bsp: Pnode_t;
@@ -337,12 +365,14 @@ begin
   result := P_CrossBSPNode(bsp.children[side xor 1]);
 end;
 
+//==============================================================================
 //
 // P_CheckSight
 // Returns true
 //  if a straight line between t1 and t2 is unobstructed.
 // Uses REJECT.
 //
+//==============================================================================
 function P_CheckSight(t1: Pmobj_t; t2: Pmobj_t): boolean;
 var
   s1: integer;
@@ -411,7 +441,11 @@ begin
   result := P_CrossBSPNode(numnodes - 1);
 end;
 
-
+//==============================================================================
+//
+// P_SightBlockLinesIterator
+//
+//==============================================================================
 function P_SightBlockLinesIterator(x, y: integer): boolean;
 var
   offset: integer;
@@ -470,6 +504,11 @@ end;
 var
   sightcounts: array[0..2] of integer;
 
+//==============================================================================
+//
+// PTR_SightTraverse
+//
+//==============================================================================
 function PTR_SightTraverse(_in: Pintercept_t): boolean;
 var
   li: Pline_t;
@@ -505,8 +544,11 @@ begin
   result := topslope > bottomslope;
 end;
 
-
-
+//==============================================================================
+//
+// P_SightTraverseIntercepts
+//
+//==============================================================================
 function P_SightTraverseIntercepts: boolean;
 var
   i: integer;
@@ -556,7 +598,11 @@ begin
   result := true; // everything was traversed
 end;
 
-
+//==============================================================================
+//
+// P_SightPathTraverse 
+//
+//==============================================================================
 function P_SightPathTraverse (x1, y1, x2, y2: fixed_t): boolean;
 var
   xt1, yt1, xt2, yt2: fixed_t;
@@ -617,7 +663,6 @@ begin
   end;
   yintercept := MapToFrac(y1) + FixedMul(partial, ystep);
 
-
   if yt2 > yt1 then
   begin
     mapystep := 1;
@@ -638,13 +683,11 @@ begin
   end;
   xintercept := MapToFrac(x1) + FixedMul(partial, xstep);
 
-
 //
 // step through map blocks
 // Count is present to prevent a round off error from skipping the break
   mapx := xt1;
   mapy := yt1;
-
 
   for count := 0 to 63 do
   begin
@@ -671,7 +714,6 @@ begin
 
   end;
 
-
 //
 // couldn't early out, so go through the sorted list
 //
@@ -680,7 +722,11 @@ begin
   result := P_SightTraverseIntercepts;
 end;
 
-
+//==============================================================================
+//
+// R_CheckCameraSight
+//
+//==============================================================================
 function R_CheckCameraSight(camx, camy, camz: fixed_t; mo: Pmobj_t): boolean;
 begin
   if mo = nil then
@@ -698,12 +744,13 @@ begin
   result := P_SightPathTraverse(camx, camy, mo.x, mo.y);
 end;
 
-
+//==============================================================================
 //
 // P_CheckCameraSight
 //
 // JVAL: To determine if camera chase view can see the player
 //
+//==============================================================================
 function P_CheckCameraSight(const camx, camy, camz: fixed_t; mo: Pmobj_t): boolean;
 begin
   if mo = nil then
@@ -711,7 +758,6 @@ begin
     result := false;
     exit;
   end;
-
 
   // An unobstructed LOS is possible.
   // Now look from eyes of t1 to any part of t2.
@@ -732,6 +778,7 @@ begin
   result := P_CrossBSPNode(numnodes - 1);
 end;
 
+//==============================================================================
 //
 // P_CheckVisibility
 //
@@ -739,6 +786,7 @@ end;
 // Checks if an object at (atx, aty, atz) with radious = atradious can be
 // possibly visible
 //
+//==============================================================================
 function P_CheckVisibility(const atx, aty, atz: fixed_t; const atradious: fixed_t): boolean;
 begin
   inc(validcount);

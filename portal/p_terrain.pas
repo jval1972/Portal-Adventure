@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -28,6 +28,11 @@ unit p_terrain;
 
 interface
 
+//==============================================================================
+//
+// P_TerrainTypeForName
+//
+//==============================================================================
 function P_TerrainTypeForName(flatname: string): integer;
 
 var
@@ -83,7 +88,11 @@ var
     (name: 'END'; _type: -1)
   );
 
-
+//==============================================================================
+//
+// P_TerrainTypeForName
+//
+//==============================================================================
 function P_TerrainTypeForName(flatname: string): integer;
 var
   i: integer;

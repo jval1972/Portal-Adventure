@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -28,20 +28,47 @@ unit m_misc;
 
 interface
 
+//==============================================================================
+// M_WriteFile
 //
 // MISC
 //
-
+//==============================================================================
 function M_WriteFile(const name: string; source: pointer; length: integer): boolean;
 
+//==============================================================================
+//
+// M_ReadFile
+//
+//==============================================================================
 function M_ReadFile(const name: string; var buffer: Pointer): integer;
 
+//==============================================================================
+//
+// M_ScreenShot
+//
+//==============================================================================
 procedure M_ScreenShot(const filename: string = ''; const silent: boolean = false);
 
+//==============================================================================
+//
+// M_DoScreenShot
+//
+//==============================================================================
 function M_DoScreenShot(const filename: string): boolean;
 
+//==============================================================================
+//
+// M_LoadDefaults
+//
+//==============================================================================
 procedure M_LoadDefaults;
 
+//==============================================================================
+//
+// M_SaveDefaults
+//
+//==============================================================================
 procedure M_SaveDefaults;
 
 var
@@ -65,6 +92,11 @@ uses
   d_sshot,
   i_tmp;
 
+//==============================================================================
+//
+// M_WriteFile
+//
+//==============================================================================
 function M_WriteFile(const name: string; source: pointer; length: integer): boolean;
 var
   handle: file;
@@ -82,6 +114,11 @@ begin
   result := count > 0;
 end;
 
+//==============================================================================
+//
+// M_ReadFile
+//
+//==============================================================================
 function M_ReadFile(const name: string; var buffer: Pointer): integer;
 var
   handle: file;
@@ -113,9 +150,11 @@ type
 const
   MSG_ERR_SCREENSHOT = 'Couldn''t create a screenshot';
 
+//==============================================================================
 //
 // M_ScreenShot
 //
+//==============================================================================
 procedure M_ScreenShot(const filename: string = ''; const silent: boolean = false);
 var
   tganame,
@@ -161,6 +200,11 @@ begin
   fdelete(tganame);
 end;
 
+//==============================================================================
+//
+// M_DoScreenShot
+//
+//==============================================================================
 function M_DoScreenShot(const filename: string): boolean;
 var
   buffer: PByteArray;
@@ -193,7 +237,11 @@ const
 var
   defaultfile: string;
 
-
+//==============================================================================
+//
+// M_SaveDefaults
+//
+//==============================================================================
 procedure M_SaveDefaults;
 var
   i: integer;
@@ -232,6 +280,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// M_LoadDefaults
+//
+//==============================================================================
 procedure M_LoadDefaults;
 var
   i: integer;
