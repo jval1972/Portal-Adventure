@@ -109,6 +109,11 @@ const
    biRGB = 0;
    biRLE8 = 1;
 
+//==============================================================================
+//
+// TBMPTextureManager.Create
+//
+//==============================================================================
 constructor TBMPTextureManager.Create;
 begin
   inherited Create;

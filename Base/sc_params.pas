@@ -81,12 +81,22 @@ uses
   m_rnd,
   sc_engine;
 
+//==============================================================================
+//
+// TCustomParamList.Create
+//
+//==============================================================================
 constructor TCustomParamList.Create;
 begin
   fList := nil;
   fNumItems := 0;
 end;
 
+//==============================================================================
+//
+// TCustomParamList.CreateFromText
+//
+//==============================================================================
 constructor TCustomParamList.CreateFromText(const tx: string);
 var
   i: integer;
@@ -109,6 +119,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// TCustomParamList.Destroy
+//
+//==============================================================================
 destructor TCustomParamList.Destroy;
 begin
   if fNumItems > 0 then

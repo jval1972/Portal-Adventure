@@ -1058,6 +1058,11 @@ begin
   end;
 end;
 
+//==============================================================================
+//
+// TSynthesisFilter.Create
+//
+//==============================================================================
 constructor TSynthesisFilter.Create(ChannelNumber: Cardinal;
   ScaleFactor: Single);
 begin

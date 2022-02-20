@@ -131,6 +131,11 @@ end;
 
 { TBitStream }
 
+//==============================================================================
+//
+// TBitStream.Create
+//
+//==============================================================================
 constructor TBitStream.Create(AStream: TStream);
 begin
   FStream := AStream;
@@ -139,6 +144,11 @@ begin
   NonSeekable := false;
 end;
 
+//==============================================================================
+//
+// TBitStream.Destroy
+//
+//==============================================================================
 destructor TBitStream.Destroy;
 begin
 //  FStream.Free;

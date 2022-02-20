@@ -207,6 +207,11 @@ type
     function M_Realloc(ptr: Pointer; size: integer; tag: integer; user: Pointer): pointer;
   end;
 
+//==============================================================================
+//
+// TMemManager.Create
+//
+//==============================================================================
 constructor TMemManager.Create;
 begin
   items := nil;
@@ -214,6 +219,11 @@ begin
   realsize := 0;
 end;
 
+//==============================================================================
+//
+// TMemManager.Destroy
+//
+//==============================================================================
 destructor TMemManager.Destroy;
 var
   i: integer;
