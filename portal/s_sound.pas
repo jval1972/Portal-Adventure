@@ -198,7 +198,6 @@ uses
   m_misc,
   p_mobj_h,
   p_mobj,
-  p_local,
   p_tick,
   sounds,
   z_zone,

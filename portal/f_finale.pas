@@ -98,27 +98,19 @@ implementation
 
 uses
   d_delphi,
-  d_player,
   d_main,
   g_game,
   info,
-  p_pspr,
-  r_data,
   r_defs,
-  r_things,
-// Functions.
-  i_system,
   z_zone,
   v_data,
   v_video,
   w_wad,
   s_sound,
 // Data.
-  dstrings,
   d_englsh,
   sounds,
   gamedef,
-  hu_stuff,
   p_enemy;
 
 var

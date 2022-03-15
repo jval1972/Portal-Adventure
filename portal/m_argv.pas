@@ -96,10 +96,9 @@ var
 implementation
 
 uses
-  ShlObj, ActiveX, ComObj,
-  Windows,
   c_cmds,
-  i_system, dl_form;
+  i_system,
+  dl_form;
 
 var
   cdchecked: integer = -1;

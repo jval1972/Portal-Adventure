@@ -69,7 +69,6 @@ uses
   info,
   m_rnd,
   p_setup,
-  p_mobj,
   p_mobj_h;
 
 type

@@ -107,7 +107,6 @@ implementation
 
 uses
   tables,
-  g_game,
   info_h,
   i_system,
   cm_main,
@@ -118,9 +117,6 @@ uses
   r_data,
   r_draw,
   r_main,
-  r_bsp,
-  r_hires,
-  r_lights,
   z_zone,
   w_wad;
 

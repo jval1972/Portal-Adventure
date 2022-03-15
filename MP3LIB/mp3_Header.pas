@@ -50,8 +50,9 @@
 unit mp3_Header;
 
 interface
+
 uses
-  Windows, mp3_CRC, mp3_BitStream, mp3_BitReserve;
+  mp3_CRC, mp3_BitStream, mp3_BitReserve;
 
 type
   TVersion         = (MPEG2_LSF, MPEG1);

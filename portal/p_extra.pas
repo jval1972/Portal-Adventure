@@ -812,7 +812,6 @@ uses
   p_pspr,
   p_sounds,
   p_tick,
-  r_main,
   r_defs,
   sounds,
   s_sound,

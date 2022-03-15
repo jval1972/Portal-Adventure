@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  Portal Adventure - 2nd PGD Challenge: The Journey
-//  Copyright (C) 2012-2021 by Jim Valavanis
+//  Copyright (C) 2012-2022 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -48,9 +48,6 @@
 unit mp3_L3Tables;
 
 interface
-
-uses
-  mp3_Shared;
 
 const
   slen: array[0..1, 0..15] of Integer = (

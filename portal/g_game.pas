@@ -36,9 +36,8 @@ uses
   d_ticcmd;
 
 //==============================================================================
-// G_DeathMatchSpawnPlayer
 //
-// GAME
+// G_DeathMatchSpawnPlayer
 //
 //==============================================================================
 procedure G_DeathMatchSpawnPlayer(playernum: integer);
@@ -400,7 +399,6 @@ uses
   info_h,
   info,
   i_system,
-  i_io,
   m_argv,
   m_misc,
   m_menu,
@@ -415,20 +413,16 @@ uses
   p_map,
   hu_stuff,
   st_stuff,
-// Needs access to LFB.
-  v_video,
   w_wad,
   s_sound,
 // Data.
   dstrings,
-  d_englsh,
   sounds,
 // SKY handling - still the wrong place.
   r_data,
   r_sky,
   r_defs,
   r_main,
-  r_draw,
   r_intrpl,
   tables;
 

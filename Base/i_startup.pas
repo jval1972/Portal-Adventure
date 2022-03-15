@@ -29,8 +29,8 @@ unit i_startup;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, ComCtrls;
+  Classes, Controls, Forms,
+  StdCtrls, ExtCtrls, ComCtrls;
 
 type
   TStartUpConsoleForm = class(TForm)
@@ -127,8 +127,6 @@ implementation
 {$R *.dfm}
 
 uses
-  d_delphi,
-  d_main,
   i_io;
 
 var

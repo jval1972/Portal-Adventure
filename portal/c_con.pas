@@ -115,21 +115,15 @@ uses
   gamedef,
   c_cmds,
   c_utils,
-  d_main,
   g_game,
   hu_stuff,
   m_argv,
-  m_fixed,
   i_io,
   i_system,
   r_defs,
-  r_main,
-  st_stuff,
   v_data,
   v_video,
-  w_utils,
-  w_wad,
-  z_zone;
+  w_utils;
 
 const
   CONSOLE_PROMPTCHAR: string = ']';

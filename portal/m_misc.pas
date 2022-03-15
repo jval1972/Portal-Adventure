@@ -79,11 +79,8 @@ implementation
 
 uses
   d_delphi,
-  c_cmds,
   gamedef,
   d_main,
-  d_player,
-  g_game,
   m_argv,
   m_defs,
   i_system,

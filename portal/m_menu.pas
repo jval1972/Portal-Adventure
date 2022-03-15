@@ -123,7 +123,6 @@ uses
   m_misc,
   m_fixed,
   i_system,
-  i_io,
   i_mp3,
   i_sound,
   gl_main,
@@ -140,12 +139,10 @@ uses
   r_intrpl,
   r_draw,
   t_main,
-  z_zone,
   v_data,
   v_video,
   w_wad,
   hu_stuff,
-  st_stuff,
   s_sound,
 // Data.
   sounds;

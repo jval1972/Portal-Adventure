@@ -31,14 +31,11 @@ interface
 uses
   z_zone,
   gamedef,
-  p_local,
   p_mobj_h,
   p_spec,
   r_defs,
   s_sound,
-  sounds,
-  dstrings,
-  d_englsh;
+  sounds;
 
 //==============================================================================
 //
@@ -85,7 +82,6 @@ procedure P_SpawnDoorRaiseIn5Mins(sec: Psector_t; secnum: integer);
 implementation
 
 uses
-  d_delphi,
   d_player,
   g_game,
   cm_main,

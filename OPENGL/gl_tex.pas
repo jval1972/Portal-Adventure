@@ -238,7 +238,6 @@ uses
   g_game,
   gl_misc,
   info,
-  i_system,
   p_mobj,
   p_mobj_h,
   p_setup,
@@ -248,7 +247,6 @@ uses
   r_sky,
   r_things,
   r_hires,
-  d_player,
   v_data;
 
 //==============================================================================

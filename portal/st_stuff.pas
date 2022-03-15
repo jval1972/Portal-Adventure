@@ -102,10 +102,7 @@ implementation
 
 uses
   d_delphi,
-  tables,
   c_cmds,
-  d_items,
-  i_system,
   z_zone,
   w_wad,
   info,
@@ -113,28 +110,18 @@ uses
   gl_main,
   gl_render,
   g_game,
-  p_local,
   p_inter,
   p_setup,
   p_enemy,
   d_player,
-  r_defs,
-  r_main,
-  r_draw,
-  r_hires,
   m_cheat,
   m_rnd,
-  m_fixed,
   s_sound,
 // Needs access to LFB.
   v_data,
   v_video,
 // Data.
-  dstrings,
-  d_englsh,
-  sounds,
-// for mapnames
-  hu_stuff;
+  sounds;
 
 //
 // STATUS BAR DATA

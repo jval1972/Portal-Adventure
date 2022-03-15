@@ -359,10 +359,7 @@ implementation
 
 uses
   mapdata,
-  i_tmp,
-  i_system,
   w_wad,
-  m_misc,
   z_zone;
 
 //==============================================================================

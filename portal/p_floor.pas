@@ -29,19 +29,20 @@ unit p_floor;
 interface
 
 uses
-  gamedef,
   z_zone,
   p_spec,
   m_fixed,
-  p_local,
   r_defs,
   s_sound,
   sounds;
 
-//==============================================================================
-// T_MovePlane
 //
 // FLOORS
+//
+
+//==============================================================================
+//
+// T_MovePlane
 //
 //==============================================================================
 function T_MovePlane(sector: Psector_t; speed: fixed_t; dest: fixed_t;
@@ -94,7 +95,6 @@ implementation
 uses
   d_delphi,
   mapdata,
-  g_game,
   p_map,
   p_tick,
   p_mobj_h,

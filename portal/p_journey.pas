@@ -489,7 +489,6 @@ uses
   gamedef,
   d_main,
   dstrings,
-  d_event,
   c_con,
   m_argv,
   info_h,

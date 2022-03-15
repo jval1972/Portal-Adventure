@@ -34,9 +34,8 @@ uses
   r_defs;
 
 //==============================================================================
-// R_GetLumpForFlat
 //
-//-----------------------------------------------------------------------------
+// R_GetLumpForFlat
 //
 //==============================================================================
 function R_GetLumpForFlat(const flat: integer): integer;
@@ -138,11 +137,8 @@ var
 implementation
 
 uses
-  gamedef,
   d_think,
-  g_game,
   i_system,
-  p_local,
   p_setup,
   p_tick,
   p_mobj_h,
@@ -156,8 +152,7 @@ uses
   v_data,
   v_video,
   w_wad,
-  z_zone,
-  sc_engine;
+  z_zone;
 
 //==============================================================================
 //

@@ -32,8 +32,7 @@ unit r_hires;
 interface
 
 uses
-  d_delphi,
-  m_fixed;
+  d_delphi;
 
 var
   detailLevel: integer;
@@ -171,16 +170,10 @@ uses
   c_cmds,
   gamedef,
   m_misc,
-  i_system,
   gl_main,
   gl_tex,
-  r_defs,
   r_main,
-  r_data,
-  r_lights,
-  v_video,
-  w_wad,
-  z_zone;
+  r_lights;
 
 ////////////////////////////////////////////////////////////////////////////////
 //

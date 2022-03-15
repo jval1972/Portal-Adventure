@@ -62,7 +62,6 @@ implementation
 uses
   d_delphi,
   mapdata,
-  p_local,
   p_setup,
   p_lights,
   p_plats,

@@ -68,9 +68,7 @@ implementation
 
 uses
   d_delphi,
-  gamedef,
   mapdata,
-  i_system,
   p_local,
   p_setup,
   p_maputl,

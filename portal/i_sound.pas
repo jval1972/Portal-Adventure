@@ -125,10 +125,8 @@ implementation
 uses
   d_delphi,
   MMSystem,
-  c_cmds,
   z_zone,
   m_argv,
-  m_misc,
   i_system,
   DirectX,
   s_sound,

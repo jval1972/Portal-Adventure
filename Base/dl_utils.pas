@@ -38,7 +38,7 @@ function Get2Ints(const s: string; var i1, i2: integer): boolean;
 implementation
 
 uses
-  Windows, SysUtils;
+  SysUtils;
 
 //==============================================================================
 //

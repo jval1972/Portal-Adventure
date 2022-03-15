@@ -35,9 +35,8 @@ uses
   r_defs;
 
 //==============================================================================
-// R_ClearPlanes
 //
-//-----------------------------------------------------------------------------
+// R_ClearPlanes
 //
 //==============================================================================
 procedure R_ClearPlanes;
@@ -68,17 +67,8 @@ var
 implementation
 
 uses
-  d_delphi,
-  d_player,
-  tables,
   i_system,
-  r_sky,
-  r_draw,
-  r_main,
-  r_things,
-  r_hires,
-  z_zone,
-  w_wad;
+  r_sky;
 
 // Here comes the obnoxious "visplane".
 const

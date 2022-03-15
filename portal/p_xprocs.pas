@@ -144,14 +144,12 @@ implementation
 uses
   d_delphi,
   cm_main,
-  c_con,
   gamedef,
   d_think,
   r_defs,
   tables,
   m_rnd,
   m_fixed,
-  i_system,
   info_h,
   d_player,
   g_game,
@@ -165,7 +163,6 @@ uses
   p_maputl,
   p_local,
   p_journey,
-  gl_page,
   sounds,
   s_sound;
 

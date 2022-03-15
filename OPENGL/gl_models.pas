@@ -34,7 +34,6 @@ uses
   d_delphi,
   m_fixed,
   dglOpenGL,
-  p_mobj_h,
   gl_types;
 
 var

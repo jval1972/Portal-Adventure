@@ -81,8 +81,6 @@ implementation
 
 uses
   i_system,
-  gamedef,
-  g_game,
   m_fixed,
   m_rnd,
   p_mobj_h,

@@ -141,10 +141,10 @@ uses
   d_englsh,
   dstrings,
   f_finale,
-  g_game,
   hu_stuff,
   i_system,
-  info_h, info,
+  info_h,
+  info,
   m_argv,
   p_mobj_h,
   p_mobj,
@@ -158,8 +158,7 @@ uses
   sc_params,
   v_data,
   w_wad,
-  w_pak,
-  z_zone;
+  w_pak;
 
 //==============================================================================
 //

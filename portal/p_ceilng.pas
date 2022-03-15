@@ -30,8 +30,6 @@ interface
 
 uses
   z_zone,
-  gamedef,
-  p_local,
   p_spec,
   r_defs,
   s_sound,
@@ -79,7 +77,6 @@ function P_ActivateInStasisCeiling(line: Pline_t): integer;
 implementation
 
 uses
-  d_delphi,
   i_system,
   m_fixed,
   p_mobj_h,

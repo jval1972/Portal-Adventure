@@ -30,9 +30,6 @@ interface
 
 uses
   gamedef,
-  dstrings,
-  d_englsh,
-  sounds,
   m_rnd,
   i_system,
   p_local,
@@ -41,9 +38,8 @@ uses
   d_player;
 
 //==============================================================================
-// P_GivePower
 //
-//-----------------------------------------------------------------------------
+// P_GivePower
 //
 //==============================================================================
 function P_GivePower(player: Pplayer_t; power: integer): boolean;
@@ -97,8 +93,10 @@ uses
   d_items,
   g_game,
   cm_main,
-  p_mobj, p_pspr,
-  r_defs, r_main,
+  p_mobj,
+  p_pspr,
+  r_defs,
+  r_main,
   tables;
 
 const

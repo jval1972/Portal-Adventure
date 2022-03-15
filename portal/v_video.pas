@@ -311,10 +311,7 @@ var
 implementation
 
 uses
-  m_bbox,
   r_hires,
-  r_data,
-  r_mmx,
   t_draw,
   w_wad,
   z_zone;

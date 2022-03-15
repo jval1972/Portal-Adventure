@@ -76,7 +76,6 @@ uses
   p_maputl,
   sc_engine,
   gl_models,
-  gl_render,
   gl_types,
   gl_defs;
 

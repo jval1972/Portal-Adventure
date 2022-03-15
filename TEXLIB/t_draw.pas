@@ -62,7 +62,6 @@ procedure T_ShutDownDrawTextures;
 implementation
 
 uses
-  gamedef,
   m_fixed,
   r_hires,
   r_mmx,

@@ -133,9 +133,6 @@ interface
 
 uses
   jpg_morecfg,
-{$ifdef QUANT_2PASS_SUPPORTED}
-  jpg_quant2,
-{$endif}
   jpg_error,
   jpg_lib;
 

@@ -29,12 +29,11 @@ unit p_pspr;
 interface
 
 uses
-// Basic data types.
-// Needs fixed point, and BAM angles.
   m_fixed,
   tables,
   info_h,
-  p_pspr_h, p_mobj_h,
+  p_pspr_h,
+  p_mobj_h,
   d_player;
 
 const
@@ -230,14 +229,14 @@ uses
   d_items,
   m_rnd,
   p_local,
-  p_plats,
+  
   p_tick,
   p_mobj,
   p_enemy,
   p_map,
   p_inter,
   r_main,
-  r_draw,
+  
   s_sound,
 // Data.
   sounds;

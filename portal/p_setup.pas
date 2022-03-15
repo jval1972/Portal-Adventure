@@ -176,7 +176,6 @@ uses
   p_mobj,
   p_tick,
   p_spec,
-  p_switch,
   p_xprocs,
   gl_hud, // JVAL
   p_sun,  // JVAL
@@ -188,7 +187,6 @@ uses
   r_intrpl,
   info_h,
   gl_data,    // JVAL OPENGL
-  gl_tex,     // JVAL OPENGL
   gl_render,  // JVAL OPENGL
   gl_models,  // JVAL
   gl_page,

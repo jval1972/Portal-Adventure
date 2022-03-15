@@ -121,18 +121,13 @@ implementation
 
 uses
   Windows,
-  messages,
   MMSystem,
-  gamedef,
   m_argv,
-  m_misc,
   i_system,
-  i_sound,
   i_midi,
   i_mp3,
   i_tmp,
   s_sound,
-  w_wad,
   z_zone;
 
 type

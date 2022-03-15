@@ -30,7 +30,6 @@ interface
 
 uses
   m_bbox,
-  gamedef,
   p_local,
   p_mobj_h,
   m_fixed,

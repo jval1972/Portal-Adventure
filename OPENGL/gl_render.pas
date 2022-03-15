@@ -198,7 +198,6 @@ uses
   g_game,
   v_video,
   v_data,
-  m_stack,
   info,
   sc_states,
   gl_main,
@@ -230,9 +229,7 @@ uses
   r_lights,
   sc_engine,
   w_wad,
-  z_zone,
-  hu_stuff,
-  d_net;
+  z_zone;
 
 {$IFDEF DEBUG}
 var
