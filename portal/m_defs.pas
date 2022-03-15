@@ -68,8 +68,6 @@ const
 var
 // Stub variables
   displayendscreen: boolean;
-  soft_SCREENWIDTH,
-  soft_SCREENHEIGHT: integer;
 
 type
   ttype_t = (tString, tInteger, tBoolean, tGroup);
@@ -87,7 +85,7 @@ type
   Pdefault_t = ^default_t;
 
 const
-  NUMDEFAULTS = 110;
+  NUMDEFAULTS = 108;
 
 // JVAL
 // Note: All setable defaults must be in lowercase, don't ask why. Just do it. :)
@@ -101,26 +99,8 @@ const
      defaultbvalue: false;
      _type: tGroup),
 
-    (name: 'soft_screenwidth';
-     location: @{$IFDEF OPENGL}soft_SCREENWIDTH{$ELSE}WINDOWWIDTH{$ENDIF};
-     setable: DFS_NEVER;
-     saveable: false;
-     defaultsvalue: '';
-     defaultivalue: 800;
-     defaultbvalue: false;
-     _type: tInteger),
-
-    (name: 'soft_screenheight';
-     location: @{$IFDEF OPENGL}soft_SCREENHEIGHT{$ELSE}WINDOWHEIGHT{$ENDIF};
-     setable: DFS_NEVER;
-     saveable: false;
-     defaultsvalue: '';
-     defaultivalue: 600;
-     defaultbvalue: false;
-     _type: tInteger),
-
     (name: 'gl_screenwidth';
-     location: @{$IFDEF OPENGL}SCREENWIDTH{$ELSE}gl_SCREENWIDTH{$ENDIF};
+     location: @SCREENWIDTH;
      setable: DFS_NEVER;
      saveable: false;
      defaultsvalue: '';
@@ -129,7 +109,7 @@ const
      _type: tInteger),
 
     (name: 'gl_screenheight';
-     location: @{$IFDEF OPENGL}SCREENHEIGHT{$ELSE}gl_SCREENHEIGHT{$ENDIF};
+     location: @SCREENHEIGHT;
      setable: DFS_NEVER;
      saveable: false;
      defaultsvalue: '';
